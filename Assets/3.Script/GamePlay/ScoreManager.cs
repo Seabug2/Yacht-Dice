@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+/*
 public enum ScoreSuit
 {
-    Ones,
-    Twos,
+    Aces,
+    Deuces,
     Threes,
     Fours,
     Fives,
@@ -21,7 +21,7 @@ public enum ScoreSuit
     Yahtzee,
     Total
 }
-
+*/
 public class ScoreManager : MonoBehaviour
 {
     public int Dice_Num;
@@ -34,8 +34,8 @@ public class ScoreManager : MonoBehaviour
     [SerializeField] private Text D4_Text;
     [SerializeField] private Text D5_Text;
 
-    public int Ones = 0;
-    public int Twos = 0;
+    public int Aces = 0;
+    public int Deuces = 0;
     public int Threes = 0;
     public int Fours = 0;
     public int Fives = 0;
@@ -50,8 +50,8 @@ public class ScoreManager : MonoBehaviour
     public int Yahtzee = 0;
     public int Total = 0;
 
-    [SerializeField] private Text Ones_Text;
-    [SerializeField] private Text Twos_Text;
+    [SerializeField] private Text Aces_Text;
+    [SerializeField] private Text Deuces_Text;
     [SerializeField] private Text Threes_Text;
     [SerializeField] private Text Fours_Text;
     [SerializeField] private Text Fives_Text;
@@ -87,13 +87,13 @@ public class ScoreManager : MonoBehaviour
         D4_Text.text = $"{Dice_Hand[3]}";
         D5_Text.text = $"{Dice_Hand[4]}";
 
-        Ones_Text.text = $"{Ones}";
-        Twos_Text.text = $"{Twos}";
+        Aces_Text.text = $"{Aces}";
+        Deuces_Text.text = $"{Deuces}";
         Threes_Text.text = $"{Threes}";
         Fours_Text.text = $"{Fours}";
         Fives_Text.text = $"{Fives}";
         Sixes_Text.text = $"{Sixes}";
-        SubTotal = Ones + Twos + Threes + Fours + Fives + Sixes;
+        SubTotal = Aces + Deuces + Threes + Fours + Fives + Sixes;
         if (SubTotal >= 63)
         {
             Bonus = 35;
@@ -112,8 +112,8 @@ public class ScoreManager : MonoBehaviour
 
     public void CalcScore()
     {
-        Ones = CalcOnes();
-        Twos = CalcTwos();
+        Aces = CalcAces();
+        Deuces = CalcDeuces();
         Threes = CalcThrees();
         Fours = CalcFours();
         Fives = CalcFives();
@@ -135,7 +135,7 @@ public class ScoreManager : MonoBehaviour
         CalcScore();
     }
 
-    public int CalcOnes()
+    public int CalcAces()
     {
         int sum = 0;
         for (int i = 0; i < 5; i++)
@@ -148,7 +148,7 @@ public class ScoreManager : MonoBehaviour
         return sum;
     }
 
-    public int CalcTwos()
+    public int CalcDeuces()
     {
         int sum = 0;
         for (int i = 0; i < 5; i++)
