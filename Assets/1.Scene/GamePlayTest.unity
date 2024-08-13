@@ -2142,8 +2142,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1893387698}
-        m_TargetAssemblyTypeName: ScoreManager, Assembly-CSharp
+      - m_Target: {fileID: 1288300278}
+        m_TargetAssemblyTypeName: DiceController, Assembly-CSharp
         m_MethodName: RollButton
         m_Mode: 1
         m_Arguments:
@@ -2866,6 +2866,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1288300277}
+  - component: {fileID: 1288300278}
   m_Layer: 5
   m_Name: Dice
   m_TagString: Untagged
@@ -2897,6 +2898,26 @@ RectTransform:
   m_AnchoredPosition: {x: -560, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1288300278
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1288300276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a9031a09c60d5c499842a612a924d45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  score: {fileID: 1893387698}
+  Dice_Hand: 
+  D1_Text: {fileID: 837934570}
+  D2_Text: {fileID: 163224466}
+  D3_Text: {fileID: 1765476736}
+  D4_Text: {fileID: 71787026}
+  D5_Text: {fileID: 2062558080}
+  isKept: 0
 --- !u!1 &1289642350
 GameObject:
   m_ObjectHideFlags: 0
@@ -3479,6 +3500,36 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 350}
   m_SizeDelta: {x: 800, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1630589257
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1630589258}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1630589258
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1630589257}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1669706769
 GameObject:
   m_ObjectHideFlags: 0
@@ -3938,14 +3989,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f64fef73181c0f54392a62650b74c6bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Dice: {fileID: 0}
-  Dice_Num: 0
+  Dice: {fileID: 1288300278}
   Dice_Hand: 
-  D1_Text: {fileID: 837934570}
-  D2_Text: {fileID: 163224466}
-  D3_Text: {fileID: 1765476736}
-  D4_Text: {fileID: 71787026}
-  D5_Text: {fileID: 2062558080}
   Aces: 0
   Deuces: 0
   Threes: 0
@@ -3976,8 +4021,6 @@ MonoBehaviour:
   Straight_l_Text: {fileID: 1899108070}
   Yahtzee_Text: {fileID: 1669706771}
   Total_Text: {fileID: 668469775}
-  isKept: 0
-  isFilled: 0
 --- !u!4 &1893387699
 Transform:
   m_ObjectHideFlags: 0
@@ -3986,7 +4029,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1893387697}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 250, y: 540, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

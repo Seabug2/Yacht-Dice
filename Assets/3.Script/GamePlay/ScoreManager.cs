@@ -26,15 +26,8 @@ public class ScoreManager : MonoBehaviour
 {
     [SerializeField] private DiceController Dice;
     
-    public int Dice_Num;
     public int[] Dice_Hand;
     private int[] Dice_Check;
-
-    [SerializeField] private Text D1_Text;
-    [SerializeField] private Text D2_Text;
-    [SerializeField] private Text D3_Text;
-    [SerializeField] private Text D4_Text;
-    [SerializeField] private Text D5_Text;
 
     public int Aces = 0;
     public int Deuces = 0;
@@ -68,27 +61,14 @@ public class ScoreManager : MonoBehaviour
     [SerializeField] private Text Yahtzee_Text;
     [SerializeField] private Text Total_Text;
 
-    public bool isKept = false;
-    public bool isFilled = false;
-
     private void Awake()
     {
-        Dice_Hand = new int[5];
-        for (int i = 0; i < 5; i++)
-        {
-            Dice_Hand[i] = 1;
-        }
+        Dice_Hand = Dice.Dice_Hand;
         Dice_Check = new int[6];
     }
 
     private void Update()
     {
-        D1_Text.text = $"{Dice_Hand[0]}";
-        D2_Text.text = $"{Dice_Hand[1]}";
-        D3_Text.text = $"{Dice_Hand[2]}";
-        D4_Text.text = $"{Dice_Hand[3]}";
-        D5_Text.text = $"{Dice_Hand[4]}";
-
         Aces_Text.text = $"{Aces}";
         Deuces_Text.text = $"{Deuces}";
         Threes_Text.text = $"{Threes}";
@@ -126,15 +106,6 @@ public class ScoreManager : MonoBehaviour
         Straight_s = CalcStraight_s();
         Straight_l = CalcStraight_l();
         Yahtzee = CalcYahtzee();
-    }
-
-    public void RollButton()
-    {
-        for (int i = 0; i < 5; i++)
-        {
-            Dice_Hand[i] = (int)Random.Range(1, 6);
-        }
-        CalcScore();
     }
 
     public int CalcAces()
