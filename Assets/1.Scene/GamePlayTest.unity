@@ -3938,6 +3938,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f64fef73181c0f54392a62650b74c6bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Dice: {fileID: 0}
   Dice_Num: 0
   Dice_Hand: 
   D1_Text: {fileID: 837934570}
@@ -3945,8 +3946,8 @@ MonoBehaviour:
   D3_Text: {fileID: 1765476736}
   D4_Text: {fileID: 71787026}
   D5_Text: {fileID: 2062558080}
-  Ones: 0
-  Twos: 0
+  Aces: 0
+  Deuces: 0
   Threes: 0
   Fours: 0
   Fives: 0
@@ -3960,8 +3961,8 @@ MonoBehaviour:
   Straight_l: 0
   Yahtzee: 0
   Total: 0
-  Ones_Text: {fileID: 1267284588}
-  Twos_Text: {fileID: 1582956545}
+  Aces_Text: {fileID: 1267284588}
+  Deuces_Text: {fileID: 1582956545}
   Threes_Text: {fileID: 1180222202}
   Fours_Text: {fileID: 1102947635}
   Fives_Text: {fileID: 1907035517}

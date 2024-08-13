@@ -24,6 +24,8 @@ public enum ScoreSuit
 */
 public class ScoreManager : MonoBehaviour
 {
+    [SerializeField] private DiceController Dice;
+    
     public int Dice_Num;
     public int[] Dice_Hand;
     private int[] Dice_Check;
@@ -304,6 +306,11 @@ public class ScoreManager : MonoBehaviour
             }
             if (Dice_Check[i] == 2)
             {
+                pair = true;
+            }
+            if (Dice_Check[i] == 5)
+            {
+                trips = true;
                 pair = true;
             }
         }
