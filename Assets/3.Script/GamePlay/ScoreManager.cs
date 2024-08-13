@@ -93,6 +93,11 @@ public class ScoreManager : MonoBehaviour
         Fours_Text.text = $"{Fours}";
         Fives_Text.text = $"{Fives}";
         Sixes_Text.text = $"{Sixes}";
+        SubTotal = Ones + Twos + Threes + Fours + Fives + Sixes;
+        if (SubTotal >= 63)
+        {
+            Bonus = 35;
+        }
         SubTotal_Text.text = $"{SubTotal}";
         Bonus_Text.text = $"{Bonus}";
         Chance_Text.text = $"{Chance}";
@@ -102,6 +107,7 @@ public class ScoreManager : MonoBehaviour
         Straight_l_Text.text = $"{Straight_l}";
         Yahtzee_Text.text = $"{Yahtzee}";
         Total_Text.text = $"{Total}";
+        Total = SubTotal + Bonus + Chance + FOAK + FullHouse + Straight_s + Straight_l + Yahtzee;
     }
 
     public void CalcScore()
@@ -112,18 +118,12 @@ public class ScoreManager : MonoBehaviour
         Fours = CalcFours();
         Fives = CalcFives();
         Sixes = CalcSixes();
-        SubTotal = Ones + Twos + Threes + Fours + Fives + Sixes;
-        if (SubTotal >= 63)
-        {
-            Bonus = 35;
-        }
         Chance = CalcChance();
         FOAK = CalcFOAK();
         FullHouse = CalcFullHouse();
         Straight_s = CalcStraight_s();
         Straight_l = CalcStraight_l();
         Yahtzee = CalcYahtzee();
-        Total = SubTotal + Bonus + Chance + FOAK + FullHouse + Straight_s + Straight_l + Yahtzee;
     }
 
     public void RollButton()
