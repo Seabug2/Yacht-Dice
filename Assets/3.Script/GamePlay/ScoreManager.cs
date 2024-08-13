@@ -136,20 +136,11 @@ public class ScoreManager : MonoBehaviour
         Yahtzee_Text.text = $"{Yahtzee}";
         Total_Text.text = $"{Total}";
 
-        if (isAcesSelected && isDeucesSelected && isThreesSelected && isFoursSelected && isFivesSelected && isSixesSelected)
-        {
-            SubTotal = Aces + Deuces + Threes + Fours + Fives + Sixes;
-            if (SubTotal >= 63)
-            {
-                Bonus = 35;
-                GameManager.Instance.AddScore(Bonus);
-            }
-            if (isChanceSelected && isFOAKSelected && isFullHouseSelected && isStraight_sSelected && isStraight_lSelected && isYahtzeeSelected)
-            {
-                GameManager.Instance.GameOver();
-            }
-        }
         Total = GameManager.Instance.Score_Total;
+        if (isAcesSelected && isDeucesSelected && isThreesSelected && isFoursSelected && isFivesSelected && isSixesSelected && isChanceSelected && isFOAKSelected && isFullHouseSelected && isStraight_sSelected && isStraight_lSelected && isYahtzeeSelected)
+        {
+            GameManager.Instance.GameOver();
+        }
     }
 
 
@@ -252,6 +243,16 @@ public class ScoreManager : MonoBehaviour
         else
         {
             Yahtzee = CalcYahtzee();
+        }
+
+        if (isAcesSelected && isDeucesSelected && isThreesSelected && isFoursSelected && isFivesSelected && isSixesSelected)
+        {
+            SubTotal = Aces + Deuces + Threes + Fours + Fives + Sixes;
+            if (SubTotal >= 63)
+            {
+                Bonus = 35;
+                GameManager.Instance.AddScore(Bonus);
+            }
         }
     }
 

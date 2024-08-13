@@ -10,8 +10,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private ScoreManager Score;
     [SerializeField] private DiceController Dice;
 
-    public static int Score_Total;
-    public static bool isGameOver = false;
+    public int Score_Total;
+    public bool isGameOver = false;
 
     private static GameManager instance = null;
     public static GameManager Instance
