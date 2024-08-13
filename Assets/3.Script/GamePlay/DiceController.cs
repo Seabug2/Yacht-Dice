@@ -8,6 +8,12 @@ public class DiceController : MonoBehaviour
     [SerializeField] private ScoreManager score;
     [SerializeField] private GameObject rollBtn;
 
+    [SerializeField] private Button Dice1;
+    [SerializeField] private Button Dice2;
+    [SerializeField] private Button Dice3;
+    [SerializeField] private Button Dice4;
+    [SerializeField] private Button Dice5;
+
     public int[] Dice_Hand;
 
     [SerializeField] private Text D1_Text;
@@ -30,8 +36,13 @@ public class DiceController : MonoBehaviour
         Dice_Hand = new int[5];
         for (int i = 0; i < 5; i++)
         {
-            Dice_Hand[i] += 1;
+            Dice_Hand[i] = i + 1;
         }
+        Dice1.interactable = false;
+        Dice2.interactable = false;
+        Dice3.interactable = false;
+        Dice4.interactable = false;
+        Dice5.interactable = false;
     }
 
     private void Update()
@@ -50,6 +61,12 @@ public class DiceController : MonoBehaviour
 
     public void RollButton()
     {
+        Dice1.interactable = true;
+        Dice2.interactable = true;
+        Dice3.interactable = true;
+        Dice4.interactable = true;
+        Dice5.interactable = true;
+
         if (isD1Kept)
         {
             Dice_Hand[0] = Dice_Hand[0];

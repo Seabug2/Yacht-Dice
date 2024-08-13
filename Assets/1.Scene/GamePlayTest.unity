@@ -4384,6 +4384,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   score: {fileID: 1893387698}
   rollBtn: {fileID: 982892655}
+  Dice1: {fileID: 614112932}
+  Dice2: {fileID: 97568937}
+  Dice3: {fileID: 1426348187}
+  Dice4: {fileID: 423243221}
+  Dice5: {fileID: 341135381}
   Dice_Hand: 
   D1_Text: {fileID: 1720858508}
   D2_Text: {fileID: 720737084}
@@ -5766,6 +5771,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Dice: {fileID: 1288300278}
+  Dice1: {fileID: 614112932}
+  Dice2: {fileID: 97568937}
+  Dice3: {fileID: 1426348187}
+  Dice4: {fileID: 423243221}
+  Dice5: {fileID: 341135381}
   Dice_Hand: 
   Aces: 0
   Deuces: 0
@@ -5782,6 +5792,19 @@ MonoBehaviour:
   Straight_l: 0
   Yahtzee: 0
   Total: 0
+  Score_BTN:
+  - {fileID: 704712280}
+  - {fileID: 415690811}
+  - {fileID: 1803555956}
+  - {fileID: 1921841870}
+  - {fileID: 690067289}
+  - {fileID: 51866913}
+  - {fileID: 1488474009}
+  - {fileID: 2038859154}
+  - {fileID: 1441312273}
+  - {fileID: 1096075448}
+  - {fileID: 286900546}
+  - {fileID: 1272646023}
   Aces_BTN: {fileID: 704712280}
   Deuces_BTN: {fileID: 415690811}
   Threes_BTN: {fileID: 1803555956}
@@ -5821,6 +5844,7 @@ MonoBehaviour:
   Straight_l_Text: {fileID: 552159618}
   Yahtzee_Text: {fileID: 1784139299}
   Total_Text: {fileID: 668469775}
+  isGameOver: 0
 --- !u!4 &1893387699
 Transform:
   m_ObjectHideFlags: 0

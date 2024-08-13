@@ -25,6 +25,12 @@ public enum ScoreSuit
 public class ScoreManager : MonoBehaviour
 {
     [SerializeField] private DiceController Dice;
+    [SerializeField] private Button Dice1;
+    [SerializeField] private Button Dice2;
+    [SerializeField] private Button Dice3;
+    [SerializeField] private Button Dice4;
+    [SerializeField] private Button Dice5;
+
     
     public int[] Dice_Hand;
     private int[] Dice_Check;
@@ -60,6 +66,7 @@ public class ScoreManager : MonoBehaviour
     [SerializeField] private Button Straight_s_BTN;
     [SerializeField] private Button Straight_l_BTN;
     [SerializeField] private Button Yahtzee_BTN;
+    private bool isScoreSelected;
     #endregion
 
     #region Scoreboard selections
@@ -113,7 +120,7 @@ public class ScoreManager : MonoBehaviour
         isStraight_sSelected = false;
         isStraight_lSelected = false;
         isYahtzeeSelected = false;
-
+        isScoreSelected = false;
         isGameOver = false;
     }
 
@@ -134,6 +141,7 @@ public class ScoreManager : MonoBehaviour
         Straight_l_Text.text = $"{Straight_l}";
         Yahtzee_Text.text = $"{Yahtzee}";
         Total_Text.text = $"{Total}";
+
 
         if (isAcesSelected && isDeucesSelected && isThreesSelected && isFoursSelected && isFivesSelected && isSixesSelected)
         {
@@ -543,6 +551,13 @@ public class ScoreManager : MonoBehaviour
         {
             Aces_BTN.interactable = false;
         }
+        Dice1.interactable = false;
+        Dice2.interactable = false;
+        Dice3.interactable = false;
+        Dice4.interactable = false;
+        Dice5.interactable = false;
+
+        // Turn over ---> Switch to next player
     }
 
     public void DeucesBTN()
@@ -573,6 +588,13 @@ public class ScoreManager : MonoBehaviour
         {
             Deuces_BTN.interactable = false;
         }
+        Dice1.interactable = false;
+        Dice2.interactable = false;
+        Dice3.interactable = false;
+        Dice4.interactable = false;
+        Dice5.interactable = false;
+
+        // Turn over ---> Switch to next player
     }
 
     public void ThreesBTN()
@@ -603,6 +625,13 @@ public class ScoreManager : MonoBehaviour
         {
             Threes_BTN.interactable = false;
         }
+        Dice1.interactable = false;
+        Dice2.interactable = false;
+        Dice3.interactable = false;
+        Dice4.interactable = false;
+        Dice5.interactable = false;
+
+        // Turn over ---> Switch to next player
     }
 
     public void FoursBTN()
@@ -633,6 +662,13 @@ public class ScoreManager : MonoBehaviour
         {
             Fours_BTN.interactable = false;
         }
+        Dice1.interactable = false;
+        Dice2.interactable = false;
+        Dice3.interactable = false;
+        Dice4.interactable = false;
+        Dice5.interactable = false;
+
+        // Turn over ---> Switch to next player
     }
 
     public void FivesBTN()
@@ -663,6 +699,13 @@ public class ScoreManager : MonoBehaviour
         {
             Fives_BTN.interactable = false;
         }
+        Dice1.interactable = false;
+        Dice2.interactable = false;
+        Dice3.interactable = false;
+        Dice4.interactable = false;
+        Dice5.interactable = false;
+
+        // Turn over ---> Switch to next player
     }
 
     public void SixesBTN()
@@ -693,6 +736,13 @@ public class ScoreManager : MonoBehaviour
         {
             Sixes_BTN.interactable = false;
         }
+        Dice1.interactable = false;
+        Dice2.interactable = false;
+        Dice3.interactable = false;
+        Dice4.interactable = false;
+        Dice5.interactable = false;
+
+        // Turn over ---> Switch to next player
     }
 
     public void ChanceBTN()
@@ -723,6 +773,13 @@ public class ScoreManager : MonoBehaviour
         {
             Chance_BTN.interactable = false;
         }
+        Dice1.interactable = false;
+        Dice2.interactable = false;
+        Dice3.interactable = false;
+        Dice4.interactable = false;
+        Dice5.interactable = false;
+
+        // Turn over ---> Switch to next player
     }
 
     public void FOAKBTN()
@@ -753,6 +810,13 @@ public class ScoreManager : MonoBehaviour
         {
             FOAK_BTN.interactable = false;
         }
+        Dice1.interactable = false;
+        Dice2.interactable = false;
+        Dice3.interactable = false;
+        Dice4.interactable = false;
+        Dice5.interactable = false;
+
+        // Turn over ---> Switch to next player
     }
 
     public void Straight_sBTN()
@@ -783,6 +847,13 @@ public class ScoreManager : MonoBehaviour
         {
             Straight_s_BTN.interactable = false;
         }
+        Dice1.interactable = false;
+        Dice2.interactable = false;
+        Dice3.interactable = false;
+        Dice4.interactable = false;
+        Dice5.interactable = false;
+
+        // Turn over ---> Switch to next player
     }
 
     public void Straight_lBTN()
@@ -813,6 +884,13 @@ public class ScoreManager : MonoBehaviour
         {
             Straight_l_BTN.interactable = false;
         }
+        Dice1.interactable = false;
+        Dice2.interactable = false;
+        Dice3.interactable = false;
+        Dice4.interactable = false;
+        Dice5.interactable = false;
+
+        // Turn over ---> Switch to next player
     }
 
     public void FullHouseBTN()
@@ -843,6 +921,13 @@ public class ScoreManager : MonoBehaviour
         {
             FullHouse_BTN.interactable = false;
         }
+        Dice1.interactable = false;
+        Dice2.interactable = false;
+        Dice3.interactable = false;
+        Dice4.interactable = false;
+        Dice5.interactable = false;
+
+        // Turn over ---> Switch to next player
     }
 
     public void YahtzeeBTN()
@@ -873,5 +958,12 @@ public class ScoreManager : MonoBehaviour
         {
             Yahtzee_BTN.interactable = false;
         }
+        Dice1.interactable = false;
+        Dice2.interactable = false;
+        Dice3.interactable = false;
+        Dice4.interactable = false;
+        Dice5.interactable = false;
+
+        // Turn over ---> Switch to next player
     }
 }
