@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class RoomSelectController : MonoBehaviour
 {
-    [SerializeField] private GameObject IPInputUI, LoginUI, EditUI;
+    [SerializeField] private GameObject IPInputUI, LoginUI, RegisterUI;
 
     public void Host_btn()
     {
@@ -17,8 +17,14 @@ public class RoomSelectController : MonoBehaviour
         IPInputUI.SetActive(true);
     }
 
+    public void UserEdit_btn()
+    {
+        RegisterUI.SetActive(true);
+    }
+
     public void Back_btn()
     {
+        SQLManager.instance.isLogin = false;
         LoginUI.SetActive(true);
         gameObject.SetActive(false);
     }

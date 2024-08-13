@@ -37,15 +37,23 @@ public class RegisterController : MonoBehaviour
             // 성공
             else
             {
-                Log.text = "가입 완료!";
-                SQLManager.instance.Register(ID_input.text, PW_input.text, Nick_input.text);
+                if (SQLManager.instance.isLogin)
+                {
+                    Log.text = "수정 완료!";
+                    SQLManager.instance.User_Edit(ID_input.text, PW_input.text, Nick_input.text);
+                }
+                else
+                {
+                    Log.text = "가입 완료!";
+                    SQLManager.instance.Register(ID_input.text, PW_input.text, Nick_input.text);
+                }
             }
         }
     }
 
     public void Back_btn()
     {
-        LoginUI.SetActive(true);
+        if(!SQLManager.instance.isLogin) LoginUI.SetActive(true);
         gameObject.SetActive(false);
     }
 

@@ -31,6 +31,7 @@ public class User_info
 
 public class SQLManager : MonoBehaviour
 {
+    public bool isLogin;
     public User_info info;
     public MySqlConnection connection; // 연결
     public MySqlDataReader reader; // 데이터를 직접적으로 읽어오는 녀석
@@ -50,7 +51,7 @@ public class SQLManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-
+        isLogin = false;
         // 2. 데이터베이스 연결하기
         DB_Path = Application.dataPath + "/Database";
         string serverinfo = Server_set(DB_Path);
@@ -113,7 +114,7 @@ public class SQLManager : MonoBehaviour
         try
         {
             if (!Connection_check(connection)) return;
-            string SQL_Command = String.Format($@"INSERT INTO User_info VALUES('{id}','{pw}','-');");
+            string SQL_Command = String.Format($@"INSERT INTO User_info VALUES('{id}','{pw}','{nick}', 0, 0, 0);");
             MySqlCommand cmd = new MySqlCommand(SQL_Command, connection);
             reader = cmd.ExecuteReader();
             if (!reader.IsClosed) reader.Close();
@@ -133,8 +134,8 @@ public class SQLManager : MonoBehaviour
         {
             if (!Connection_check(connection)) return;
             string SQL_Command = String.Format($@"Update User_info 
-                                                  Set User_PW = '{pw}', Nickname = '{nick}'
-                                                  Where User_ID = '{id}';");
+                                                  Set User_ID = '{id}', User_PW = '{pw}', Nickname = '{nick}'
+                                                  Where User_ID = '{info.User_id}';");
             MySqlCommand cmd = new MySqlCommand(SQL_Command, connection);
             reader = cmd.ExecuteReader();
             if (!reader.IsClosed) reader.Close();
@@ -171,6 +172,7 @@ public class SQLManager : MonoBehaviour
                 info = new User_info((string)reader["User_ID"], (string)reader["User_PW"], (string)reader["Nickname"],
                                      (int)reader["Wins"], (int)reader["Loses"], (int)reader["HighScore"]);
                 if (!reader.IsClosed) reader.Close();
+                isLogin = true;
                 return true;
             }
 
