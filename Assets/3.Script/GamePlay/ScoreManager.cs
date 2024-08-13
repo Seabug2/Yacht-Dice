@@ -23,7 +23,7 @@ public enum ScoreSuit
 }
 */
 public class ScoreManager : MonoBehaviour
-{
+{/*
     [SerializeField] private DiceController Dice;
     [SerializeField] private Button Dice1;
     [SerializeField] private Button Dice2;
@@ -991,5 +991,5 @@ public class ScoreManager : MonoBehaviour
 
         // Turn over ---> Switch to next player
     }
-    #endregion
+    #endregion*/
 }

@@ -1,49 +1,54 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using System;
-using UnityEngine.SceneManagement;
+using Mirror;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private ScoreManager Score;
-    [SerializeField] private DiceController Dice;
+    [SerializeField]
+    Dice[] dices;
 
-    public int Score_Total;
-    public bool isGameOver = false;
-
-    private static GameManager instance = null;
-    public static GameManager Instance
-    {
-        get
-        {
-            if (instance == null)
-            {
-                instance = FindObjectOfType<GameManager>();
-            }
-            return instance;
-        }
-    }
+    [SerializeField]
+    PointSlot[] mySlots;
+    [SerializeField]
+    PointSlot[] oppentSlots;
 
     private void Awake()
     {
-        if (Instance == null)
+        dices = FindObjectsOfType<Dice>();
+    }
+
+    public void Reroll()
+    {
+        foreach(Dice d in dices)
         {
-            Destroy(gameObject);
+            d.Reroll();
         }
 
-        Score_Total = 0;
+        UpdateSlot();
     }
 
-    public void AddScore(int score)
+    void UpdateSlot()
     {
-        Score_Total += score;
+        //각 슬롯에게 전달하려는 주사위의 결과값
+        int[] nums = new int[5];
+        
+        for(int i = 0; i < dices.Length; i ++)
+        {
+            nums[i] = dices[i].MyNum;
+        }
+
+        foreach(PointSlot ps in mySlots)
+        {
+            ps.UpdateSlot(nums);
+        }
     }
 
-    public void GameOver()
+    /// <summary>
+    /// 점수를 확정
+    /// </summary>
+    public void Fixed()
     {
-        isGameOver = true;
-        // If player 1 & player 2 are BOTH isGamveOver=true -----> Result UI & End game
+
     }
 }

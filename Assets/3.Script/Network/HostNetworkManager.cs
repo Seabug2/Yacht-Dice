@@ -6,9 +6,9 @@ using Mirror;
 public class HostNetworkManager : NetworkManager
 {
     [SerializeField, Space(20)]
-    GameObject obj;
+    GameObject waitingMessage;
     [SerializeField]
-    GameObject startButton;
+    GameObject dicePannel;
 
     public override void OnServerConnect(NetworkConnectionToClient conn)
     {
@@ -25,6 +25,7 @@ public class HostNetworkManager : NetworkManager
     {
         Debug.Log($"새로운 원격 클라이언트가 연결되었습니다! Connection ID: {conn.connectionId}");
         // 원하는 동작을 여기에 추가합니다.
-        obj.SetActive(false);
+        waitingMessage.SetActive(false);
+        dicePannel.SetActive(true);
     }
 }

@@ -1,10 +1,7 @@
 using System.Net;
 using System.Net.Sockets;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
-public class GetMyAddress : MonoBehaviour
+public class GetMyAddress
 {
     public static string GetLocalIPv4()
     {

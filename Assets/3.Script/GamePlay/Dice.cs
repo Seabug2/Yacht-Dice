@@ -1,12 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class Dice : MonoBehaviour, IPointerClickHandler
 {
-    bool isKept;
     Image image;
     [SerializeField]
     Sprite[] pips;
@@ -14,8 +11,9 @@ public class Dice : MonoBehaviour, IPointerClickHandler
     /// 주사위를 keep 하면 덧씌워지는 이미지
     /// </summary>
     GameObject lockImage;
+    bool isKept;
 
-    public int myNum { get; private set; }
+    public int MyNum { get; private set; }
 
     private void Awake()
     {
@@ -36,7 +34,7 @@ public class Dice : MonoBehaviour, IPointerClickHandler
         {
             int rand = Random.Range(0, 6);
             image.sprite = pips[rand];
-            myNum = rand + 1;
+            MyNum = rand + 1;
         }
     }
 
@@ -46,7 +44,7 @@ public class Dice : MonoBehaviour, IPointerClickHandler
     /// <param name="_num">myNum - 1</param>
     public void DiceUpdate(int _num)
     {
-        myNum = _num;
+        MyNum = _num;
         image.sprite = pips[_num-1];
     }
 

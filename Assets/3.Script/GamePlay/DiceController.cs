@@ -118,7 +118,7 @@ public class DiceController : MonoBehaviour
             rollBtn.SetActive(false);
         }
 
-        score.CalcScore();
+        //score.CalcScore();
     }
 
     public void KeepDice1()
