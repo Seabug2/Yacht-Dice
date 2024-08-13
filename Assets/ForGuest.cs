@@ -1,12 +1,12 @@
 using UnityEngine;
 using Mirror;
 
-public class ForHost : MonoBehaviour
+public class ForGuest : MonoBehaviour
 {
     private void Start()
     {
         NetworkManager manager = GetComponent<NetworkManager>();
-        manager.networkAddress = GetMyAddress.GetLocalIPv4();
         manager.StartHost();
+        //manager.networkAddress = GetMyAddress.GetLocalIPv4();
     }
 }

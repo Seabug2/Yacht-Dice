@@ -12,6 +12,11 @@ public class YachtPlayer : NetworkBehaviour
     [SerializeField]
     Text rate;
 
+    private void Awake()
+    {
+        transform.SetParent(GameObject.Find("Profiles").transform);    
+    }
+
     void Start()
     {
         if (!isLocalPlayer)
