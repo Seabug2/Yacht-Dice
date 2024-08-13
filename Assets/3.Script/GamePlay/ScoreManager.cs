@@ -29,6 +29,7 @@ public class ScoreManager : MonoBehaviour
     public int[] Dice_Hand;
     private int[] Dice_Check;
 
+    #region Scores
     public int Aces = 0;
     public int Deuces = 0;
     public int Threes = 0;
@@ -44,7 +45,39 @@ public class ScoreManager : MonoBehaviour
     public int Straight_l = 0;
     public int Yahtzee = 0;
     public int Total = 0;
+    #endregion
 
+    #region Scoreboard buttons
+    [SerializeField] private Button Aces_BTN;
+    [SerializeField] private Button Deuces_BTN;
+    [SerializeField] private Button Threes_BTN;
+    [SerializeField] private Button Fours_BTN;
+    [SerializeField] private Button Fives_BTN;
+    [SerializeField] private Button Sixes_BTN;
+    [SerializeField] private Button Chance_BTN;
+    [SerializeField] private Button FOAK_BTN;
+    [SerializeField] private Button FullHouse_BTN;
+    [SerializeField] private Button Straight_s_BTN;
+    [SerializeField] private Button Straight_l_BTN;
+    [SerializeField] private Button Yahtzee_BTN;
+    #endregion
+
+    #region Scoreboard selections
+    public bool isAcesSelected;
+    public bool isDeucesSelected;
+    public bool isThreesSelected;
+    public bool isFoursSelected;
+    public bool isFivesSelected;
+    public bool isSixesSelected;
+    public bool isChanceSelected;
+    public bool isFOAKSelected;
+    public bool isFullHouseSelected;
+    public bool isStraight_sSelected;
+    public bool isStraight_lSelected;
+    public bool isYahtzeeSelected;
+    #endregion
+
+    #region Scoreboard Texts
     [SerializeField] private Text Aces_Text;
     [SerializeField] private Text Deuces_Text;
     [SerializeField] private Text Threes_Text;
@@ -60,11 +93,28 @@ public class ScoreManager : MonoBehaviour
     [SerializeField] private Text Straight_l_Text;
     [SerializeField] private Text Yahtzee_Text;
     [SerializeField] private Text Total_Text;
+    #endregion
+
+    public bool isGameOver;
 
     private void Awake()
     {
         Dice_Hand = Dice.Dice_Hand;
         Dice_Check = new int[6];
+        isAcesSelected = false;
+        isDeucesSelected = false;
+        isThreesSelected = false;
+        isFoursSelected = false;
+        isFivesSelected = false;
+        isSixesSelected = false;
+        isChanceSelected = false;
+        isFOAKSelected = false;
+        isFullHouseSelected = false;
+        isStraight_sSelected = false;
+        isStraight_lSelected = false;
+        isYahtzeeSelected = false;
+
+        isGameOver = false;
     }
 
     private void Update()
@@ -75,11 +125,6 @@ public class ScoreManager : MonoBehaviour
         Fours_Text.text = $"{Fours}";
         Fives_Text.text = $"{Fives}";
         Sixes_Text.text = $"{Sixes}";
-        SubTotal = Aces + Deuces + Threes + Fours + Fives + Sixes;
-        if (SubTotal >= 63)
-        {
-            Bonus = 35;
-        }
         SubTotal_Text.text = $"{SubTotal}";
         Bonus_Text.text = $"{Bonus}";
         Chance_Text.text = $"{Chance}";
@@ -89,23 +134,121 @@ public class ScoreManager : MonoBehaviour
         Straight_l_Text.text = $"{Straight_l}";
         Yahtzee_Text.text = $"{Yahtzee}";
         Total_Text.text = $"{Total}";
-        Total = SubTotal + Bonus + Chance + FOAK + FullHouse + Straight_s + Straight_l + Yahtzee;
+
+        if (isAcesSelected && isDeucesSelected && isThreesSelected && isFoursSelected && isFivesSelected && isSixesSelected)
+        {
+            SubTotal = Aces + Deuces + Threes + Fours + Fives + Sixes;
+            if (SubTotal >= 63)
+            {
+                Bonus = 35;
+            }
+
+            if (isChanceSelected && isFOAKSelected && isFullHouseSelected && isStraight_sSelected && isStraight_lSelected && isYahtzeeSelected)
+            {
+                Total = SubTotal + Bonus + Chance + FOAK + FullHouse + Straight_s + Straight_l + Yahtzee;
+                isGameOver = true;
+            }
+        }
     }
 
     public void CalcScore()
     {
-        Aces = CalcAces();
-        Deuces = CalcDeuces();
-        Threes = CalcThrees();
-        Fours = CalcFours();
-        Fives = CalcFives();
-        Sixes = CalcSixes();
-        Chance = CalcChance();
-        FOAK = CalcFOAK();
-        FullHouse = CalcFullHouse();
-        Straight_s = CalcStraight_s();
-        Straight_l = CalcStraight_l();
-        Yahtzee = CalcYahtzee();
+        if (isAcesSelected)
+        {
+            Aces = Aces;
+        }
+        else
+        {
+            Aces = CalcAces();
+        }
+        if (isDeucesSelected)
+        {
+            Deuces = Deuces;
+        }
+        else
+        {
+            Deuces = CalcDeuces();
+        }
+        if (isThreesSelected)
+        {
+            Threes = Threes;
+        }
+        else
+        {
+            Threes = CalcThrees();
+        }
+        if (isFoursSelected)
+        {
+            Fours = Fours;
+        }
+        else
+        {
+            Fours = CalcFours();
+        }
+        if (isFivesSelected)
+        {
+            Fives = Fives;
+        }
+        else
+        {
+            Fives = CalcFives();
+        }
+        if (isSixesSelected)
+        {
+            Sixes = Sixes;
+        }
+        else
+        {
+            Sixes = CalcSixes();
+        }
+        if (isChanceSelected)
+        {
+            Chance = Chance;
+        }
+        else
+        {
+            Chance = CalcChance();
+        }
+        if (isFOAKSelected)
+        {
+            FOAK = FOAK;
+        }
+        else
+        {
+            FOAK = CalcFOAK();
+        }
+        if (isFullHouseSelected)
+        {
+            FullHouse = FullHouse;
+        }
+        else
+        {
+            FullHouse = CalcFullHouse();
+        }
+        if (isStraight_sSelected)
+        {
+            Straight_s = Straight_s;
+        }
+        else
+        {
+            Straight_s = CalcStraight_s();
+        }
+        if (isStraight_lSelected)
+        {
+            Straight_l = Straight_l;
+        }
+        else
+        {
+            Straight_l = CalcStraight_l();
+        }
+        if (isYahtzeeSelected)
+        {
+            Yahtzee = Yahtzee;
+        }
+        else
+        {
+            Yahtzee = CalcYahtzee();
+        }
     }
 
     public int CalcAces()
@@ -370,5 +513,365 @@ public class ScoreManager : MonoBehaviour
         }
 
         return straight_l;
+    }
+
+    public void AcesBTN()
+    {
+        isAcesSelected = true;
+        Dice.rollCount = 0;
+        if (Dice.isD1Kept)
+        {
+            Dice.isD1Kept = false;
+        }
+        if (Dice.isD2Kept)
+        {
+            Dice.isD2Kept = false;
+        }
+        if (Dice.isD3Kept)
+        {
+            Dice.isD3Kept = false;
+        }
+        if (Dice.isD4Kept)
+        {
+            Dice.isD4Kept = false;
+        }
+        if (Dice.isD5Kept)
+        {
+            Dice.isD5Kept = false;
+        }
+        if (Aces_BTN.interactable)
+        {
+            Aces_BTN.interactable = false;
+        }
+    }
+
+    public void DeucesBTN()
+    {
+        isDeucesSelected = true;
+        Dice.rollCount = 0;
+        if (Dice.isD1Kept)
+        {
+            Dice.isD1Kept = false;
+        }
+        if (Dice.isD2Kept)
+        {
+            Dice.isD2Kept = false;
+        }
+        if (Dice.isD3Kept)
+        {
+            Dice.isD3Kept = false;
+        }
+        if (Dice.isD4Kept)
+        {
+            Dice.isD4Kept = false;
+        }
+        if (Dice.isD5Kept)
+        {
+            Dice.isD5Kept = false;
+        }
+        if (Deuces_BTN.interactable)
+        {
+            Deuces_BTN.interactable = false;
+        }
+    }
+
+    public void ThreesBTN()
+    {
+        isThreesSelected = true;
+        Dice.rollCount = 0;
+        if (Dice.isD1Kept)
+        {
+            Dice.isD1Kept = false;
+        }
+        if (Dice.isD2Kept)
+        {
+            Dice.isD2Kept = false;
+        }
+        if (Dice.isD3Kept)
+        {
+            Dice.isD3Kept = false;
+        }
+        if (Dice.isD4Kept)
+        {
+            Dice.isD4Kept = false;
+        }
+        if (Dice.isD5Kept)
+        {
+            Dice.isD5Kept = false;
+        }
+        if (Threes_BTN.interactable)
+        {
+            Threes_BTN.interactable = false;
+        }
+    }
+
+    public void FoursBTN()
+    {
+        isFoursSelected = true;
+        Dice.rollCount = 0;
+        if (Dice.isD1Kept)
+        {
+            Dice.isD1Kept = false;
+        }
+        if (Dice.isD2Kept)
+        {
+            Dice.isD2Kept = false;
+        }
+        if (Dice.isD3Kept)
+        {
+            Dice.isD3Kept = false;
+        }
+        if (Dice.isD4Kept)
+        {
+            Dice.isD4Kept = false;
+        }
+        if (Dice.isD5Kept)
+        {
+            Dice.isD5Kept = false;
+        }
+        if (Fours_BTN.interactable)
+        {
+            Fours_BTN.interactable = false;
+        }
+    }
+
+    public void FivesBTN()
+    {
+        isFivesSelected = true;
+        Dice.rollCount = 0;
+        if (Dice.isD1Kept)
+        {
+            Dice.isD1Kept = false;
+        }
+        if (Dice.isD2Kept)
+        {
+            Dice.isD2Kept = false;
+        }
+        if (Dice.isD3Kept)
+        {
+            Dice.isD3Kept = false;
+        }
+        if (Dice.isD4Kept)
+        {
+            Dice.isD4Kept = false;
+        }
+        if (Dice.isD5Kept)
+        {
+            Dice.isD5Kept = false;
+        }
+        if (Fives_BTN.interactable)
+        {
+            Fives_BTN.interactable = false;
+        }
+    }
+
+    public void SixesBTN()
+    {
+        isSixesSelected = true;
+        Dice.rollCount = 0;
+        if (Dice.isD1Kept)
+        {
+            Dice.isD1Kept = false;
+        }
+        if (Dice.isD2Kept)
+        {
+            Dice.isD2Kept = false;
+        }
+        if (Dice.isD3Kept)
+        {
+            Dice.isD3Kept = false;
+        }
+        if (Dice.isD4Kept)
+        {
+            Dice.isD4Kept = false;
+        }
+        if (Dice.isD5Kept)
+        {
+            Dice.isD5Kept = false;
+        }
+        if (Sixes_BTN.interactable)
+        {
+            Sixes_BTN.interactable = false;
+        }
+    }
+
+    public void ChanceBTN()
+    {
+        isChanceSelected = true;
+        Dice.rollCount = 0;
+        if (Dice.isD1Kept)
+        {
+            Dice.isD1Kept = false;
+        }
+        if (Dice.isD2Kept)
+        {
+            Dice.isD2Kept = false;
+        }
+        if (Dice.isD3Kept)
+        {
+            Dice.isD3Kept = false;
+        }
+        if (Dice.isD4Kept)
+        {
+            Dice.isD4Kept = false;
+        }
+        if (Dice.isD5Kept)
+        {
+            Dice.isD5Kept = false;
+        }
+        if (Chance_BTN.interactable)
+        {
+            Chance_BTN.interactable = false;
+        }
+    }
+
+    public void FOAKBTN()
+    {
+        isFOAKSelected = true;
+        Dice.rollCount = 0;
+        if (Dice.isD1Kept)
+        {
+            Dice.isD1Kept = false;
+        }
+        if (Dice.isD2Kept)
+        {
+            Dice.isD2Kept = false;
+        }
+        if (Dice.isD3Kept)
+        {
+            Dice.isD3Kept = false;
+        }
+        if (Dice.isD4Kept)
+        {
+            Dice.isD4Kept = false;
+        }
+        if (Dice.isD5Kept)
+        {
+            Dice.isD5Kept = false;
+        }
+        if (FOAK_BTN.interactable)
+        {
+            FOAK_BTN.interactable = false;
+        }
+    }
+
+    public void Straight_sBTN()
+    {
+        isStraight_sSelected = true;
+        Dice.rollCount = 0;
+        if (Dice.isD1Kept)
+        {
+            Dice.isD1Kept = false;
+        }
+        if (Dice.isD2Kept)
+        {
+            Dice.isD2Kept = false;
+        }
+        if (Dice.isD3Kept)
+        {
+            Dice.isD3Kept = false;
+        }
+        if (Dice.isD4Kept)
+        {
+            Dice.isD4Kept = false;
+        }
+        if (Dice.isD5Kept)
+        {
+            Dice.isD5Kept = false;
+        }
+        if (Straight_s_BTN.interactable)
+        {
+            Straight_s_BTN.interactable = false;
+        }
+    }
+
+    public void Straight_lBTN()
+    {
+        isStraight_lSelected = true;
+        Dice.rollCount = 0;
+        if (Dice.isD1Kept)
+        {
+            Dice.isD1Kept = false;
+        }
+        if (Dice.isD2Kept)
+        {
+            Dice.isD2Kept = false;
+        }
+        if (Dice.isD3Kept)
+        {
+            Dice.isD3Kept = false;
+        }
+        if (Dice.isD4Kept)
+        {
+            Dice.isD4Kept = false;
+        }
+        if (Dice.isD5Kept)
+        {
+            Dice.isD5Kept = false;
+        }
+        if (Straight_l_BTN.interactable)
+        {
+            Straight_l_BTN.interactable = false;
+        }
+    }
+
+    public void FullHouseBTN()
+    {
+        isFullHouseSelected = true;
+        Dice.rollCount = 0;
+        if (Dice.isD1Kept)
+        {
+            Dice.isD1Kept = false;
+        }
+        if (Dice.isD2Kept)
+        {
+            Dice.isD2Kept = false;
+        }
+        if (Dice.isD3Kept)
+        {
+            Dice.isD3Kept = false;
+        }
+        if (Dice.isD4Kept)
+        {
+            Dice.isD4Kept = false;
+        }
+        if (Dice.isD5Kept)
+        {
+            Dice.isD5Kept = false;
+        }
+        if (FullHouse_BTN.interactable)
+        {
+            FullHouse_BTN.interactable = false;
+        }
+    }
+
+    public void YahtzeeBTN()
+    {
+        isYahtzeeSelected = true;
+        Dice.rollCount = 0;
+        if (Dice.isD1Kept)
+        {
+            Dice.isD1Kept = false;
+        }
+        if (Dice.isD2Kept)
+        {
+            Dice.isD2Kept = false;
+        }
+        if (Dice.isD3Kept)
+        {
+            Dice.isD3Kept = false;
+        }
+        if (Dice.isD4Kept)
+        {
+            Dice.isD4Kept = false;
+        }
+        if (Dice.isD5Kept)
+        {
+            Dice.isD5Kept = false;
+        }
+        if (Yahtzee_BTN.interactable)
+        {
+            Yahtzee_BTN.interactable = false;
+        }
     }
 }
