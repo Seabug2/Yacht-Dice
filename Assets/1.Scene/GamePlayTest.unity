@@ -5078,6 +5078,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1630589258}
+  - component: {fileID: 1630589259}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -5099,6 +5100,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1630589259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1630589257}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7773c55fa475034c933bec2152bec50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Score: {fileID: 1893387698}
+  Dice: {fileID: 1288300278}
 --- !u!1 &1720858506
 GameObject:
   m_ObjectHideFlags: 0
@@ -5792,19 +5807,6 @@ MonoBehaviour:
   Straight_l: 0
   Yahtzee: 0
   Total: 0
-  Score_BTN:
-  - {fileID: 704712280}
-  - {fileID: 415690811}
-  - {fileID: 1803555956}
-  - {fileID: 1921841870}
-  - {fileID: 690067289}
-  - {fileID: 51866913}
-  - {fileID: 1488474009}
-  - {fileID: 2038859154}
-  - {fileID: 1441312273}
-  - {fileID: 1096075448}
-  - {fileID: 286900546}
-  - {fileID: 1272646023}
   Aces_BTN: {fileID: 704712280}
   Deuces_BTN: {fileID: 415690811}
   Threes_BTN: {fileID: 1803555956}

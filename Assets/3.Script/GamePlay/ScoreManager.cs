@@ -30,7 +30,6 @@ public class ScoreManager : MonoBehaviour
     [SerializeField] private Button Dice3;
     [SerializeField] private Button Dice4;
     [SerializeField] private Button Dice5;
-
     
     public int[] Dice_Hand;
     private int[] Dice_Check;
@@ -66,7 +65,6 @@ public class ScoreManager : MonoBehaviour
     [SerializeField] private Button Straight_s_BTN;
     [SerializeField] private Button Straight_l_BTN;
     [SerializeField] private Button Yahtzee_BTN;
-    private bool isScoreSelected;
     #endregion
 
     #region Scoreboard selections
@@ -102,8 +100,6 @@ public class ScoreManager : MonoBehaviour
     [SerializeField] private Text Total_Text;
     #endregion
 
-    public bool isGameOver;
-
     private void Awake()
     {
         Dice_Hand = Dice.Dice_Hand;
@@ -120,8 +116,6 @@ public class ScoreManager : MonoBehaviour
         isStraight_sSelected = false;
         isStraight_lSelected = false;
         isYahtzeeSelected = false;
-        isScoreSelected = false;
-        isGameOver = false;
     }
 
     private void Update()
@@ -142,23 +136,25 @@ public class ScoreManager : MonoBehaviour
         Yahtzee_Text.text = $"{Yahtzee}";
         Total_Text.text = $"{Total}";
 
-
         if (isAcesSelected && isDeucesSelected && isThreesSelected && isFoursSelected && isFivesSelected && isSixesSelected)
         {
             SubTotal = Aces + Deuces + Threes + Fours + Fives + Sixes;
             if (SubTotal >= 63)
             {
                 Bonus = 35;
+                GameManager.Instance.AddScore(Bonus);
             }
-
             if (isChanceSelected && isFOAKSelected && isFullHouseSelected && isStraight_sSelected && isStraight_lSelected && isYahtzeeSelected)
             {
-                Total = SubTotal + Bonus + Chance + FOAK + FullHouse + Straight_s + Straight_l + Yahtzee;
-                isGameOver = true;
+                GameManager.Instance.GameOver();
             }
         }
+        Total = GameManager.Instance.Score_Total;
     }
 
+
+    // Calculate score for current hand for all unselected scores
+    // If selected, score will not change
     public void CalcScore()
     {
         if (isAcesSelected)
@@ -259,6 +255,8 @@ public class ScoreManager : MonoBehaviour
         }
     }
 
+
+    #region Calculation of scores for each type
     public int CalcAces()
     {
         int sum = 0;
@@ -522,7 +520,9 @@ public class ScoreManager : MonoBehaviour
 
         return straight_l;
     }
+    #endregion
 
+    #region Score selection buttons
     public void AcesBTN()
     {
         isAcesSelected = true;
@@ -556,6 +556,8 @@ public class ScoreManager : MonoBehaviour
         Dice3.interactable = false;
         Dice4.interactable = false;
         Dice5.interactable = false;
+
+        GameManager.Instance.AddScore(Aces);
 
         // Turn over ---> Switch to next player
     }
@@ -594,6 +596,8 @@ public class ScoreManager : MonoBehaviour
         Dice4.interactable = false;
         Dice5.interactable = false;
 
+        GameManager.Instance.AddScore(Deuces);
+
         // Turn over ---> Switch to next player
     }
 
@@ -630,6 +634,8 @@ public class ScoreManager : MonoBehaviour
         Dice3.interactable = false;
         Dice4.interactable = false;
         Dice5.interactable = false;
+
+        GameManager.Instance.AddScore(Threes);
 
         // Turn over ---> Switch to next player
     }
@@ -668,6 +674,8 @@ public class ScoreManager : MonoBehaviour
         Dice4.interactable = false;
         Dice5.interactable = false;
 
+        GameManager.Instance.AddScore(Fours);
+
         // Turn over ---> Switch to next player
     }
 
@@ -704,6 +712,8 @@ public class ScoreManager : MonoBehaviour
         Dice3.interactable = false;
         Dice4.interactable = false;
         Dice5.interactable = false;
+
+        GameManager.Instance.AddScore(Fives);
 
         // Turn over ---> Switch to next player
     }
@@ -742,6 +752,8 @@ public class ScoreManager : MonoBehaviour
         Dice4.interactable = false;
         Dice5.interactable = false;
 
+        GameManager.Instance.AddScore(Sixes);
+
         // Turn over ---> Switch to next player
     }
 
@@ -778,6 +790,8 @@ public class ScoreManager : MonoBehaviour
         Dice3.interactable = false;
         Dice4.interactable = false;
         Dice5.interactable = false;
+
+        GameManager.Instance.AddScore(Chance);
 
         // Turn over ---> Switch to next player
     }
@@ -816,6 +830,8 @@ public class ScoreManager : MonoBehaviour
         Dice4.interactable = false;
         Dice5.interactable = false;
 
+        GameManager.Instance.AddScore(FOAK);
+
         // Turn over ---> Switch to next player
     }
 
@@ -852,6 +868,8 @@ public class ScoreManager : MonoBehaviour
         Dice3.interactable = false;
         Dice4.interactable = false;
         Dice5.interactable = false;
+
+        GameManager.Instance.AddScore(Straight_s);
 
         // Turn over ---> Switch to next player
     }
@@ -890,6 +908,8 @@ public class ScoreManager : MonoBehaviour
         Dice4.interactable = false;
         Dice5.interactable = false;
 
+        GameManager.Instance.AddScore(Straight_l);
+
         // Turn over ---> Switch to next player
     }
 
@@ -926,6 +946,8 @@ public class ScoreManager : MonoBehaviour
         Dice3.interactable = false;
         Dice4.interactable = false;
         Dice5.interactable = false;
+
+        GameManager.Instance.AddScore(FullHouse);
 
         // Turn over ---> Switch to next player
     }
@@ -964,6 +986,9 @@ public class ScoreManager : MonoBehaviour
         Dice4.interactable = false;
         Dice5.interactable = false;
 
+        GameManager.Instance.AddScore(Yahtzee);
+
         // Turn over ---> Switch to next player
     }
+    #endregion
 }
