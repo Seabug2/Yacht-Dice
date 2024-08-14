@@ -16,12 +16,6 @@ public class DiceController : MonoBehaviour
 
     public bool[] isKept;
 
-    public bool isD1Kept = false;
-    public bool isD2Kept = false;
-    public bool isD3Kept = false;
-    public bool isD4Kept = false;
-    public bool isD5Kept = false;
-
     public int rollCount;
 
     private void Awake()
@@ -78,63 +72,15 @@ public class DiceController : MonoBehaviour
         score.CalcScore();
     }
 
-    public void KeepDice1()
+    public void KeepDice(int index)
     {
-        if (!isKept[0])
+        if (!isKept[index])
         {
-            isKept[0] = true;
+            isKept[index] = true;
         }
         else
         {
-            isKept[0] = false;
-        }
-    }
-
-    public void KeepDice2()
-    {
-        if (!isKept[1])
-        {
-            isKept[1] = true;
-        }
-        else
-        {
-            isKept[1] = false;
-        }
-    }
-
-    public void KeepDice3()
-    {
-        if (!isKept[2])
-        {
-            isKept[2] = true;
-        }
-        else
-        {
-            isKept[2] = false;
-        }
-    }
-
-    public void KeepDice4()
-    {
-        if (!isKept[3])
-        {
-            isKept[3] = true;
-        }
-        else
-        {
-            isKept[3] = false;
-        }
-    }
-
-    public void KeepDice5()
-    {
-        if (!isKept[4])
-        {
-            isKept[4] = true;
-        }
-        else
-        {
-            isKept[4] = false;
+            isKept[index] = false;
         }
     }
 }

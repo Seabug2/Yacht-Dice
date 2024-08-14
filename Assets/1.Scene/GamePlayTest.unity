@@ -456,12 +456,12 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1288300278}
         m_TargetAssemblyTypeName: DiceController, Assembly-CSharp
-        m_MethodName: KeepDice2
-        m_Mode: 1
+        m_MethodName: KeepDice
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -1153,12 +1153,12 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1288300278}
         m_TargetAssemblyTypeName: DiceController, Assembly-CSharp
-        m_MethodName: KeepDice5
-        m_Mode: 1
+        m_MethodName: KeepDice
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 4
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -1534,12 +1534,12 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1288300278}
         m_TargetAssemblyTypeName: DiceController, Assembly-CSharp
-        m_MethodName: KeepDice4
-        m_Mode: 1
+        m_MethodName: KeepDice
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 3
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -2243,8 +2243,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1288300278}
         m_TargetAssemblyTypeName: DiceController, Assembly-CSharp
-        m_MethodName: KeepDice1
-        m_Mode: 1
+        m_MethodName: KeepDice
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -4875,12 +4875,12 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1288300278}
         m_TargetAssemblyTypeName: DiceController, Assembly-CSharp
-        m_MethodName: KeepDice3
-        m_Mode: 1
+        m_MethodName: KeepDice
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 2
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -5493,73 +5493,12 @@ MonoBehaviour:
   - {fileID: 1426348187}
   - {fileID: 423243221}
   - {fileID: 341135381}
-  Dice1: {fileID: 614112932}
-  Dice2: {fileID: 97568937}
-  Dice3: {fileID: 1426348187}
-  Dice4: {fileID: 423243221}
-  Dice5: {fileID: 341135381}
   Dice_Hand: 
   Scoreboard_Scores: 
-  Aces: 0
-  Deuces: 0
-  Threes: 0
-  Fours: 0
-  Fives: 0
-  Sixes: 0
-  Chance: 0
-  FOAK: 0
-  FullHouse: 0
-  Straight_s: 0
-  Straight_l: 0
-  Yahtzee: 0
-  SubTotal: 0
-  Bonus: 0
-  Total: 0
   ScoreSelection_BTN: []
-  Aces_BTN: {fileID: 704712280}
-  Deuces_BTN: {fileID: 415690811}
-  Threes_BTN: {fileID: 1803555956}
-  Fours_BTN: {fileID: 1921841870}
-  Fives_BTN: {fileID: 690067289}
-  Sixes_BTN: {fileID: 51866913}
-  Chance_BTN: {fileID: 1488474009}
-  FOAK_BTN: {fileID: 2038859154}
-  FullHouse_BTN: {fileID: 1441312273}
-  Straight_s_BTN: {fileID: 1096075448}
-  Straight_l_BTN: {fileID: 286900546}
-  Yahtzee_BTN: {fileID: 1272646023}
   isScoreSelected: 
-  isSelected: 0
   isUpperComplete: 0
-  isAcesSelected: 0
-  isDeucesSelected: 0
-  isThreesSelected: 0
-  isFoursSelected: 0
-  isFivesSelected: 0
-  isSixesSelected: 0
-  isChanceSelected: 0
-  isFOAKSelected: 0
-  isFullHouseSelected: 0
-  isStraight_sSelected: 0
-  isStraight_lSelected: 0
-  isYahtzeeSelected: 0
   Scoreboard_Text: []
-  Aces_Text: {fileID: 429449371}
-  Deuces_Text: {fileID: 449786702}
-  Threes_Text: {fileID: 57432510}
-  Fours_Text: {fileID: 1849419151}
-  Fives_Text: {fileID: 146517378}
-  Sixes_Text: {fileID: 2097430260}
-  SubTotal_Text: {fileID: 1054335087}
-  Bonus_Text: {fileID: 514666909}
-  Chance_Text: {fileID: 136746427}
-  FOAK_Text: {fileID: 887084006}
-  FullHouse_Text: {fileID: 2043770540}
-  Straight_s_Text: {fileID: 867176724}
-  Straight_l_Text: {fileID: 552159618}
-  Yahtzee_Text: {fileID: 1784139299}
-  Total_Text: {fileID: 668469775}
-  totalSelectionCount: 0
   isGameOver: 0
 --- !u!1 &1803555954
 GameObject:

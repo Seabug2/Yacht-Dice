@@ -85,16 +85,17 @@ public class ScoreManager : MonoBehaviour
         }
 
         // Calculate subtotal when upper is finished
-        int isUpperComplete = 0;
+        int UpperCount = 0;
         for (int i = 0; i < 6; i++)
         {
             if (isScoreSelected[i])
             {
-                isUpperComplete++;
+                UpperCount++;
             }
         }
-        if (isUpperComplete == 6)
+        if (UpperCount == 6)
         {
+            Scoreboard_Scores[12] = 0;
             for (int i = 0; i < 6; i++)
             {
                 Scoreboard_Scores[12] += Scoreboard_Scores[i];
@@ -102,7 +103,11 @@ public class ScoreManager : MonoBehaviour
             if (Scoreboard_Scores[12] >= 63)
             {
                 Scoreboard_Scores[13] = 35;
+            }
+            if (!isUpperComplete)
+            {
                 Scoreboard_Scores[14] += Scoreboard_Scores[13];
+                isUpperComplete = true;
             }
         }
 
