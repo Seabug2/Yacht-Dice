@@ -268,7 +268,7 @@ GameObject:
   - component: {fileID: 57432511}
   - component: {fileID: 57432510}
   m_Layer: 5
-  m_Name: Text
+  m_Name: ThreesScoreText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -517,7 +517,7 @@ GameObject:
   - component: {fileID: 136746428}
   - component: {fileID: 136746427}
   m_Layer: 5
-  m_Name: Text
+  m_Name: ChanceScoreText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -596,7 +596,7 @@ GameObject:
   - component: {fileID: 146517379}
   - component: {fileID: 146517378}
   m_Layer: 5
-  m_Name: Text
+  m_Name: FivesScoreText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1444,7 +1444,7 @@ GameObject:
   - component: {fileID: 429449372}
   - component: {fileID: 429449371}
   m_Layer: 5
-  m_Name: Text
+  m_Name: AcesScoreText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1523,7 +1523,7 @@ GameObject:
   - component: {fileID: 449786703}
   - component: {fileID: 449786702}
   m_Layer: 5
-  m_Name: Text
+  m_Name: DeucesScoreText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1871,7 +1871,7 @@ GameObject:
   - component: {fileID: 497156159}
   - component: {fileID: 497156158}
   m_Layer: 5
-  m_Name: Text
+  m_Name: D4Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1950,7 +1950,7 @@ GameObject:
   - component: {fileID: 514666910}
   - component: {fileID: 514666909}
   m_Layer: 5
-  m_Name: Score
+  m_Name: BonusText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2108,7 +2108,7 @@ GameObject:
   - component: {fileID: 552159619}
   - component: {fileID: 552159618}
   m_Layer: 5
-  m_Name: Text
+  m_Name: LStraightScoreText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2539,7 +2539,7 @@ GameObject:
   - component: {fileID: 668469776}
   - component: {fileID: 668469775}
   m_Layer: 5
-  m_Name: Score
+  m_Name: TotalText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2884,7 +2884,7 @@ GameObject:
   - component: {fileID: 720737085}
   - component: {fileID: 720737084}
   m_Layer: 5
-  m_Name: Text
+  m_Name: D2Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3158,7 +3158,7 @@ GameObject:
   - component: {fileID: 859864693}
   - component: {fileID: 859864692}
   m_Layer: 5
-  m_Name: Text
+  m_Name: D3Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3237,7 +3237,7 @@ GameObject:
   - component: {fileID: 867176725}
   - component: {fileID: 867176724}
   m_Layer: 5
-  m_Name: Text
+  m_Name: SStraightScoreText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3353,7 +3353,7 @@ GameObject:
   - component: {fileID: 887084007}
   - component: {fileID: 887084006}
   m_Layer: 5
-  m_Name: Text
+  m_Name: FOAKScoreText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3806,7 +3806,7 @@ GameObject:
   - component: {fileID: 1054335088}
   - component: {fileID: 1054335087}
   m_Layer: 5
-  m_Name: Score
+  m_Name: SubTotalText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5069,51 +5069,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 350}
   m_SizeDelta: {x: 800, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &1630589257
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1630589258}
-  - component: {fileID: 1630589259}
-  m_Layer: 0
-  m_Name: GameManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1630589258
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1630589257}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1630589259
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1630589257}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e7773c55fa475034c933bec2152bec50, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Score: {fileID: 1893387698}
-  Dice: {fileID: 1288300278}
 --- !u!1 &1720858506
 GameObject:
   m_ObjectHideFlags: 0
@@ -5126,7 +5081,7 @@ GameObject:
   - component: {fileID: 1720858509}
   - component: {fileID: 1720858508}
   m_Layer: 5
-  m_Name: Text
+  m_Name: D1Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5205,7 +5160,7 @@ GameObject:
   - component: {fileID: 1784139300}
   - component: {fileID: 1784139299}
   m_Layer: 5
-  m_Name: Text
+  m_Name: YahtzeeScoreText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5508,7 +5463,7 @@ GameObject:
   - component: {fileID: 1823618236}
   - component: {fileID: 1823618235}
   m_Layer: 5
-  m_Name: Text
+  m_Name: D5Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5689,7 +5644,7 @@ GameObject:
   - component: {fileID: 1849419152}
   - component: {fileID: 1849419151}
   m_Layer: 5
-  m_Name: Text
+  m_Name: FoursScoreText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6297,7 +6252,7 @@ GameObject:
   - component: {fileID: 2043770541}
   - component: {fileID: 2043770540}
   m_Layer: 5
-  m_Name: Text
+  m_Name: FullHouseScoreText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6548,7 +6503,7 @@ GameObject:
   - component: {fileID: 2097430261}
   - component: {fileID: 2097430260}
   m_Layer: 5
-  m_Name: Text
+  m_Name: SixesScoreText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

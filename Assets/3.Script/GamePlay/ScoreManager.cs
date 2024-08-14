@@ -100,6 +100,8 @@ public class ScoreManager : MonoBehaviour
     [SerializeField] private Text Total_Text;
     #endregion
 
+    public bool isGameOver;
+
     private void Awake()
     {
         Dice_Hand = Dice.Dice_Hand;
@@ -116,6 +118,8 @@ public class ScoreManager : MonoBehaviour
         isStraight_sSelected = false;
         isStraight_lSelected = false;
         isYahtzeeSelected = false;
+
+        isGameOver = false;
     }
 
     private void Update()
@@ -136,10 +140,10 @@ public class ScoreManager : MonoBehaviour
         Yahtzee_Text.text = $"{Yahtzee}";
         Total_Text.text = $"{Total}";
 
-        Total = GameManager.Instance.Score_Total;
         if (isAcesSelected && isDeucesSelected && isThreesSelected && isFoursSelected && isFivesSelected && isSixesSelected && isChanceSelected && isFOAKSelected && isFullHouseSelected && isStraight_sSelected && isStraight_lSelected && isYahtzeeSelected)
         {
-            GameManager.Instance.GameOver();
+            isGameOver = true;
+            // If player 1 & player 2 are BOTH isGamveOver=true -----> Result UI & End game
         }
     }
 
@@ -251,7 +255,7 @@ public class ScoreManager : MonoBehaviour
             if (SubTotal >= 63)
             {
                 Bonus = 35;
-                GameManager.Instance.AddScore(Bonus);
+                Total += Bonus;
             }
         }
     }
@@ -558,7 +562,7 @@ public class ScoreManager : MonoBehaviour
         Dice4.interactable = false;
         Dice5.interactable = false;
 
-        GameManager.Instance.AddScore(Aces);
+        Total += Aces;
 
         // Turn over ---> Switch to next player
     }
@@ -597,7 +601,7 @@ public class ScoreManager : MonoBehaviour
         Dice4.interactable = false;
         Dice5.interactable = false;
 
-        GameManager.Instance.AddScore(Deuces);
+        Total += Deuces;
 
         // Turn over ---> Switch to next player
     }
@@ -636,7 +640,7 @@ public class ScoreManager : MonoBehaviour
         Dice4.interactable = false;
         Dice5.interactable = false;
 
-        GameManager.Instance.AddScore(Threes);
+        Total += Threes;
 
         // Turn over ---> Switch to next player
     }
@@ -675,7 +679,7 @@ public class ScoreManager : MonoBehaviour
         Dice4.interactable = false;
         Dice5.interactable = false;
 
-        GameManager.Instance.AddScore(Fours);
+        Total += Fours;
 
         // Turn over ---> Switch to next player
     }
@@ -714,7 +718,7 @@ public class ScoreManager : MonoBehaviour
         Dice4.interactable = false;
         Dice5.interactable = false;
 
-        GameManager.Instance.AddScore(Fives);
+        Total += Fives;
 
         // Turn over ---> Switch to next player
     }
@@ -753,7 +757,7 @@ public class ScoreManager : MonoBehaviour
         Dice4.interactable = false;
         Dice5.interactable = false;
 
-        GameManager.Instance.AddScore(Sixes);
+        Total += Sixes;
 
         // Turn over ---> Switch to next player
     }
@@ -792,7 +796,7 @@ public class ScoreManager : MonoBehaviour
         Dice4.interactable = false;
         Dice5.interactable = false;
 
-        GameManager.Instance.AddScore(Chance);
+        Total += Chance;
 
         // Turn over ---> Switch to next player
     }
@@ -831,7 +835,7 @@ public class ScoreManager : MonoBehaviour
         Dice4.interactable = false;
         Dice5.interactable = false;
 
-        GameManager.Instance.AddScore(FOAK);
+        Total += FOAK;
 
         // Turn over ---> Switch to next player
     }
@@ -870,7 +874,7 @@ public class ScoreManager : MonoBehaviour
         Dice4.interactable = false;
         Dice5.interactable = false;
 
-        GameManager.Instance.AddScore(Straight_s);
+        Total += Straight_s;
 
         // Turn over ---> Switch to next player
     }
@@ -909,7 +913,7 @@ public class ScoreManager : MonoBehaviour
         Dice4.interactable = false;
         Dice5.interactable = false;
 
-        GameManager.Instance.AddScore(Straight_l);
+        Total += Straight_l;
 
         // Turn over ---> Switch to next player
     }
@@ -948,7 +952,7 @@ public class ScoreManager : MonoBehaviour
         Dice4.interactable = false;
         Dice5.interactable = false;
 
-        GameManager.Instance.AddScore(FullHouse);
+        Total += FullHouse;
 
         // Turn over ---> Switch to next player
     }
@@ -987,7 +991,7 @@ public class ScoreManager : MonoBehaviour
         Dice4.interactable = false;
         Dice5.interactable = false;
 
-        GameManager.Instance.AddScore(Yahtzee);
+        Total += Yahtzee;
 
         // Turn over ---> Switch to next player
     }
