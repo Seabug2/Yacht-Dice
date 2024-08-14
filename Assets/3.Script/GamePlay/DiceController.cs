@@ -8,19 +8,13 @@ public class DiceController : MonoBehaviour
     [SerializeField] private ScoreManager score;
     [SerializeField] private GameObject rollBtn;
 
-    [SerializeField] private Button Dice1;
-    [SerializeField] private Button Dice2;
-    [SerializeField] private Button Dice3;
-    [SerializeField] private Button Dice4;
-    [SerializeField] private Button Dice5;
+    [SerializeField] private Button[] Dice_BTN;
 
     public int[] Dice_Hand;
 
-    [SerializeField] private Text D1_Text;
-    [SerializeField] private Text D2_Text;
-    [SerializeField] private Text D3_Text;
-    [SerializeField] private Text D4_Text;
-    [SerializeField] private Text D5_Text;
+    [SerializeField] private Text[] Dice_Text;
+
+    public bool[] isKept;
 
     public bool isD1Kept = false;
     public bool isD2Kept = false;
@@ -33,26 +27,21 @@ public class DiceController : MonoBehaviour
     private void Awake()
     {
         rollCount = 0;
+        Dice_BTN = GetComponentsInChildren<Button>();
+        Dice_Text = GetComponentsInChildren<Text>();
         Dice_Hand = new int[5];
+        isKept = new bool[5];
         for (int i = 0; i < 5; i++)
         {
             Dice_Hand[i] = i + 1;
+            Dice_Text[i].text = $"{Dice_Hand[i]}";
+            Dice_BTN[i].interactable = false;
+            isKept[i] = false;
         }
-        Dice1.interactable = false;
-        Dice2.interactable = false;
-        Dice3.interactable = false;
-        Dice4.interactable = false;
-        Dice5.interactable = false;
     }
 
     private void Update()
     {
-        D1_Text.text = $"{Dice_Hand[0]}";
-        D2_Text.text = $"{Dice_Hand[1]}";
-        D3_Text.text = $"{Dice_Hand[2]}";
-        D4_Text.text = $"{Dice_Hand[3]}";
-        D5_Text.text = $"{Dice_Hand[4]}";
-
         if (rollCount == 0)
         {
             rollBtn.SetActive(true);
@@ -61,57 +50,25 @@ public class DiceController : MonoBehaviour
 
     public void RollButton()
     {
-        Dice1.interactable = true;
-        Dice2.interactable = true;
-        Dice3.interactable = true;
-        Dice4.interactable = true;
-        Dice5.interactable = true;
-
-        if (isD1Kept)
+        for (int i = 0; i < 5; i++)
         {
-            Dice_Hand[0] = Dice_Hand[0];
-        }
-        else
-        {
-            Dice_Hand[0] = (int)Random.Range(1, 7);
-        }
-
-        if (isD2Kept)
-        {
-            Dice_Hand[1] = Dice_Hand[1];
-        }
-        else
-        {
-            Dice_Hand[1] = (int)Random.Range(1, 7);
-        }
-
-        if (isD3Kept)
-        {
-            Dice_Hand[2] = Dice_Hand[2];
-        }
-        else
-        {
-            Dice_Hand[2] = (int)Random.Range(1, 7);
-        }
-
-        if (isD4Kept)
-        {
-            Dice_Hand[3] = Dice_Hand[3];
-        }
-        else
-        {
-            Dice_Hand[3] = (int)Random.Range(1, 7);
-        }
-
-        if (isD5Kept)
-        {
-            Dice_Hand[4] = Dice_Hand[4];
-        }
-        else
-        {
-            Dice_Hand[4] = (int)Random.Range(1, 7);
+            Dice_BTN[i].interactable = true;
+            if (isKept[i])
+            {
+                Dice_Hand[i] = Dice_Hand[i];
+            }
+            else
+            {
+                Dice_Hand[i] = (int)Random.Range(1, 7);
+            }
+            score.Dice_Hand[i] = Dice_Hand[i];
         }
         
+        for (int i = 0; i < 5; i++)
+        {
+            Dice_Text[i].text = $"{Dice_Hand[i]}";
+        }
+
         rollCount++;
         if (rollCount >= 3)
         {
@@ -123,61 +80,61 @@ public class DiceController : MonoBehaviour
 
     public void KeepDice1()
     {
-        if (!isD1Kept)
+        if (!isKept[0])
         {
-            isD1Kept = true;
+            isKept[0] = true;
         }
         else
         {
-            isD1Kept = false;
+            isKept[0] = false;
         }
     }
 
     public void KeepDice2()
     {
-        if (!isD2Kept)
+        if (!isKept[1])
         {
-            isD2Kept = true;
+            isKept[1] = true;
         }
         else
         {
-            isD2Kept = false;
+            isKept[1] = false;
         }
     }
 
     public void KeepDice3()
     {
-        if (!isD3Kept)
+        if (!isKept[2])
         {
-            isD3Kept = true;
+            isKept[2] = true;
         }
         else
         {
-            isD3Kept = false;
+            isKept[2] = false;
         }
     }
 
     public void KeepDice4()
     {
-        if (!isD4Kept)
+        if (!isKept[3])
         {
-            isD4Kept = true;
+            isKept[3] = true;
         }
         else
         {
-            isD4Kept = false;
+            isKept[3] = false;
         }
     }
 
     public void KeepDice5()
     {
-        if (!isD5Kept)
+        if (!isKept[4])
         {
-            isD5Kept = true;
+            isKept[4] = true;
         }
         else
         {
-            isD5Kept = false;
+            isKept[4] = false;
         }
     }
 }
