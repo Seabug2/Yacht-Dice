@@ -36,7 +36,11 @@ public class SQLManager : MonoBehaviour
     public MySqlDataReader reader; // 데이터를 직접적으로 읽어오는 녀석
     [SerializeField] private string DB_Path = string.Empty;
 
+    public bool isLogin;
+    public string EC2publicIpAddress = string.Empty;
+
     public static SQLManager instance = null;
+
     private void Awake()
     {
         // 1. 싱글톤 적용
@@ -50,7 +54,7 @@ public class SQLManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-
+        isLogin = false;
         // 2. 데이터베이스 연결하기
         DB_Path = Application.dataPath + "/Database";
         string serverinfo = Server_set(DB_Path);
@@ -113,7 +117,7 @@ public class SQLManager : MonoBehaviour
         try
         {
             if (!Connection_check(connection)) return;
-            string SQL_Command = String.Format($@"INSERT INTO User_info VALUES('{id}','{pw}','-');");
+            string SQL_Command = String.Format($@"INSERT INTO User_info VALUES('{id}','{pw}','{nick}', 0, 0, 0);");
             MySqlCommand cmd = new MySqlCommand(SQL_Command, connection);
             reader = cmd.ExecuteReader();
             if (!reader.IsClosed) reader.Close();
@@ -133,8 +137,8 @@ public class SQLManager : MonoBehaviour
         {
             if (!Connection_check(connection)) return;
             string SQL_Command = String.Format($@"Update User_info 
-                                                  Set User_PW = '{pw}', Nickname = '{nick}'
-                                                  Where User_ID = '{id}';");
+                                                  Set User_ID = '{id}', User_PW = '{pw}', Nickname = '{nick}'
+                                                  Where User_ID = '{info.User_id}';");
             MySqlCommand cmd = new MySqlCommand(SQL_Command, connection);
             reader = cmd.ExecuteReader();
             if (!reader.IsClosed) reader.Close();
@@ -168,9 +172,14 @@ public class SQLManager : MonoBehaviour
 
             if (reader.HasRows)
             {
-                info = new User_info((string)reader["User_ID"], (string)reader["User_PW"], (string)reader["Nickname"],
-                                     (int)reader["Wins"], (int)reader["Loses"], (int)reader["HighScore"]);
+                while (reader.Read())
+                {
+                    info = new User_info((string)reader["User_ID"], (string)reader["User_PW"], (string)reader["Nickname"],
+                                     Convert.ToInt32(reader["Wins"]), Convert.ToInt32(reader["Loses"]), Convert.ToInt32(reader["HighScore"]));
+                    break;
+                }
                 if (!reader.IsClosed) reader.Close();
+                isLogin = true;
                 return true;
             }
 
@@ -220,13 +229,6 @@ public class SQLManager : MonoBehaviour
             Debug.Log(e.Message);
             return 2;
         }
-    }
-
-    // 길이체크 용 메소드
-    // true : 초과(진행 차단)
-    public bool IsOverByte(string s)
-    {
-        return Encoding.Default.GetByteCount(s) > 16;
     }
 
     // 게임 완료 시

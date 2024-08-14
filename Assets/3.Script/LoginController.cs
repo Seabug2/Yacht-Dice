@@ -8,7 +8,7 @@ public class LoginController : MonoBehaviour
     public InputField ID_input;
     public InputField PW_input;
     [SerializeField] private Text Log;
-    [SerializeField] private GameObject selectUI, RegisterUI, ExitUI;
+    [SerializeField] private GameObject selectUI, RegisterPn, ExitUI;
 
     public void Login_btn()
     {
@@ -30,31 +30,5 @@ public class LoginController : MonoBehaviour
             gameObject.SetActive(false);
         }
     }
-
-    public void Register_btn()
-    {
-        RegisterUI.SetActive(true);
-        gameObject.SetActive(false);
-    }
-
-    public void Exit_btn()
-    {
-        ExitUI.SetActive(true);
-    }
-
-    public void Exit_btn_Yes()
-    {
-#if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false; // 에디터 상태에서 플레이 중단
-#else
-        Application.Quit(); // 빌드된 게임에서는 게임 종료
-#endif
-    }
-
-    public void Exit_btn_No()
-    {
-        ExitUI.SetActive(false);
-    }
-
 
 }
