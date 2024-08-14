@@ -55,7 +55,7 @@ public class DiceController : MonoBehaviour
             {
                 Dice_Hand[i] = (int)Random.Range(1, 7);
             }
-            score.Dice_Hand[i] = Dice_Hand[i];
+            //score.Dice_Hand[i] = Dice_Hand[i];
         }
         
         for (int i = 0; i < 5; i++)

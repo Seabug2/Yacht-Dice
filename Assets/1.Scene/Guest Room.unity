@@ -285,7 +285,6 @@ GameObject:
   - component: {fileID: 87155176}
   - component: {fileID: 87155179}
   - component: {fileID: 87155178}
-  - component: {fileID: 87155177}
   m_Layer: 5
   m_Name: Dice
   m_TagString: Untagged
@@ -313,25 +312,6 @@ RectTransform:
   m_AnchoredPosition: {x: -217, y: -91}
   m_SizeDelta: {x: 227, y: 251}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &87155177
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 87155175}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c08d14d6c852e90489ae0767b8ede17c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pips:
-  - {fileID: 53210917750316272, guid: 92a7d9ed4c90d304b94202379597d84f, type: 3}
-  - {fileID: -9003326349731768156, guid: 92a7d9ed4c90d304b94202379597d84f, type: 3}
-  - {fileID: -8369091821260551285, guid: 92a7d9ed4c90d304b94202379597d84f, type: 3}
-  - {fileID: 6144377623023990122, guid: 92a7d9ed4c90d304b94202379597d84f, type: 3}
-  - {fileID: 7143940857501782284, guid: 92a7d9ed4c90d304b94202379597d84f, type: 3}
-  - {fileID: -2732986967050148407, guid: 92a7d9ed4c90d304b94202379597d84f, type: 3}
 --- !u!114 &87155178
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1286,7 +1266,6 @@ GameObject:
   - component: {fileID: 833484692}
   - component: {fileID: 833484695}
   - component: {fileID: 833484694}
-  - component: {fileID: 833484693}
   m_Layer: 5
   m_Name: Dice
   m_TagString: Untagged
@@ -1314,25 +1293,6 @@ RectTransform:
   m_AnchoredPosition: {x: 281, y: -66}
   m_SizeDelta: {x: 227, y: 251}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &833484693
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 833484691}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c08d14d6c852e90489ae0767b8ede17c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pips:
-  - {fileID: 53210917750316272, guid: 92a7d9ed4c90d304b94202379597d84f, type: 3}
-  - {fileID: -9003326349731768156, guid: 92a7d9ed4c90d304b94202379597d84f, type: 3}
-  - {fileID: -8369091821260551285, guid: 92a7d9ed4c90d304b94202379597d84f, type: 3}
-  - {fileID: 6144377623023990122, guid: 92a7d9ed4c90d304b94202379597d84f, type: 3}
-  - {fileID: 7143940857501782284, guid: 92a7d9ed4c90d304b94202379597d84f, type: 3}
-  - {fileID: -2732986967050148407, guid: 92a7d9ed4c90d304b94202379597d84f, type: 3}
 --- !u!114 &833484694
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2406,7 +2366,6 @@ GameObject:
   - component: {fileID: 1312039949}
   - component: {fileID: 1312039952}
   - component: {fileID: 1312039951}
-  - component: {fileID: 1312039950}
   m_Layer: 5
   m_Name: Dice
   m_TagString: Untagged
@@ -2434,25 +2393,6 @@ RectTransform:
   m_AnchoredPosition: {x: -213, y: 276}
   m_SizeDelta: {x: 227, y: 251}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1312039950
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1312039948}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c08d14d6c852e90489ae0767b8ede17c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pips:
-  - {fileID: 53210917750316272, guid: 92a7d9ed4c90d304b94202379597d84f, type: 3}
-  - {fileID: -9003326349731768156, guid: 92a7d9ed4c90d304b94202379597d84f, type: 3}
-  - {fileID: -8369091821260551285, guid: 92a7d9ed4c90d304b94202379597d84f, type: 3}
-  - {fileID: 6144377623023990122, guid: 92a7d9ed4c90d304b94202379597d84f, type: 3}
-  - {fileID: 7143940857501782284, guid: 92a7d9ed4c90d304b94202379597d84f, type: 3}
-  - {fileID: -2732986967050148407, guid: 92a7d9ed4c90d304b94202379597d84f, type: 3}
 --- !u!114 &1312039951
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3372,7 +3312,6 @@ GameObject:
   - component: {fileID: 1664423223}
   - component: {fileID: 1664423226}
   - component: {fileID: 1664423225}
-  - component: {fileID: 1664423224}
   m_Layer: 5
   m_Name: Dice
   m_TagString: Untagged
@@ -3400,25 +3339,6 @@ RectTransform:
   m_AnchoredPosition: {x: 279, y: 259}
   m_SizeDelta: {x: 227, y: 251}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1664423224
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1664423222}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c08d14d6c852e90489ae0767b8ede17c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pips:
-  - {fileID: 53210917750316272, guid: 92a7d9ed4c90d304b94202379597d84f, type: 3}
-  - {fileID: -9003326349731768156, guid: 92a7d9ed4c90d304b94202379597d84f, type: 3}
-  - {fileID: -8369091821260551285, guid: 92a7d9ed4c90d304b94202379597d84f, type: 3}
-  - {fileID: 6144377623023990122, guid: 92a7d9ed4c90d304b94202379597d84f, type: 3}
-  - {fileID: 7143940857501782284, guid: 92a7d9ed4c90d304b94202379597d84f, type: 3}
-  - {fileID: -2732986967050148407, guid: 92a7d9ed4c90d304b94202379597d84f, type: 3}
 --- !u!114 &1664423225
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4499,7 +4419,6 @@ GameObject:
   - component: {fileID: 2048442592}
   - component: {fileID: 2048442595}
   - component: {fileID: 2048442594}
-  - component: {fileID: 2048442593}
   m_Layer: 5
   m_Name: Dice
   m_TagString: Untagged
@@ -4527,25 +4446,6 @@ RectTransform:
   m_AnchoredPosition: {x: 25, y: 103}
   m_SizeDelta: {x: 227, y: 251}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &2048442593
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2048442591}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c08d14d6c852e90489ae0767b8ede17c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pips:
-  - {fileID: 53210917750316272, guid: 92a7d9ed4c90d304b94202379597d84f, type: 3}
-  - {fileID: -9003326349731768156, guid: 92a7d9ed4c90d304b94202379597d84f, type: 3}
-  - {fileID: -8369091821260551285, guid: 92a7d9ed4c90d304b94202379597d84f, type: 3}
-  - {fileID: 6144377623023990122, guid: 92a7d9ed4c90d304b94202379597d84f, type: 3}
-  - {fileID: 7143940857501782284, guid: 92a7d9ed4c90d304b94202379597d84f, type: 3}
-  - {fileID: -2732986967050148407, guid: 92a7d9ed4c90d304b94202379597d84f, type: 3}
 --- !u!114 &2048442594
 MonoBehaviour:
   m_ObjectHideFlags: 0
