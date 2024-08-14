@@ -9,7 +9,7 @@ public class RegisterController : MonoBehaviour
     public InputField PW_input;
     public InputField Nick_input;
     [SerializeField] private Text Log;
-    [SerializeField] private GameObject LoginUI;
+    // [SerializeField] private GameObject LoginUI;
 
     public void Save_btn()
     {
@@ -49,12 +49,6 @@ public class RegisterController : MonoBehaviour
                 }
             }
         }
-    }
-
-    public void Back_btn()
-    {
-        if(!SQLManager.instance.isLogin) LoginUI.SetActive(true);
-        gameObject.SetActive(false);
     }
 
 }
