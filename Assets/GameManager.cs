@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -5,9 +6,27 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-public class ScoreBoard : MonoBehaviour
+public class GameManager : MonoBehaviour
 {
     YachtPlayer player;
+
+    [Header("User Info"), Space(10)]
+    [SerializeField] Text nickName;
+    [SerializeField] Text rate;
+
+    public void InfoUISet(string _name, string _rate)
+    {
+        nickName.text = _name;
+        rate.text = _rate;
+    }
+
+    public void PopUp()
+    {
+        for (int i = 0; i < slots.Length; i++)
+        {
+            slots[i].GetComponent<RectTransform>().DOScale(1, .3f).SetDelay(.25f * i).SetEase(Ease.OutBack);
+        }
+    }
 
     [Header("점수판")]
     [SerializeField] PointSlot[] slots;
@@ -17,6 +36,7 @@ public class ScoreBoard : MonoBehaviour
 
     [Header("주사위"), Space(10)]
     [SerializeField] Dice[] dices;
+
     /// <summary>
     /// 주사위를 굴리는 버튼
     /// </summary>
@@ -24,12 +44,14 @@ public class ScoreBoard : MonoBehaviour
 
     private void Start()
     {
-        //모든 점수칸의 버튼에 차례를 마치는 메서드를 연결
+        //이벤트 추가
         foreach (PointSlot slot in slots)
         {
             //slot.button.onClick.AddListener(CloseTurn);
             slot.GetComponent<Button>().onClick.AddListener(EndTurn);
+            slot.GetComponent<RectTransform>().localScale = Vector3.zero;
         }
+        rerollButton.onClick.AddListener(Reroll);
     }
 
     /// <summary>
@@ -43,17 +65,15 @@ public class ScoreBoard : MonoBehaviour
     int rerollChance = 0;
 
     /// <summary>
-    /// 주사위 굴리기 버튼이 활성화 된다.
-    /// 주사위를 굴릴 기회를 3번 갖는다.
+    /// 자신의 차례가 되면 실행되는 메서드
     /// </summary>
     public void StartTurn()
     {
-        rerollChance = 3;
-        rerollButton.interactable = true;
+        //자신의 클라이언트 쪽에서만 처리되는 작업
+        rerollChance = 3; //주사위를 굴릴 기회를 3번 받음
+        rerollButton.interactable = true; //주사위 굴리기 버튼을 활성화
         StartTurnEvent?.Invoke();
     }
-
-
 
     /// <summary>
     /// 주사위를 굴린 후 실행될 이벤트
@@ -76,7 +96,7 @@ public class ScoreBoard : MonoBehaviour
             //pips[i] = dices[i].reroll();
             /*
             public int reroll(){
-            if(현재 주사위가 Keep된 상태라면) return;
+            if(현재 주사위가 Keep된 상태라면) return myNum;
             1 ~ 6 중에 랜덤한 수를 반환
             return Random.range(1,7);
             }
@@ -87,9 +107,9 @@ public class ScoreBoard : MonoBehaviour
     }
 
     /// <summary>
-    /// 플레이어가 굴린 주사위의 값을 받아 자신의 점수칸과 주사위 그림을 
+    /// 이 메서드는 서버로부터 실행
     /// </summary>
-    /// <param name="_pips"></param>
+    /// <param name="_pips">주사위 5개를 굴려 얻은 숫자</param>
     public void UpdateSlot(int[] _pips)
     {
         foreach (PointSlot slot in slots)
@@ -102,38 +122,43 @@ public class ScoreBoard : MonoBehaviour
         }
     }
 
-
-
     /// <summary>
     /// 차례를 마칠 때 실행할 이벤트
     /// </summary>
     public event Action<int[]> EndTurnEvent;
 
     /// <summary>
-    /// 점수칸에 점수를 확정하면 자신의 차례를 마친다.
-    /// 상대방이 MyTurn을 실행하도록 한다.
+    /// 점수칸을 누르면 자신의 차례를 마친다.
     /// </summary>
     public void EndTurn()
     {
+        //점수칸을 누르면 점수칸에 점수가 저장되고 IsFixed가 true가 됨
+        //주사위 굴리기 버튼이 비활성화 됨
         rerollButton.interactable = false;
 
+        //모든 점수칸 비활성화
         foreach (PointSlot slot in slots)
         {
             //slot.ResetSlot();
-            /*
-            public void ResetSlot(){
+            /*public void ResetSlot(){
             text = initial;
             myNum = 0;
-            }
-            */
+            }*/
         }
 
-        //주사위 5개를 굴린 결과를 저장할 배열
         int[] points = new int[slots.Length];
 
         for (int i = 0; i < points.Length; i++)
         {
-            points[i] = slots.Length;
+            //points[i] = slots[i].Read();
+            /*
+            int Read(){
+            if(!isFixed){
+            점수 = 0 으로 초기화
+            }
+            return 점수;
+            }
+            */
         }
 
         EndTurnEvent?.Invoke(points);
@@ -141,6 +166,9 @@ public class ScoreBoard : MonoBehaviour
 
     public void FixedSlot(int[] points)
     {
-        Debug.Log(points.ToString());
+        for (int i = 0; i < slots.Length; i++)
+        {
+            //slots[i]. (points[i]);
+        }
     }
 }

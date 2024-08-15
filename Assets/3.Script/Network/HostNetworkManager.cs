@@ -24,10 +24,10 @@ public class HostNetworkManager : NetworkManager
     void OnRemoteClientConnected(NetworkConnection conn)
     {
         Debug.Log($"새로운 원격 클라이언트가 연결되었습니다! Connection ID: {conn.connectionId}");
-        // 원하는 동작을 여기에 추가합니다.
         waitingMessage.SetActive(false);
         dicePannel.SetActive(true);
-        
+
         NetworkClient.localPlayer.GetComponent<YachtPlayer>().CmdMyTurn();
+        //GameObject.Find("Local Player Score Board").GetComponent<ScoreBoard>().StartTurn();
     }
 }

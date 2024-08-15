@@ -8,25 +8,8 @@ using DG.Tweening;
 
 public class YachtPlayer : NetworkBehaviour
 {
-    [Header("User Info")]
-    [SerializeField] Text nickName;
-    [SerializeField] Text rate;
-
-    [Header("점수판"), Space(10)]
-    [SerializeField] ScoreBoard myScoreBoard; //나의 점수판
-    /*
-     * bool isFixed
-     * text 표기될 점수 텍스트
-     * Fixed() {
-     * 버튼에 추가할 메서드
-     * 버튼을 누르면 isFixed가 true가 된다.
-     * }
-     * UpdateSlot() {
-     * isFixed == true 라면 실행되지 않는다.
-     * 버튼.활성화 = !isFixed;
-     * }
-     * 
-     */
+    [Header("점수판")]
+    [SerializeField] GameManager myManager; //나의 점수판
 
     YachtPlayer opponent = null;
 
@@ -40,33 +23,45 @@ public class YachtPlayer : NetworkBehaviour
         if (isLocalPlayer)
         {
             name = "Local Player";
-            myScoreBoard = GameObject.Find("Local Player Score Board").GetComponent<ScoreBoard>();
+            myManager = GameObject.Find("Local Player Score Board").GetComponent<GameManager>();
         }
         else
         {
             name = "Remote Player";
-            myScoreBoard = GameObject.Find("Remote Player Score Board").GetComponent<ScoreBoard>();
+            myManager = GameObject.Find("Remote Player Score Board").GetComponent<GameManager>();
         }
         //Init();
+        myManager.PopUp();
     }
 
     void Init()
     {
         //SQLManager의 info 정보에서 닉네임과 전적을 가져온다.
-        nickName.text = SQLManager.instance.info.User_nickname;
+        string name = SQLManager.instance.info.User_nickname;
         int win = SQLManager.instance.info.wins;
         int lose = SQLManager.instance.info.loses;
-        rate.text = $"{win + lose}전 {win}승 {lose}패";
+        string rate = $"{win + lose}전 {win}승 {lose}패";
+        //CmdStartGame(name, rate);
 
         //이벤트를 연결하는 작업
-        myScoreBoard.StartTurnEvent += () => { 
-        
-        };
+        //myScoreBoard.StartTurnEvent += ;
 
-        myScoreBoard.RerollEvent += CmdUpdateBoard;
+        myManager.RerollEvent += CmdUpdateBoard;
 
-        myScoreBoard.EndTurnEvent += CmdEndTurn;
+        myManager.EndTurnEvent += CmdEndTurn;
     }
+
+    //[Command]
+    //public void CmdStartGame(string name, string rate)
+    //{
+    //    RpcStartGame(name, rate);
+    //}
+    
+    //[ClientRpc]
+    //public void RpcStartGame(string name, string rate)
+    //{
+    //    myManager.InfoUISet(name, rate);
+    //}
 
 
     [Command]
@@ -78,12 +73,13 @@ public class YachtPlayer : NetworkBehaviour
     [ClientRpc]
     public void RpcMyTurn()
     {
+        //자신의 차례를 시작하는 건 상대쪽 클라이언트에서 실행되는 CmdMyTurn() 이므로
+        //모든 클라이언트에 존재하는 자신의 YachtPlayer 객체 중에
+        //자신의 클라이언트에 존재하는 YachtPlayer만 myManager.StartTurn()를 실행할 수 있도록 한다.
         if (!isLocalPlayer) return;
 
-        myScoreBoard.StartTurn();
+        myManager.StartTurn();
     }
-
-
 
     [Command]
     void CmdUpdateBoard(int[] _pips)
@@ -98,9 +94,8 @@ public class YachtPlayer : NetworkBehaviour
     [ClientRpc]
     void RpcUpdateBoard(int[] _pips)
     {
-        myScoreBoard.UpdateSlot(_pips);
+        myManager.UpdateSlot(_pips);
     }
-
 
     [Command]
     public void CmdEndTurn(int[] _points)
@@ -111,7 +106,7 @@ public class YachtPlayer : NetworkBehaviour
     [ClientRpc]
     public void RpcEndTurn(int[] _points)
     {
-        myScoreBoard.FixedSlot(_points);
+        myManager.FixedSlot(_points);
         opponent.CmdMyTurn();
     }
 }
