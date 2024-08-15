@@ -27,5 +27,7 @@ public class HostNetworkManager : NetworkManager
         // 원하는 동작을 여기에 추가합니다.
         waitingMessage.SetActive(false);
         dicePannel.SetActive(true);
+        
+        NetworkClient.localPlayer.GetComponent<YachtPlayer>().CmdMyTurn();
     }
 }
