@@ -37,7 +37,7 @@ public class PointSlot : MonoBehaviour
         isSelected = true;
         slot_btn.interactable = false;
         slot_txt.color = new Color(0, 0, 0);
-        slot_txt.transform.DOShakeScale(1f, 1, 10, 0, true);
+        slot_txt.transform.DOPunchScale(Vector3.up, 1f, 10, 1);
     }
 
     public void InitSlot()

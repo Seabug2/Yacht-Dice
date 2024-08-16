@@ -62,7 +62,7 @@ public class DiceController : MonoBehaviour
         for (int i = 0; i < 5; i++)
         {
             Dice_Text[i].text = $"{Dice_Hand[i]}";
-            Dice_Text[i].transform.DOShakeScale(1f, 1, 10, 0, true);
+            Dice_Text[i].transform.DOPunchScale(Vector3.up, 1f, 10, 1);
         }
 
         rollCount++;
