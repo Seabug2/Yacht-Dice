@@ -7,8 +7,8 @@ public class PointSlot : MonoBehaviour
     public bool isSelected;
     public int slot_currentScore;
 
-    [SerializeField] private Button slot_btn;
-    [SerializeField] private Text slot_txt;
+    public Button slot_btn;
+    public Text slot_txt;
 
     private void Awake()
     {
@@ -24,9 +24,12 @@ public class PointSlot : MonoBehaviour
         return slot_currentScore;
     }
 
-    public void UpdateScore(int score)
+    virtual public void UpdateScore(int score)
     {
-
+        if (score > 0)
+        {
+            slot_txt.color = new Color(255, 0, 0);
+        }
     }
 
     public void scoreSelect_btn()
@@ -34,11 +37,13 @@ public class PointSlot : MonoBehaviour
         isSelected = true;
         slot_btn.interactable = false;
         slot_txt.color = new Color(0, 0, 0);
+        slot_txt.transform.DOShakeScale(1f, 1, 10, 0, true);
     }
 
     public void InitSlot()
     {
         slot_currentScore = 0;
         isSelected = false;
+        slot_txt.color = new Color(0, 0, 0);
     }
 }

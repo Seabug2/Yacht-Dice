@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class DiceController : MonoBehaviour
 {
@@ -61,6 +62,7 @@ public class DiceController : MonoBehaviour
         for (int i = 0; i < 5; i++)
         {
             Dice_Text[i].text = $"{Dice_Hand[i]}";
+            Dice_Text[i].transform.DOShakeScale(1f, 1, 10, 0, true);
         }
 
         rollCount++;
