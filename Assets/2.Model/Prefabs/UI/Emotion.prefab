@@ -1731,8 +1731,6 @@ GameObject:
   - component: {fileID: 670375623795599024}
   - component: {fileID: 670375623795599025}
   - component: {fileID: 670375623795599028}
-  - component: {fileID: 670375623795599031}
-  - component: {fileID: 670375623795599030}
   m_Layer: 5
   m_Name: Emotion
   m_TagString: Untagged
@@ -1805,40 +1803,6 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   delayTime: 1
---- !u!114 &670375623795599031
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 670375623795599027}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneId: 0
-  _assetId: 1129759388
-  serverOnly: 0
-  visibility: 0
-  hasSpawned: 0
---- !u!114 &670375623795599030
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 670375623795599027}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f6f3bf89aa97405989c802ba270f815, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncDirection: 1
-  syncMode: 0
-  syncInterval: 0
-  clientAuthority: 1
-  animator: {fileID: 670375623795599025}
 --- !u!1 &670375623880417375
 GameObject:
   m_ObjectHideFlags: 0
