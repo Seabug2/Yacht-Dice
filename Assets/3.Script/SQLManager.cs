@@ -277,7 +277,7 @@ public class SQLManager : MonoBehaviour
             MySqlCommand cmd = new MySqlCommand(SQL_Command, connection);
             reader = cmd.ExecuteReader();
             info = new User_info((string)reader["User_ID"], (string)reader["User_PW"], (string)reader["Nickname"],
-                                     (int)reader["Wins"], (int)reader["Loses"], (int)reader["HighScore"]);
+                             Convert.ToInt32(reader["Wins"]), Convert.ToInt32(reader["Loses"]), Convert.ToInt32(reader["HighScore"]));
             if (!reader.IsClosed) reader.Close();
             return true;
         }

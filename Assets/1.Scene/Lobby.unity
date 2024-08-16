@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
+  m_IndirectSpecularColor: {r: 0.3731193, g: 0.38073996, b: 0.35872698, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -332,6 +332,52 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 1
+--- !u!1 &715781105
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 715781107}
+  - component: {fileID: 715781106}
+  m_Layer: 0
+  m_Name: SQLManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &715781106
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 715781105}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 296052f63ea6e1f498442f94b54e0377, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DB_Path: 
+  isLogin: 0
+  EC2publicIpAddress: 
+--- !u!4 &715781107
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 715781105}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 960, y: 540, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1444424276
 GameObject:
   m_ObjectHideFlags: 0
@@ -1182,6 +1228,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6920185911730985263}
+  - component: {fileID: 6920185911730985264}
   m_Layer: 0
   m_Name: SelectUI
   m_TagString: Untagged
@@ -1203,13 +1250,28 @@ RectTransform:
   - {fileID: 529764564}
   - {fileID: 6920185913339064393}
   m_Father: {fileID: 6920185913685811952}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1920, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &6920185911730985264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6920185911730985262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 286329e6c2e576246b87b155d571d56b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IPInputUI: {fileID: 0}
+  LoginUI: {fileID: 0}
+  RegisterUI: {fileID: 0}
 --- !u!114 &6920185911786207126
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1280,7 +1342,8 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 6920185912068793443}
   m_Father: {fileID: 6920185913685811952}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1523,6 +1586,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6920185912068793443}
+  - component: {fileID: 6920185912068793444}
   m_Layer: 0
   m_Name: LoginUI
   m_TagString: Untagged
@@ -1537,7 +1601,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6920185912068793442}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1547,14 +1611,32 @@ RectTransform:
   - {fileID: 6920185911722650648}
   - {fileID: 75007009}
   - {fileID: 8433513913279695432}
-  m_Father: {fileID: 6920185913685811952}
-  m_RootOrder: 2
+  m_Father: {fileID: 6920185911786207129}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -113}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &6920185912068793444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6920185912068793442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab45ca1aa5e0bef4f8db06594bbe14f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID_input: {fileID: 6920185912468274681}
+  PW_input: {fileID: 6920185912584017600}
+  Log: {fileID: 75007010}
+  selectUI: {fileID: 6920185911730985262}
+  RegisterPn: {fileID: 8433513913279695433}
+  ExitUI: {fileID: 6920185912937183238}
 --- !u!222 &6920185912123000332
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2743,7 +2825,7 @@ RectTransform:
   - {fileID: 6920185911866546457}
   - {fileID: 6920185913382011459}
   m_Father: {fileID: 6920185913685811952}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -3047,7 +3129,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6920185913188475556}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6920185912068793444}
+        m_TargetAssemblyTypeName: LoginController, Assembly-CSharp
+        m_MethodName: Login_btn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &6920185913188475561
 GameObject:
   m_ObjectHideFlags: 0
@@ -3694,7 +3788,6 @@ RectTransform:
   m_Children:
   - {fileID: 6920185912730161175}
   - {fileID: 6920185911786207129}
-  - {fileID: 6920185912068793443}
   - {fileID: 6920185912937183239}
   - {fileID: 6920185911730985263}
   m_Father: {fileID: 0}
@@ -4268,6 +4361,7 @@ GameObject:
   - component: {fileID: 8433513913279695432}
   - component: {fileID: 8433513913279695434}
   - component: {fileID: 8433513913279695435}
+  - component: {fileID: 8433513913279695436}
   m_Layer: 5
   m_Name: RegisterPanel
   m_TagString: Untagged
@@ -4313,6 +4407,22 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &8433513913279695436
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8433513913279695433}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d549dde062b19b246b2a423225168a69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID_input: {fileID: 8433513914087724598}
+  PW_input: {fileID: 8433513913237062754}
+  Nick_input: {fileID: 8433513914005263227}
+  Log: {fileID: 5944389392496891679}
 --- !u!222 &8433513913415180525
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4912,7 +5022,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8433513914494511407}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8433513913279695436}
+        m_TargetAssemblyTypeName: RegisterController, Assembly-CSharp
+        m_MethodName: Save_btn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!224 &8433513914494511405
 RectTransform:
   m_ObjectHideFlags: 0
