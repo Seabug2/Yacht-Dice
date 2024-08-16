@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class RoomSelectController : MonoBehaviour
 {
@@ -9,7 +10,7 @@ public class RoomSelectController : MonoBehaviour
 
     public void Host_btn()
     {
-        // 게임 씬으로 이동
+        SceneManager.LoadScene(1);
     }
 
     public void Guest_btn()
@@ -31,7 +32,7 @@ public class RoomSelectController : MonoBehaviour
 
     public void IPInput_Join_btn()
     {
-        // 게임 씬으로 이동
+        SceneManager.LoadScene(2);
     }
 
     public void IPInput_Back_btn()
