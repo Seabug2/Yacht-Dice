@@ -5,9 +5,10 @@ using System.Linq;
 
 public class FullHouseSection : PointSlot
 {
-    public override int UpdateScore(int[] pips)
+    public override int CalculateScore(int[] pips)
     {
         int sum = 0;
+        int[] dice_count = new int[6];
         bool trips = false;
         bool pair = false;
 

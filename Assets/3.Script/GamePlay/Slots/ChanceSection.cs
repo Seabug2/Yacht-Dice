@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ChanceSection : PointSlot
 {
-    public override int UpdateScore(int[] pips)
+    public override int CalculateScore(int[] pips)
     {
         int sum = 0;
 

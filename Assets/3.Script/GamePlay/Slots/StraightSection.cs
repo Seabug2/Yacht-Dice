@@ -7,9 +7,10 @@ public class StraightSection : PointSlot
 {
     public int straightIndex; // 0 : Small Straight | 1 : Large Straight
 
-    public override int UpdateScore(int[] pips)
+    public override int CalculateScore(int[] pips)
     {
         int sum = 0;
+        int[] dice_count = new int[6];
 
         for (int i = 0; i < 6; i++)
         {
@@ -22,47 +23,25 @@ public class StraightSection : PointSlot
         }
         Debug.Log($"Straight Check : {dice_count[0]} | {dice_count[1]} | {dice_count[2]} | {dice_count[3]} | {dice_count[4]} | {dice_count[5]}");
 
-        if (straightIndex == 0)
+        int straightCount = 0;
+        for (int i = 0; i < 5; i++)
         {
-            bool checkss = false;
-
-            if (dice_count[0] >= 1 && dice_count[1] >= 1 && dice_count[2] >= 1 && dice_count[3] >= 1)
+            if (dice_count[i] >= 1 && dice_count[i + 1] >= 1)
             {
-                checkss = true;
-            }
-            if (dice_count[1] >= 1 && dice_count[2] >= 1 && dice_count[3] >= 1 && dice_count[4] >= 1)
-            {
-                checkss = true;
-            }
-            if (dice_count[2] >= 1 && dice_count[3] >= 1 && dice_count[4] >= 1 && dice_count[5] >= 1)
-            {
-                checkss = true;
-            }
-
-            Debug.Log($"Small Straight Check : {checkss}");
-            if (checkss)
-            {
-                sum = 15;
+                straightCount += 1;
             }
         }
-        if (straightIndex == 1)
+        Debug.Log($"Straight Check : {straightCount}");
+
+        if (straightCount >= 3 && straightIndex == 0)
         {
-            bool checksl = false;
-
-            if (dice_count[0] >= 1 && dice_count[1] >= 1 && dice_count[2] >= 1 && dice_count[3] >= 1 && dice_count[4] >= 1)
-            {
-                checksl = true;
-            }
-            if (dice_count[1] >= 1 && dice_count[2] >= 1 && dice_count[3] >= 1 && dice_count[4] >= 1 && dice_count[5] >= 1)
-            {
-                checksl = true;
-            }
-
-            Debug.Log($"Large Straight Check : {checksl}");
-            if (checksl)
-            {
-                sum = 30;
-            }
+            Debug.Log("Small Straight");
+            sum = 15;
+        }
+        if (straightCount >= 4 && straightIndex == 1)
+        {
+            Debug.Log("Large Straight");
+            sum = 30;
         }
 
         return sum;
