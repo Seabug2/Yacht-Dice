@@ -1,12 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using System.Net;
 using System.Net.Sockets;
+using UnityEngine.SceneManagement;
 
-
+// 디버그 씬 전용 스크립트
 public class CHJ_TestScript : MonoBehaviour
 {
+    public InputField score;
+    public Toggle isWin;
+    public Button apply;
+
     void Start()
     {
         string localIP = GetLocalIPv4();
@@ -27,4 +33,9 @@ public class CHJ_TestScript : MonoBehaviour
         return localIP;
     }
 
+    public void Apply()
+    {
+        SQLManager.instance.Result(isWin.isOn, int.Parse(score.text));
+        SceneManager.LoadScene(0);
+    }
 }

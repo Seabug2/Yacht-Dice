@@ -3,12 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class LoginController : MonoBehaviour
+public class TitleController : MonoBehaviour
 {
     public InputField ID_input;
     public InputField PW_input;
     [SerializeField] private Text Log;
-    [SerializeField] private GameObject selectUI, RegisterPn, ExitUI;
+    [SerializeField] private GameObject LoginUI, RoomselectUI;
+
+    private void Start()
+    {
+        // 게임 완료 후 타이틀 이동(즉, 이미 로그인 상태)일 경우
+        if (SQLManager.instance.isLogin) LoginComplete();
+    }
 
     public void Login_btn()
     {
@@ -25,10 +31,18 @@ public class LoginController : MonoBehaviour
         // 성공 - 방 선택 화면으로
         else
         {
+            ID_input.text = "";
+            PW_input.text = "";
+            Log.text = "";
             User_info info = SQLManager.instance.info;
-            selectUI.SetActive(true);
-            gameObject.SetActive(false);
+            LoginComplete();
         }
+    }
+ 
+    public void LoginComplete()
+    {
+        RoomselectUI.SetActive(true);
+        LoginUI.SetActive(false);
     }
 
 }
