@@ -51,12 +51,13 @@ public class UI_EmotionController : NetworkBehaviour
             if((Time.time - lastInputTime) < delayTime)
             {
                 return;
-            }else
-        {
-            lastInputTime = Time.time;
-            //키를 눌렀을 때의 처리
-            Emotion();
-        }
+            }
+            else
+            {
+                lastInputTime = Time.time;
+                //키를 눌렀을 때의 처리
+                Emotion();
+            }
         }
         
     }

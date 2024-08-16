@@ -10,7 +10,7 @@ public class AudioManager : MonoBehaviour
 {
 
     public AudioMixer audioMixer;
-    public AudioSource BGMsound;
+    public AudioSource audiosource;
 
     [SerializeField] AudioClip clickclip;
     [SerializeField] AudioClip loseclip;
@@ -22,7 +22,7 @@ public class AudioManager : MonoBehaviour
 
     private void Awake()
     {
-       
+        AudioSource audiosource = gameObject.GetComponent<AudioSource>();
         slider = GetComponent<Slider>();
         //BGMSoundPlay(BGMclip);
         //SceneManager.sceneLoaded += OnSceneLoaded;
@@ -36,11 +36,11 @@ public class AudioManager : MonoBehaviour
     public void BGMSoundPlay(AudioClip clip)
     {
 
-        BGMsound.outputAudioMixerGroup = audioMixer.FindMatchingGroups("BGM")[0];
-        BGMsound.clip = clip;
-        BGMsound.loop = true;
-        BGMsound.volume = 0.1f;
-        BGMsound.Play();
+        audiosource.outputAudioMixerGroup = audioMixer.FindMatchingGroups("BGM")[0];
+        audiosource.clip = clip;
+        audiosource.loop = true;
+        audiosource.volume = 0.1f;
+        audiosource.Play();
     }
     public void BGMVolume(float val)
     {
@@ -86,8 +86,7 @@ public class AudioManager : MonoBehaviour
 
     public void PlaySFX(AudioClip clip)
     {
-        AudioSource audiosource = GetComponent<AudioSource>();
-        if (audiosource != null && clip != null)
+        if (clip != null)
         {
             audiosource.outputAudioMixerGroup = audioMixer.FindMatchingGroups("SFX")[0];
             audiosource.PlayOneShot(clip);
