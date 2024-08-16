@@ -8,12 +8,13 @@ public class RegisterController : MonoBehaviour
     public InputField ID_input;
     public InputField PW_input;
     public InputField Nick_input;
+    public Button SaveBtn;
     [SerializeField] private Text Log;
-    [SerializeField] private GameObject completePanel, RoomselectUI;
+    [SerializeField] private GameObject RoomselectUI;
 
     private void OnEnable()
     {
-        completePanel.SetActive(false);
+        SetInteractable(true);
         ID_input.text = "";
         PW_input.text = "";
         Nick_input.text = "";
@@ -52,7 +53,7 @@ public class RegisterController : MonoBehaviour
             // 성공
             else
             {
-                completePanel.SetActive(true);
+                SetInteractable(false);
                 // 로그인 상태, 즉 수정인 경우
                 if (SQLManager.instance.isLogin)
                 {
@@ -72,4 +73,11 @@ public class RegisterController : MonoBehaviour
         }
     }
 
+    public void SetInteractable(bool b)
+    {
+        ID_input.interactable = b;
+        PW_input.interactable = b;
+        Nick_input.interactable = b;
+        SaveBtn.interactable = b;
+    }
 }
