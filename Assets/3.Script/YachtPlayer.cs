@@ -54,7 +54,7 @@ public class YachtPlayer : NetworkBehaviour
     void Init()
     {
         myScoreBoard.RerollEvent += CmdUpdateBoard;
-        //myManager.EndTurnEvent += CmdEndTurn;
+        myScoreBoard.EndTurnEvent += CmdEndTurn;
 
         if (SQLManager.instance == null || SQLManager.instance.info == null)
         {
@@ -84,6 +84,12 @@ public class YachtPlayer : NetworkBehaviour
     }
 
 
+
+
+
+
+
+
     [Command]
     public void CmdMyTurn()
     {
@@ -102,12 +108,19 @@ public class YachtPlayer : NetworkBehaviour
         }
     }
 
+
+
+
+
+
+
+
+
     [Command]
     public void CmdUpdateBoard(int[] _pips)
     {
         RpcUpdateBoard(_pips);
     }
-
     /// <summary>
     /// 나온 결과 값에 따라 주사위와 점수판을 갱신합니다.
     /// </summary>
@@ -118,16 +131,23 @@ public class YachtPlayer : NetworkBehaviour
         myScoreBoard.BoardUpdate(_pips);
     }
 
+
+
+
+
+
+
+
+
     [Command]
     public void CmdEndTurn(bool[] isSelected)
     {
         RpcEndTurn(isSelected);
     }
-
     [ClientRpc]
     void RpcEndTurn(bool[] isSelected)
     {
-        myScoreBoard.EndTurn(isSelected);
+        myScoreBoard.EndUpdate(isSelected);
 
         //클라이언트에서 서버의 Command 받은 identity 객체 중에 로컬 플레이어가 아닌 플레이어의 상대 플레이어는 클라이언트의 로컬 플레이어이기 때문에 CmdMyTurn()를 실행해야한다.
         if (!isLocalPlayer)

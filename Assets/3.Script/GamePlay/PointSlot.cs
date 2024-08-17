@@ -1,8 +1,8 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
-using DG.Tweening;
 using UnityEngine.EventSystems;
-using System;
+using DG.Tweening;
 
 public class PointSlot : MonoBehaviour, IPointerClickHandler
 {
@@ -10,18 +10,17 @@ public class PointSlot : MonoBehaviour, IPointerClickHandler
 
     public int CurrentScore { get; protected set; }
 
-    [SerializeField]
-    string initTxt;
-
     protected Text text;
     public bool interactable;
 
     private void Awake()
     {
         text = GetComponentInChildren<Text>();
-        IsSelected = false;
+    }
 
-        InitSlot();
+    private void Start()
+    {
+        InitSlot(false);
     }
 
     //초기화 자신의 차례가 시작할 때, 종료될 때
@@ -30,13 +29,10 @@ public class PointSlot : MonoBehaviour, IPointerClickHandler
         text.color = new Color(0, 0, 0);
         interactable = false;
 
-        if (IsSelected)
-        {
-            return;
-        }
-
-        CurrentScore = 0;
-        text.text = initTxt;
+        if (!IsSelected)
+            CurrentScore = 0;
+        
+        text.text = CurrentScore.ToString();
     }
 
     //초기화 자신의 차례를 종료할 때
@@ -46,16 +42,11 @@ public class PointSlot : MonoBehaviour, IPointerClickHandler
         text.color = new Color(0, 0, 0);
         interactable = false;
 
-        if (IsSelected)
-        {
-            return;
-        }
+        if (!IsSelected)
+            CurrentScore = 0;
 
-        CurrentScore = 0;
-        text.text = initTxt;
+        text.text = CurrentScore.ToString();
     }
-
-
 
     virtual public int CalculateScore(int[] pips)
     {
@@ -89,19 +80,14 @@ public class PointSlot : MonoBehaviour, IPointerClickHandler
         }
     }
 
-    public void ScoreSelect_btn()
-    {
-        IsSelected = true;
-        text.transform.DOPunchScale(Vector3.up, 1f);
-    }
-
     public event Action OnClickEvent;
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (!interactable) return;
-        
-        ScoreSelect_btn();
+        if (!interactable || IsSelected) return;
+
+        IsSelected = true;
+        text.transform.DOPunchScale(Vector3.up, 1f);
         OnClickEvent?.Invoke();
     }
 }

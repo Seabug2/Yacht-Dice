@@ -34,25 +34,25 @@ public class ScoreBoard : MonoBehaviour
 
     private void Start()
     {
-        TurnCount = 0;
-
         //점수칸을 누르면 자신의 차례를 마치고 상대방에게 차례를 넘긴다.
         foreach (PointSlot slot in slots)
         {
             //차례를 시작할 때 점수칸을 초기화한다.
-            StartTurnEvent += slot.InitSlot;
+            //StartTurnEvent += slot.InitSlot;
 
             //주사위를 굴린 순간부터 점수칸을 선택할 수 있다.
             rerollButton.onClick.AddListener(() =>
             {
-                slot.interactable = true;
+                if (!slot.IsSelected)
+                    slot.interactable = true;
             });
 
             //주사위를 굴린 후에 점수칸을 갱신
             //SlotsUpdateEvent += slot.UpdateScore;
 
             //점수칸을 선택하면 차례를 마침.
-            slot.OnClickEvent += () => {
+            slot.OnClickEvent += () =>
+            {
                 rerollButton.interactable = false;
                 TurnCount++;
             };
@@ -141,18 +141,30 @@ public class ScoreBoard : MonoBehaviour
     /// <summary>
     /// 차례를 마칠 때 실행할 이벤트
     /// </summary>
-    public event Action EndTurnEvent;
+    public event Action<bool[]> EndTurnEvent;
 
     /// <summary>
     /// 점수칸을 누르면 자신의 차례를 마친다.
     /// </summary>
-    public void EndTurn(bool[] isSelected)
+    public void EndTurn()
     {
-        for(int i = 0; i < slots.Length; i ++)
+        bool[] isSelected = new bool[slots.Length];
+
+        for (int i = 0; i < slots.Length; i++)
+        {
+            isSelected[i] = slots[i].IsSelected;
+        }
+
+        EndTurnEvent?.Invoke(isSelected);
+    }
+
+
+
+    public void EndUpdate(bool[] isSelected)
+    {
+        for (int i = 0; i < slots.Length; i++)
         {
             slots[i].InitSlot(isSelected[i]);
         }
-
-        //EndTurnEvent?.Invoke();
     }
 }
