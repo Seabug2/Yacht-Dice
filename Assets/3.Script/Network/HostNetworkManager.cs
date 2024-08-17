@@ -1,7 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
+using UnityEngine.SceneManagement;
 
 public class HostNetworkManager : NetworkManager
 {
@@ -9,6 +8,12 @@ public class HostNetworkManager : NetworkManager
     GameObject waitingMessage;
     [SerializeField]
     GameObject dicePannel;
+
+    private new void Awake()
+    {
+        waitingMessage.SetActive(true);
+        dicePannel.SetActive(false);
+    }
 
     public override void OnServerConnect(NetworkConnectionToClient conn)
     {
@@ -28,6 +33,19 @@ public class HostNetworkManager : NetworkManager
         dicePannel.SetActive(true);
 
         NetworkClient.localPlayer.GetComponent<YachtPlayer>().CmdMyTurn();
-        //GameObject.Find("Local Player Score Board").GetComponent<ScoreBoard>().StartTurn();
+    }
+
+    public override void OnServerDisconnect(NetworkConnectionToClient conn)
+    {
+        base.OnServerDisconnect(conn);
+        
+        OnRemoteClientDisconnected(conn);
+    }
+
+    void OnRemoteClientDisconnected(NetworkConnection conn)
+    {
+        Debug.Log($"원격 클라이언트가 연결이 끊어졌습니다! Connection ID: {conn.connectionId}");
+
+        SceneManager.LoadScene(0);
     }
 }

@@ -2,6 +2,8 @@ using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -20,13 +22,6 @@ public class GameManager : MonoBehaviour
         rate.text = _rate;
     }
 
-    public void PopUp()
-    {
-        for (int i = 0; i < slots.Length; i++)
-        {
-            slots[i].GetComponent<RectTransform>().DOScale(1, .3f).SetDelay(.25f * i).SetEase(Ease.OutBack);
-        }
-    }
 
     [Header("점수판")]
     [SerializeField] PointSlot[] slots;
@@ -47,10 +42,9 @@ public class GameManager : MonoBehaviour
         //이벤트 추가
         foreach (PointSlot slot in slots)
         {
-            //slot.button.onClick.AddListener(CloseTurn);
-            slot.GetComponent<Button>().onClick.AddListener(EndTurn);
-            slot.GetComponent<RectTransform>().localScale = Vector3.zero;
+            slot.slot_btn.onClick.AddListener(EndTurn);
         }
+
         rerollButton.onClick.AddListener(Reroll);
     }
 
@@ -93,14 +87,7 @@ public class GameManager : MonoBehaviour
 
         for (int i = 0; i < 5; i++)
         {
-            //pips[i] = dices[i].reroll();
-            /*
-            public int reroll(){
-            if(현재 주사위가 Keep된 상태라면) return myNum;
-            1 ~ 6 중에 랜덤한 수를 반환
-            return Random.range(1,7);
-            }
-            */
+            pips[i] = dices[i].dice_num();
         }
 
         RerollEvent?.Invoke(pips);
@@ -112,13 +99,13 @@ public class GameManager : MonoBehaviour
     /// <param name="_pips">주사위 5개를 굴려 얻은 숫자</param>
     public void UpdateSlot(int[] _pips)
     {
+        for(int i = 0; i < 5; i ++)
+        {
+            dices[i].UpdateDice(_pips[i]);
+        }
         foreach (PointSlot slot in slots)
         {
-            //slot.Update(_pips);
-        }
-        foreach (Dice dice in dices)
-        {
-            //dice.Update(_pips);
+            slot.UpdateScore(slot.CalculateScore(_pips));
         }
     }
 
@@ -139,26 +126,14 @@ public class GameManager : MonoBehaviour
         //모든 점수칸 비활성화
         foreach (PointSlot slot in slots)
         {
-            //slot.ResetSlot();
-            /*public void ResetSlot(){
-            text = initial;
-            myNum = 0;
-            }*/
+            slot.InitSlot();
         }
 
         int[] points = new int[slots.Length];
 
         for (int i = 0; i < points.Length; i++)
         {
-            //points[i] = slots[i].Read();
-            /*
-            int Read(){
-            if(!isFixed){
-            점수 = 0 으로 초기화
-            }
-            return 점수;
-            }
-            */
+            points[i] = slots[i].slot_currentScore;
         }
 
         EndTurnEvent?.Invoke(points);
@@ -168,7 +143,7 @@ public class GameManager : MonoBehaviour
     {
         for (int i = 0; i < slots.Length; i++)
         {
-            //slots[i]. (points[i]);
+            slots[i].slot_txt.text = points[i].ToString();
         }
     }
 }

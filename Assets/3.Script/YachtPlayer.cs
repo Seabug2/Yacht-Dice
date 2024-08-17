@@ -9,14 +9,9 @@ using DG.Tweening;
 public class YachtPlayer : NetworkBehaviour
 {
     [Header("점수판")]
-    [SerializeField] GameManager myManager; //나의 점수판
+    GameManager myManager; //나의 점수판
 
     YachtPlayer opponent = null;
-
-    private void Awake()
-    {
-
-    }
 
     void Start()
     {
@@ -30,12 +25,17 @@ public class YachtPlayer : NetworkBehaviour
             name = "Remote Player";
             myManager = GameObject.Find("Remote Player Score Board").GetComponent<GameManager>();
         }
-        //Init();
-        myManager.PopUp();
+        Init();
     }
 
     void Init()
     {
+        if (SQLManager.instance == null || SQLManager.instance.info == null)
+        {
+            Debug.Log("로그인 없음");
+            return; 
+        }
+
         //SQLManager의 info 정보에서 닉네임과 전적을 가져온다.
         string name = SQLManager.instance.info.User_nickname;
         int win = SQLManager.instance.info.wins;
@@ -50,19 +50,6 @@ public class YachtPlayer : NetworkBehaviour
 
         myManager.EndTurnEvent += CmdEndTurn;
     }
-
-    //[Command]
-    //public void CmdStartGame(string name, string rate)
-    //{
-    //    RpcStartGame(name, rate);
-    //}
-    
-    //[ClientRpc]
-    //public void RpcStartGame(string name, string rate)
-    //{
-    //    myManager.InfoUISet(name, rate);
-    //}
-
 
     [Command]
     public void CmdMyTurn()
