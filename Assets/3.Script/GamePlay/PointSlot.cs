@@ -19,6 +19,8 @@ public class PointSlot : MonoBehaviour
     private void Awake()
     {
         button = GetComponent<Button>();
+        button.onClick.AddListener( ScoreSelect_btn);
+
         text = GetComponentInChildren<Text>();
         IsSelected = false;
 
@@ -45,7 +47,7 @@ public class PointSlot : MonoBehaviour
         return CurrentScore;
     }
 
-    public void UpdateScore(int[] pips)
+    virtual public void UpdateScore(int[] pips)
     {
         if (IsSelected) return;
 
@@ -75,7 +77,6 @@ public class PointSlot : MonoBehaviour
     public void ScoreSelect_btn()
     {
         IsSelected = true;
-        text.color = new Color(0, 0, 0);
         text.transform.DOPunchScale(Vector3.up, 1f);
     }
 }

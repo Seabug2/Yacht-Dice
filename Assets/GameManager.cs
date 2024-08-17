@@ -4,8 +4,6 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    YachtPlayer player;
-
     [Header("User Info"), Space(10)]
     [SerializeField] Text nickName;
     [SerializeField] Text rate;
@@ -18,21 +16,26 @@ public class GameManager : MonoBehaviour
 
     [Header("점수판")]
     [SerializeField] PointSlot[] slots;
-    [SerializeField] PointSlot sumSlot;
-    [SerializeField] PointSlot bonusSlot;
-    [SerializeField] PointSlot totalSlot;
 
     [Header("주사위"), Space(10)]
     [SerializeField] Die[] dice;
     public Die[] Dice => dice;
 
     /// <summary>
+    /// 12번의 차례가 지나면 게임 종료
+    /// </summary>
+    public int turnCount { get; private set; }
+
+    /// <summary>
     /// 주사위를 굴리는 버튼
     /// </summary>
     [SerializeField] Button rerollButton;
+    public Button RerollButton => rerollButton;
 
     private void Start()
     {
+        turnCount = 0;
+
         //점수칸을 누르면 자신의 차례를 마치고 상대방에게 차례를 넘긴다.
         foreach (PointSlot slot in slots)
         {
@@ -49,7 +52,10 @@ public class GameManager : MonoBehaviour
             SlotsUpdateEvent += slot.UpdateScore;
 
             //점수칸을 선택하면 차례를 마침.
-            slot.Button.onClick.AddListener(EndTurn);
+            slot.Button.onClick.AddListener(() => {
+                rerollButton.interactable = false;
+                turnCount++;
+            });
         }
 
         //Reroll 버튼에 주사위를 굴리는 메서드 연결.
@@ -135,7 +141,7 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// 차례를 마칠 때 실행할 이벤트
     /// </summary>
-    public event Action<int[]> EndTurnEvent;
+    public event Action EndTurnEvent;
 
     /// <summary>
     /// 점수칸을 누르면 자신의 차례를 마친다.
@@ -143,21 +149,8 @@ public class GameManager : MonoBehaviour
     public void EndTurn()
     {
         //더 이상 주사위를 굴릴 수 없다.
-        rerollButton.interactable = false;
 
-        //모든 점수칸 비활성화
-        foreach (PointSlot slot in slots)
-        {
-            slot.InitSlot();
-        }
 
-        int[] points = new int[slots.Length];
-
-        for (int i = 0; i < points.Length; i++)
-        {
-            points[i] = slots[i].CurrentScore;
-        }
-
-        EndTurnEvent?.Invoke(points);
+        EndTurnEvent?.Invoke();
     }
 }

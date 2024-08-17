@@ -1,16 +1,39 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using Mirror;
-using DG.Tweening;
 
 public class YachtPlayer : NetworkBehaviour
 {
     [Header("점수판")]
-    GameManager myManager; //나의 점수판
+    [SerializeField]GameManager myManager; //나의 점수판
     YachtPlayer opponent = null;
+
+    public YachtPlayer Opponent
+    {
+        get
+        {
+            if (opponent == null)
+            {
+                opponent = FindOpponent();
+            }
+            return opponent;
+        }
+    }
+
+    YachtPlayer FindOpponent()
+    {
+        // 네트워크에 연결된 모든 플레이어 객체를 검색
+        foreach (var identity in NetworkClient.spawned.Values)
+        {
+            if (identity != null && identity.isLocalPlayer == false)
+            {
+                return identity.GetComponent<YachtPlayer>();
+            }
+        }
+
+        Debug.LogWarning("Opponent not found!");
+        return null;
+    }
+
 
     void Start()
     {
@@ -31,7 +54,7 @@ public class YachtPlayer : NetworkBehaviour
     void Init()
     {
         myManager.RerollEvent += CmdUpdateBoard;
-        myManager.EndTurnEvent += CmdEndTurn;
+        //myManager.EndTurnEvent += CmdEndTurn;
 
         if (SQLManager.instance == null || SQLManager.instance.info == null)
         {
@@ -44,7 +67,21 @@ public class YachtPlayer : NetworkBehaviour
         int win = SQLManager.instance.info.wins;
         int lose = SQLManager.instance.info.loses;
         string rate = $"{win + lose}전 {win}승 {lose}패";
+        CmdProfile(name, rate);
     }
+
+
+    [Command]
+    void CmdProfile(string name, string rate)
+    {
+        RpcProfile(name, rate);
+    }
+
+    [ClientRpc]
+    void RpcProfile(string name, string rate) {
+        myManager.InfoUISet(name, rate);
+    }
+
 
     [Command]
     public void CmdMyTurn()
@@ -53,7 +90,7 @@ public class YachtPlayer : NetworkBehaviour
     }
 
     [ClientRpc]
-    public void RpcMyTurn()
+    void RpcMyTurn()
     {
         //자신의 차례를 시작하는 건 상대쪽 클라이언트에서 실행되는 CmdMyTurn() 이므로
         //모든 클라이언트에 존재하는 자신의 YachtPlayer 객체 중에
@@ -61,11 +98,12 @@ public class YachtPlayer : NetworkBehaviour
         if (isLocalPlayer)
         {
             myManager.StartTurn();
+            Debug.Log("게임 시작");
         }
     }
 
     [Command]
-    void CmdUpdateBoard(int[] _pips)
+    public void CmdUpdateBoard(int[] _pips)
     {
         RpcUpdateBoard(_pips);
     }
@@ -81,13 +119,13 @@ public class YachtPlayer : NetworkBehaviour
     }
 
     [Command]
-    public void CmdEndTurn(int[] _points)
+    public void CmdEndTurn()
     {
-        RpcEndTurn(_points);
+        RpcEndTurn();
     }
 
     [ClientRpc]
-    public void RpcEndTurn(int[] _points)
+    void RpcEndTurn()
     {
         opponent.CmdMyTurn();
     }

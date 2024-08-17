@@ -1,9 +1,8 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Mirror;
+using UnityEngine.SceneManagement;
 
 public class GuestNetworkManager : NetworkManager
 {
@@ -27,8 +26,6 @@ public class GuestNetworkManager : NetworkManager
         {
             networkAddress = address.text;
             StartClient();
-            //joinUI.SetActive(false);
-            //dicePannel.SetActive(true);
         }
         catch(Exception e)
         {
@@ -40,9 +37,22 @@ public class GuestNetworkManager : NetworkManager
     public override void OnClientConnect()
     {
         base.OnClientConnect();
-        // 연결에 성공했을 때 실행할 코드
         joinUI.SetActive(false);
         dicePannel.SetActive(true);
-        log.text = "서버에 성공적으로 연결되었습니다.";
+        //log.text = "서버에 성공적으로 연결되었습니다.";
+    }
+
+    public override void OnServerDisconnect(NetworkConnectionToClient conn)
+    {
+        base.OnServerDisconnect(conn);
+
+        OnRemoteClientDisconnected(conn);
+    }
+
+    void OnRemoteClientDisconnected(NetworkConnection conn)
+    {
+        Debug.Log($"원격 클라이언트가 연결이 끊어졌습니다! Connection ID: {conn.connectionId}");
+
+        SceneManager.LoadScene(0);
     }
 }

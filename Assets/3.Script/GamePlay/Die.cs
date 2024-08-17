@@ -20,7 +20,7 @@ public class Die : MonoBehaviour, IPointerClickHandler
     {
         if (!isKept)
         {
-            currentNum = UnityEngine.Random.Range(1, 7);
+            currentNum = Random.Range(1, 7);
         }
         return currentNum;
     }
@@ -37,13 +37,15 @@ public class Die : MonoBehaviour, IPointerClickHandler
     {
         //button = GetComponent<Button>();
         //ptcl.SetActive(false);
+        image = GetComponent<Image>();
         rect = GetComponent<RectTransform>();
         lockRect = lockIcon.GetComponent<RectTransform>();
-
         lockIcon.SetActive(false);
-
         isKept = false;
+    }
 
+    private void Start()
+    {
         //처음 생성되었을 때 무작위 면으로 초기화
         UpdateDice(Roll());
     }
@@ -71,9 +73,8 @@ public class Die : MonoBehaviour, IPointerClickHandler
     /// <param name="pip"></param>
     public void UpdateDice(int pip)
     {
-        currentNum = pip;
         image.sprite = dice_faceArr[pip - 1];
-        rect.DOPunchScale(new Vector3(0, 1.2f, 0), .25f);
+        rect.DOPunchScale(Vector3.one * .3f, 1f, 8);
     }
 
     public void KeepDice()
