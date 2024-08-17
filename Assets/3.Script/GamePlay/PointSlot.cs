@@ -1,8 +1,10 @@
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using UnityEngine.EventSystems;
+using System;
 
-public class PointSlot : MonoBehaviour
+public class PointSlot : MonoBehaviour, IPointerClickHandler
 {
     public bool IsSelected { get; protected set; }
 
@@ -11,16 +13,11 @@ public class PointSlot : MonoBehaviour
     [SerializeField]
     string initTxt;
 
-    Button button;
-    public Button Button => button;
-
     protected Text text;
+    public bool interactable;
 
     private void Awake()
     {
-        button = GetComponent<Button>();
-        button.onClick.AddListener( ScoreSelect_btn);
-
         text = GetComponentInChildren<Text>();
         IsSelected = false;
 
@@ -31,6 +28,7 @@ public class PointSlot : MonoBehaviour
     public void InitSlot()
     {
         text.color = new Color(0, 0, 0);
+        interactable = false;
 
         if (IsSelected)
         {
@@ -39,8 +37,25 @@ public class PointSlot : MonoBehaviour
 
         CurrentScore = 0;
         text.text = initTxt;
-        button.interactable = false;
     }
+
+    //초기화 자신의 차례를 종료할 때
+    public void InitSlot(bool IsSelected)
+    {
+        this.IsSelected = IsSelected;
+        text.color = new Color(0, 0, 0);
+        interactable = false;
+
+        if (IsSelected)
+        {
+            return;
+        }
+
+        CurrentScore = 0;
+        text.text = initTxt;
+    }
+
+
 
     virtual public int CalculateScore(int[] pips)
     {
@@ -78,5 +93,15 @@ public class PointSlot : MonoBehaviour
     {
         IsSelected = true;
         text.transform.DOPunchScale(Vector3.up, 1f);
+    }
+
+    public event Action OnClickEvent;
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (!interactable) return;
+        
+        ScoreSelect_btn();
+        OnClickEvent?.Invoke();
     }
 }

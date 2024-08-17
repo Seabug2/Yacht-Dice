@@ -4,7 +4,7 @@ using Mirror;
 public class YachtPlayer : NetworkBehaviour
 {
     [Header("점수판")]
-    [SerializeField]GameManager myManager; //나의 점수판
+    [SerializeField] ScoreBoard myScoreBoard; //나의 점수판
     YachtPlayer opponent = null;
 
     public YachtPlayer Opponent
@@ -40,12 +40,12 @@ public class YachtPlayer : NetworkBehaviour
         if (isLocalPlayer)
         {
             name = "Local Player";
-            myManager = GameObject.Find("Local Player Score Board").GetComponent<GameManager>();
+            myScoreBoard = GameObject.Find("Local Player Score Board").GetComponent<ScoreBoard>();
         }
         else
         {
             name = "Remote Player";
-            myManager = GameObject.Find("Remote Player Score Board").GetComponent<GameManager>();
+            myScoreBoard = GameObject.Find("Remote Player Score Board").GetComponent<ScoreBoard>();
         }
 
         Init();
@@ -53,7 +53,7 @@ public class YachtPlayer : NetworkBehaviour
 
     void Init()
     {
-        myManager.RerollEvent += CmdUpdateBoard;
+        myScoreBoard.RerollEvent += CmdUpdateBoard;
         //myManager.EndTurnEvent += CmdEndTurn;
 
         if (SQLManager.instance == null || SQLManager.instance.info == null)
@@ -78,8 +78,9 @@ public class YachtPlayer : NetworkBehaviour
     }
 
     [ClientRpc]
-    void RpcProfile(string name, string rate) {
-        myManager.InfoUISet(name, rate);
+    void RpcProfile(string name, string rate)
+    {
+        myScoreBoard.InfoUISet(name, rate);
     }
 
 
@@ -97,8 +98,7 @@ public class YachtPlayer : NetworkBehaviour
         //자신의 클라이언트에 존재하는 YachtPlayer만 myManager.StartTurn()를 실행할 수 있도록 한다.
         if (isLocalPlayer)
         {
-            myManager.StartTurn();
-            Debug.Log("게임 시작");
+            myScoreBoard.StartTurn();
         }
     }
 
@@ -115,18 +115,24 @@ public class YachtPlayer : NetworkBehaviour
     [ClientRpc]
     void RpcUpdateBoard(int[] _pips)
     {
-        myManager.BoardUpdate(_pips);
+        myScoreBoard.BoardUpdate(_pips);
     }
 
     [Command]
-    public void CmdEndTurn()
+    public void CmdEndTurn(bool[] isSelected)
     {
-        RpcEndTurn();
+        RpcEndTurn(isSelected);
     }
 
     [ClientRpc]
-    void RpcEndTurn()
+    void RpcEndTurn(bool[] isSelected)
     {
-        opponent.CmdMyTurn();
+        myScoreBoard.EndTurn(isSelected);
+
+        //클라이언트에서 서버의 Command 받은 identity 객체 중에 로컬 플레이어가 아닌 플레이어의 상대 플레이어는 클라이언트의 로컬 플레이어이기 때문에 CmdMyTurn()를 실행해야한다.
+        if (!isLocalPlayer)
+        {
+            Opponent.CmdMyTurn();
+        }
     }
 }

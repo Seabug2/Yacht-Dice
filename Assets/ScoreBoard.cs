@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GameManager : MonoBehaviour
+public class ScoreBoard : MonoBehaviour
 {
     [Header("User Info"), Space(10)]
     [SerializeField] Text nickName;
@@ -24,7 +24,7 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// 12번의 차례가 지나면 게임 종료
     /// </summary>
-    public int turnCount { get; private set; }
+    public int TurnCount { get; private set; }
 
     /// <summary>
     /// 주사위를 굴리는 버튼
@@ -34,7 +34,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        turnCount = 0;
+        TurnCount = 0;
 
         //점수칸을 누르면 자신의 차례를 마치고 상대방에게 차례를 넘긴다.
         foreach (PointSlot slot in slots)
@@ -45,17 +45,17 @@ public class GameManager : MonoBehaviour
             //주사위를 굴린 순간부터 점수칸을 선택할 수 있다.
             rerollButton.onClick.AddListener(() =>
             {
-                slot.Button.interactable = true;
+                slot.interactable = true;
             });
 
             //주사위를 굴린 후에 점수칸을 갱신
-            SlotsUpdateEvent += slot.UpdateScore;
+            //SlotsUpdateEvent += slot.UpdateScore;
 
             //점수칸을 선택하면 차례를 마침.
-            slot.Button.onClick.AddListener(() => {
+            slot.OnClickEvent += () => {
                 rerollButton.interactable = false;
-                turnCount++;
-            });
+                TurnCount++;
+            };
         }
 
         //Reroll 버튼에 주사위를 굴리는 메서드 연결.
@@ -117,7 +117,7 @@ public class GameManager : MonoBehaviour
         RerollEvent?.Invoke(pips);
     }
 
-    public event Action<int[]> SlotsUpdateEvent;
+    //public event Action<int[]> SlotsUpdateEvent;
 
     /// <summary>
     /// 이 메서드는 서버로부터 실행
@@ -130,12 +130,12 @@ public class GameManager : MonoBehaviour
             dice[i].UpdateDice(_pips[i]);
         }
 
-        SlotsUpdateEvent?.Invoke(_pips);
+        //SlotsUpdateEvent?.Invoke(_pips);
 
-        //foreach (PointSlot slot in slots)
-        //{
-        //    slot.UpdateScore(slot.CalculateScore(_pips));
-        //}
+        foreach (PointSlot slot in slots)
+        {
+            slot.UpdateScore(_pips);
+        }
     }
 
     /// <summary>
@@ -146,11 +146,13 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// 점수칸을 누르면 자신의 차례를 마친다.
     /// </summary>
-    public void EndTurn()
+    public void EndTurn(bool[] isSelected)
     {
-        //더 이상 주사위를 굴릴 수 없다.
+        for(int i = 0; i < slots.Length; i ++)
+        {
+            slots[i].InitSlot(isSelected[i]);
+        }
 
-
-        EndTurnEvent?.Invoke();
+        //EndTurnEvent?.Invoke();
     }
 }
