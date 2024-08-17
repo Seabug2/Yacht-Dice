@@ -30,10 +30,7 @@ public class YachtPlayer : NetworkBehaviour
 
     void Init()
     {
-        //myScoreBoard.StartTurnEvent += ;
-
         myManager.RerollEvent += CmdUpdateBoard;
-
         myManager.EndTurnEvent += CmdEndTurn;
 
         if (SQLManager.instance == null || SQLManager.instance.info == null)
@@ -80,7 +77,7 @@ public class YachtPlayer : NetworkBehaviour
     [ClientRpc]
     void RpcUpdateBoard(int[] _pips)
     {
-        myManager.UpdateSlot(_pips);
+        myManager.BoardUpdate(_pips);
     }
 
     [Command]
@@ -92,7 +89,6 @@ public class YachtPlayer : NetworkBehaviour
     [ClientRpc]
     public void RpcEndTurn(int[] _points)
     {
-        myManager.FixedSlot(_points);
         opponent.CmdMyTurn();
     }
 }

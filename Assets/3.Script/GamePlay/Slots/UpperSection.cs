@@ -4,26 +4,23 @@ using UnityEngine;
 
 public class UpperSection : PointSlot
 {
-    public int slotIndex; // 0 ~ 5 (Aces = 0, Deuces = 1, Threes = 2, Fours = 3, Fives = 4, Sixes = 5)
+    [Range(1,7)]
+    public int slotIndex;
 
-    public SubtotalSection subtotal;
     public override int CalculateScore(int[] pips)
     {
         int sum = 0;
 
-        if (!isSelected)
+        if (!IsSelected)
         {
             for (int i = 0; i < 5; i++)
             {
-                if (pips[i] == slotIndex + 1)
+                if (pips[i] == slotIndex)
                 {
-                    sum += slotIndex + 1;
+                    sum += slotIndex;
                 }
             }
         }
-
-        subtotal.AddScore(sum);
-
         return sum;
     }
 }

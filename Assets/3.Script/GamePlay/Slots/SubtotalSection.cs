@@ -8,12 +8,12 @@ public class SubtotalSection : PointSlot
 
     public override void UpdateScore(int score)
     {
-        slot_txt.color = new Color(0, 0, 0);
+        text.color = new Color(0, 0, 0);
     }
 
     public void AddScore(int score)
     {
-        slot_currentScore += score;
-        bonus.CalcBonus(slot_currentScore);
+        CurrentScore += score;
+        bonus.CalcBonus(CurrentScore);
     }
 }

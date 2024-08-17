@@ -5,45 +5,41 @@ using System.Linq;
 
 public class StraightSection : PointSlot
 {
-    public int straightIndex; // 0 : Small Straight | 1 : Large Straight
+    [SerializeField]
+    int checkSize = 0;
+
+    int[,] ints = {
+        { 4, 5},  // 첫 번째 항: 연속된 숫자의 기준 (4: Small Straight, 5: Large Straight)
+        { 15, 30} // 두 번째 항: 점수 (15점: Small Straight, 30점: Large Straight)
+    };
 
     public override int CalculateScore(int[] pips)
     {
-        int sum = 0;
-        int[] dice_count = new int[6];
+        // 주사위 값을 List로 변환하고 정렬
+        List<int> nums = pips.ToList<int>();
+        nums.Sort();
 
-        for (int i = 0; i < 6; i++)
-        {
-            dice_count[i] = 0;
-        }
+        int straightCount = 1; // 연속된 숫자 수를 계산할 변수
+        int maxStraightCount = 1; // 최대 연속된 숫자 수를 저장할 변수
 
-        for (int i = 0; i < 5; i++)
+        // 연속된 숫자의 길이 계산
+        for (int i = 1; i < nums.Count; i++)
         {
-            dice_count[pips[i] - 1] += 1;
-        }
-        Debug.Log($"Straight Check : {dice_count[0]} | {dice_count[1]} | {dice_count[2]} | {dice_count[3]} | {dice_count[4]} | {dice_count[5]}");
-
-        int straightCount = 0;
-        for (int i = 0; i < 5; i++)
-        {
-            if (dice_count[i] >= 1 && dice_count[i + 1] >= 1)
+            if (nums[i] == nums[i - 1] + 1) // 연속된 숫자인 경우
             {
-                straightCount += 1;
+                straightCount++;
+                maxStraightCount = Mathf.Max(maxStraightCount, straightCount);
+            }
+            else if (nums[i] != nums[i - 1]) // 연속되지 않은 경우
+            {
+                straightCount = 1; // 카운트 초기화
             }
         }
-        Debug.Log($"Straight Check : {straightCount}");
 
-        if (straightCount >= 3 && straightIndex == 0)
-        {
-            Debug.Log("Small Straight");
-            sum = 15;
-        }
-        if (straightCount >= 4 && straightIndex == 1)
-        {
-            Debug.Log("Large Straight");
-            sum = 30;
-        }
+        // 연속된 숫자가 기준에 미치지 못하는 경우 0점 반환
+        if (maxStraightCount < ints[0, checkSize]) return 0;
 
-        return sum;
+        // 기준을 충족하는 경우 해당 점수 반환
+        return ints[1, checkSize];
     }
 }

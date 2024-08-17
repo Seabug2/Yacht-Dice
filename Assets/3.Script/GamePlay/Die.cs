@@ -1,5 +1,4 @@
 using DG.Tweening;
-using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -15,9 +14,7 @@ public class Die : MonoBehaviour, IPointerClickHandler
     /// </summary>
     bool isKept;
 
-    public int id;
-
-    public int currentNum; // Current dice num (초기화는 필요없음)
+    int currentNum; // Current dice num (초기화는 필요없음)
 
     public int Roll() // Randomize number
     {
@@ -63,7 +60,7 @@ public class Die : MonoBehaviour, IPointerClickHandler
     /// <summary>
     /// Reroll 버튼에 추가하여 주사위를 굴린 이후부터 주사위를 Keep 할 수 있게 한다
     /// </summary>
-    public void IsRollable()
+    public void IsKeepable()
     {
         interactable = true;
     }
