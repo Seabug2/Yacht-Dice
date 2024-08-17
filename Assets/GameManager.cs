@@ -1,11 +1,5 @@
-using DG.Tweening;
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using Unity.Mathematics;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
@@ -22,7 +16,6 @@ public class GameManager : MonoBehaviour
         rate.text = _rate;
     }
 
-
     [Header("점수판")]
     [SerializeField] PointSlot[] slots;
     [SerializeField] PointSlot sumSlot;
@@ -30,7 +23,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] PointSlot totalSlot;
 
     [Header("주사위"), Space(10)]
-    [SerializeField] Dice[] dices;
+    [SerializeField] Die[] dice;
+    public Die[] Dice => dice;
 
     /// <summary>
     /// 주사위를 굴리는 버튼
@@ -39,13 +33,21 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        //이벤트 추가
+        //점수칸을 누르면 자신의 차례를 마치고 상대방에게 차례를 넘긴다.
         foreach (PointSlot slot in slots)
         {
             slot.slot_btn.onClick.AddListener(EndTurn);
         }
 
+        //주사위 굴리기 버튼
         rerollButton.onClick.AddListener(Reroll);
+
+        //주사위를 굴린 후 부터 주사위를 굴릴 수 있다.
+        foreach (Die die in dice)
+        {
+            StartTurnEvent += die.DontTouchDice;
+            rerollButton.onClick.AddListener(die.IsRollable);
+        }
     }
 
     /// <summary>
@@ -87,7 +89,7 @@ public class GameManager : MonoBehaviour
 
         for (int i = 0; i < 5; i++)
         {
-            pips[i] = dices[i].dice_num();
+            pips[i] = dice[i].Roll();
         }
 
         RerollEvent?.Invoke(pips);
@@ -99,9 +101,9 @@ public class GameManager : MonoBehaviour
     /// <param name="_pips">주사위 5개를 굴려 얻은 숫자</param>
     public void UpdateSlot(int[] _pips)
     {
-        for(int i = 0; i < 5; i ++)
+        for (int i = 0; i < 5; i++)
         {
-            dices[i].UpdateDice(_pips[i]);
+            dice[i].UpdateDice(_pips[i]);
         }
         foreach (PointSlot slot in slots)
         {
