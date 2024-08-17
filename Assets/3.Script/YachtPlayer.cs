@@ -4,36 +4,35 @@ using Mirror;
 public class YachtPlayer : NetworkBehaviour
 {
     [Header("점수판")]
-    [SerializeField] ScoreBoard myScoreBoard; //나의 점수판
-    YachtPlayer opponent = null;
+    [SerializeField] ScoreBoard myScoreBoard; // 나의 점수판
+    private YachtPlayer opponent = null;
 
-    public YachtPlayer Opponent
+    public override void OnStartLocalPlayer()
     {
-        get
-        {
-            if (opponent == null)
-            {
-                opponent = FindOpponent();
-            }
-            return opponent;
-        }
+        base.OnStartLocalPlayer();
+        CmdFindOpponent();
     }
 
-    YachtPlayer FindOpponent()
+    [Command]
+    void CmdFindOpponent()
     {
-        // 네트워크에 연결된 모든 플레이어 객체를 검색
         foreach (var identity in NetworkClient.spawned.Values)
         {
-            if (identity != null && identity.isLocalPlayer == false)
+            var yachtPlayer = identity.GetComponent<YachtPlayer>();
+            if (yachtPlayer != null && yachtPlayer != this)
             {
-                return identity.GetComponent<YachtPlayer>();
+                opponent = yachtPlayer;
+                yachtPlayer.RpcSetOpponent(this.netIdentity); // 상대방에게 이 클라이언트를 설정하도록 명령
+                break;
             }
         }
-
-        Debug.LogWarning("Opponent not found!");
-        return null;
     }
 
+    [ClientRpc]
+    void RpcSetOpponent(NetworkIdentity opponentIdentity)
+    {
+        opponent = opponentIdentity.GetComponent<YachtPlayer>();
+    }
 
     void Start()
     {
@@ -53,8 +52,8 @@ public class YachtPlayer : NetworkBehaviour
 
     void Init()
     {
-        myScoreBoard.RerollEvent += CmdUpdateBoard;
-        myScoreBoard.EndTurnEvent += CmdEndTurn;
+        myScoreBoard.RerollEvent += UpdateBoard;
+        myScoreBoard.EndTurnEvent += EndTurn;
 
         if (SQLManager.instance == null || SQLManager.instance.info == null)
         {
@@ -62,14 +61,18 @@ public class YachtPlayer : NetworkBehaviour
             return;
         }
 
-        //SQLManager의 info 정보에서 닉네임과 전적을 가져온다.
         string name = SQLManager.instance.info.User_nickname;
         int win = SQLManager.instance.info.wins;
         int lose = SQLManager.instance.info.loses;
         string rate = $"{win + lose}전 {win}승 {lose}패";
-        CmdProfile(name, rate);
+        Profile(name, rate);
     }
 
+    [Client]
+    void Profile(string name, string rate)
+    {
+        CmdProfile(name, rate);
+    }
 
     [Command]
     void CmdProfile(string name, string rate)
@@ -83,12 +86,12 @@ public class YachtPlayer : NetworkBehaviour
         myScoreBoard.InfoUISet(name, rate);
     }
 
-
-
-
-
-
-
+    [Client]
+    public void MyTurn()
+    {
+        if (isLocalPlayer)
+            CmdMyTurn();
+    }
 
     [Command]
     public void CmdMyTurn()
@@ -99,60 +102,57 @@ public class YachtPlayer : NetworkBehaviour
     [ClientRpc]
     void RpcMyTurn()
     {
-        //자신의 차례를 시작하는 건 상대쪽 클라이언트에서 실행되는 CmdMyTurn() 이므로
-        //모든 클라이언트에 존재하는 자신의 YachtPlayer 객체 중에
-        //자신의 클라이언트에 존재하는 YachtPlayer만 myManager.StartTurn()를 실행할 수 있도록 한다.
         if (isLocalPlayer)
-        {
             myScoreBoard.StartTurn();
-        }
     }
 
-
-
-
-
-
-
-
+    [Client]
+    public void UpdateBoard(int[] _pips)
+    {
+        if (isLocalPlayer)
+            CmdUpdateBoard(_pips);
+    }
 
     [Command]
     public void CmdUpdateBoard(int[] _pips)
     {
         RpcUpdateBoard(_pips);
     }
-    /// <summary>
-    /// 나온 결과 값에 따라 주사위와 점수판을 갱신합니다.
-    /// </summary>
-    /// <param name="_pips"></param>
+
     [ClientRpc]
     void RpcUpdateBoard(int[] _pips)
     {
+        for (int i = 0; i < _pips.Length; i++)
+        {
+            print(_pips[i]);
+        }
         myScoreBoard.BoardUpdate(_pips);
     }
 
-
-
-
-
-
-
-
+    [Client]
+    public void EndTurn(bool[] isSelected)
+    {
+        if (isLocalPlayer)
+        {
+            CmdEndTurn(isSelected);
+        }
+    }
 
     [Command]
     public void CmdEndTurn(bool[] isSelected)
     {
         RpcEndTurn(isSelected);
+
+        // 서버에서 상대방의 차례를 시작하도록 명령
+        if (opponent != null)
+        {
+            opponent.RpcMyTurn();
+        }
     }
+
     [ClientRpc]
     void RpcEndTurn(bool[] isSelected)
     {
         myScoreBoard.EndUpdate(isSelected);
-
-        //클라이언트에서 서버의 Command 받은 identity 객체 중에 로컬 플레이어가 아닌 플레이어의 상대 플레이어는 클라이언트의 로컬 플레이어이기 때문에 CmdMyTurn()를 실행해야한다.
-        if (!isLocalPlayer)
-        {
-            Opponent.CmdMyTurn();
-        }
     }
 }

@@ -55,21 +55,15 @@ public class ScoreBoard : MonoBehaviour
             {
                 rerollButton.interactable = false;
                 TurnCount++;
+                Debug.Log("누름");
+                EndTurn();
             };
         }
 
         //Reroll 버튼에 주사위를 굴리는 메서드 연결.
-        rerollButton.onClick.AddListener(Reroll);
+        //rerollButton.onClick.AddListener(Reroll);
         //가장 처음엔 Reroll 버튼은 비활성화.
         rerollButton.interactable = false;
-
-        foreach (Die die in dice)
-        {
-            //자신의 차례가 시작된 순간은 주사위를 Keep 할 수 없다.
-            StartTurnEvent += die.DontTouchDice;
-            //주사위를 굴린 후 부터 주사위를 Keep 할 수 있다.
-            rerollButton.onClick.AddListener(die.IsKeepable);
-        }
     }
 
     /// <summary>
@@ -90,7 +84,7 @@ public class ScoreBoard : MonoBehaviour
         //자신의 클라이언트 쪽에서만 처리되는 작업
         rerollChance = 3; //주사위를 굴릴 기회를 3번 받음
         rerollButton.interactable = true; //주사위 굴리기 버튼을 활성화
-        StartTurnEvent?.Invoke();
+        //StartTurnEvent?.Invoke();
     }
 
     /// <summary>
@@ -104,7 +98,16 @@ public class ScoreBoard : MonoBehaviour
     public void Reroll()
     {
         rerollChance--;
-        rerollButton.interactable = (rerollChance > 0);
+        if (rerollChance <= 0)
+        {
+            rerollButton.interactable = false;
+            foreach (Die die in dice)
+            {
+                //자신의 차례가 시작된 순간은 주사위를 Keep 할 수 없다.
+                die.DontTouchDice();
+            }
+        }
+        print(rerollChance);
 
         //주사위 5개를 굴린 결과를 저장할 배열
         int[] pips = new int[5];
@@ -159,12 +162,35 @@ public class ScoreBoard : MonoBehaviour
     }
 
 
-
+    public SubtotalSection subtotalSection;
+    public BonusSection bonusSection;
+    public TotalSection totalSlot;
     public void EndUpdate(bool[] isSelected)
     {
         for (int i = 0; i < slots.Length; i++)
         {
+            Debug.Log($"{i} : {isSelected[i]}");
             slots[i].InitSlot(isSelected[i]);
         }
+
+        int totalCount = 0;
+
+        //먼저 UpperSection 검사
+        for (int i = 0; i < 6; i++)
+        {
+            totalCount += slots[i].CurrentScore;
+        }
+        print(totalCount);
+        subtotalSection.UpdateScore(totalCount);
+
+        totalCount = 0; //재사용
+        for (int i = 0; i < 6; i++)
+        {
+            totalCount += slots[i].CurrentScore;
+        }
+        totalCount += bonusSection.CurrentScore;
+        print(totalCount);
+
+        totalSlot.UpdateScore(totalCount);
     }
 }

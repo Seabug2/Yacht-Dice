@@ -18,6 +18,8 @@ public class GuestNetworkManager : NetworkManager
     new void Start()
     {
         log.text = string.Empty;
+        joinUI.SetActive(true);
+        dicePannel.SetActive(false);
     }
 
     public void ConnectToServer()

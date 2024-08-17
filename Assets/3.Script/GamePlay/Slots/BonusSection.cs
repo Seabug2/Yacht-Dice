@@ -1,19 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class BonusSection : PointSlot
 {
-    public override void UpdateScore(int score)
+    private void Start()
     {
-        text.color = new Color(0, 0, 0);
+        IsSelected = true;
     }
 
-    public void CalcBonus(int subtotal)
+    public override void UpdateScore(int score)
     {
-        if (subtotal >= 63)
-        {
-            CurrentScore = 35;
-        }
+        if(CurrentScore == 0)
+            text.GetComponent<RectTransform>().DOPunchScale(Vector3.up, 1f);
+
+        text.color = new Color(1, 0, 0);
+        CurrentScore = score;
+        text.text = CurrentScore.ToString();
     }
 }

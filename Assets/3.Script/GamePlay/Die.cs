@@ -22,6 +22,7 @@ public class Die : MonoBehaviour, IPointerClickHandler
         {
             currentNum = Random.Range(1, 7);
         }
+        interactable = true;
         return currentNum;
     }
 
@@ -48,6 +49,7 @@ public class Die : MonoBehaviour, IPointerClickHandler
     {
         //처음 생성되었을 때 무작위 면으로 초기화
         UpdateDice(Roll());
+        DontTouchDice();
     }
 
     //자신의 차례가 되었을 때, 상대방에게 차례를 넘겼을 때
@@ -57,14 +59,6 @@ public class Die : MonoBehaviour, IPointerClickHandler
         interactable = false;
         isKept = false;
         lockIcon.SetActive(false);
-    }
-
-    /// <summary>
-    /// Reroll 버튼에 추가하여 주사위를 굴린 이후부터 주사위를 Keep 할 수 있게 한다
-    /// </summary>
-    public void IsKeepable()
-    {
-        interactable = true;
     }
 
     /// <summary>

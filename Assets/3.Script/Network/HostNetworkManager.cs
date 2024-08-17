@@ -34,7 +34,7 @@ public class HostNetworkManager : NetworkManager
         waitingMessage.SetActive(false);
         dicePannel.SetActive(true);
 
-        NetworkClient.localPlayer.GetComponent<YachtPlayer>().CmdMyTurn();
+        //NetworkClient.localPlayer.GetComponent<YachtPlayer>().MyTurn();
     }
 
     public override void OnServerDisconnect(NetworkConnectionToClient conn)

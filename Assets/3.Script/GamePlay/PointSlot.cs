@@ -23,18 +23,6 @@ public class PointSlot : MonoBehaviour, IPointerClickHandler
         InitSlot(false);
     }
 
-    //초기화 자신의 차례가 시작할 때, 종료될 때
-    public void InitSlot()
-    {
-        text.color = new Color(0, 0, 0);
-        interactable = false;
-
-        if (!IsSelected)
-            CurrentScore = 0;
-        
-        text.text = CurrentScore.ToString();
-    }
-
     //초기화 자신의 차례를 종료할 때
     public void InitSlot(bool IsSelected)
     {
@@ -57,12 +45,18 @@ public class PointSlot : MonoBehaviour, IPointerClickHandler
     {
         if (IsSelected) return;
 
-        int CurrentScore = CalculateScore(pips);
+        CurrentScore = CalculateScore(pips);
+
         //주사위 값을 받았을 때 계산한 점수가 0보다 크면 빨간색으로 표시해준다.
+        text.text = CurrentScore.ToString();
+        
         if (CurrentScore > 0)
         {
-            text.text = CurrentScore.ToString();
-            text.color = new Color(255, 0, 0);
+            text.color = new Color(1, 0, 0);
+        }
+        else
+        {
+            text.color = new Color(0, 0, 0);
         }
     }
 
@@ -71,23 +65,18 @@ public class PointSlot : MonoBehaviour, IPointerClickHandler
     /// 플레이어가 점수칸에 점수를 확정한 시점
     /// </summary>
     /// <param name="score"></param>
-    virtual public void UpdateScore(int score)
-    {
-        if (score > 0)
-        {
-            text.text = score.ToString();
-            text.color = new Color(255, 0, 0);
-        }
-    }
+    virtual public void UpdateScore(int score){}
 
     public event Action OnClickEvent;
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        //비활성화 되었거나 이미 선택된 점수칸이면 클릭되지 않는다.
         if (!interactable || IsSelected) return;
 
         IsSelected = true;
         text.transform.DOPunchScale(Vector3.up, 1f);
+
         OnClickEvent?.Invoke();
     }
 }
