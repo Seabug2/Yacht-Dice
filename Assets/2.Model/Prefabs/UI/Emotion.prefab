@@ -1730,7 +1730,6 @@ GameObject:
   m_Component:
   - component: {fileID: 670375623795599024}
   - component: {fileID: 670375623795599025}
-  - component: {fileID: 670375623795599028}
   m_Layer: 5
   m_Name: Emotion
   m_TagString: Untagged
@@ -1787,22 +1786,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &670375623795599028
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 670375623795599027}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e3ded9f221b2d2245a4a0bdb44913f1d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0
-  delayTime: 1
 --- !u!1 &670375623880417375
 GameObject:
   m_ObjectHideFlags: 0

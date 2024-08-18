@@ -6,6 +6,8 @@ public class ScoreBoard : MonoBehaviour
 {
     [Header("User Info"), Space(10)]
     [SerializeField] Text nickName;
+    public Text NickName=> nickName;
+
     [SerializeField] Text rate;
 
     public void InfoUISet(string _name, string _rate)
@@ -13,6 +15,15 @@ public class ScoreBoard : MonoBehaviour
         nickName.text = _name;
         rate.text = _rate;
     }
+
+    [Header("결과창")]
+    public GameObject resultBoard;
+
+    private void Awake()
+    {
+        resultBoard.SetActive(false);
+    }
+
 
     [Header("점수판")]
     [SerializeField] PointSlot[] slots;
@@ -128,8 +139,6 @@ public class ScoreBoard : MonoBehaviour
             dice[i].UpdateDice(_pips[i]);
         }
 
-        //SlotsUpdateEvent?.Invoke(_pips);
-
         foreach (PointSlot slot in slots)
         {
             slot.UpdateScore(_pips);
@@ -167,6 +176,7 @@ public class ScoreBoard : MonoBehaviour
     public void EndUpdate(bool[] isSelected)
     {
         TurnCount--;
+        print(TurnCount);
         for (int i = 0; i < slots.Length; i++)
         {
             Debug.Log($"{i} : {isSelected[i]}");
@@ -192,11 +202,5 @@ public class ScoreBoard : MonoBehaviour
         print(totalCount);
 
         totalSlot.UpdateScore(totalCount);
-    }
-
-
-    void Ending()
-    {
-
     }
 }

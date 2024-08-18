@@ -145,7 +145,7 @@ public class YachtPlayer : NetworkBehaviour
 
         if (myScoreBoard.TurnCount <= 0 && opponent.myScoreBoard.TurnCount <= 0)
         {
-
+            myScoreBoard.resultBoard.SetActive(true);
             return;
         }
 
@@ -161,5 +161,11 @@ public class YachtPlayer : NetworkBehaviour
     void RpcEndTurn(bool[] isSelected)
     {
         myScoreBoard.EndUpdate(isSelected);
+    }
+
+    [ClientRpc]
+    void GameOver()
+    {
+        myScoreBoard.resultBoard.SetActive(true);
     }
 }
