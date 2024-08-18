@@ -6,14 +6,15 @@ public class ScoreBoard : MonoBehaviour
 {
     [Header("User Info"), Space(10)]
     [SerializeField] Text nickName;
-    public Text NickName=> nickName;
+    public Text NickName => nickName;
 
     [SerializeField] Text rate;
+    public Text Rate => rate;
 
-    public void InfoUISet(string _name, string _rate)
+    public void InfoUISet(string name, string rate)
     {
-        nickName.text = _name;
-        rate.text = _rate;
+        nickName.text = name;
+        this.rate.text = rate;
     }
 
     [Header("결과창")]
@@ -35,13 +36,12 @@ public class ScoreBoard : MonoBehaviour
     /// <summary>
     /// 12번의 차례가 지나면 게임 종료
     /// </summary>
-    public int TurnCount { get; private set; }
+    public int TurnCount;// { get; private set; }
 
     /// <summary>
     /// 주사위를 굴리는 버튼
     /// </summary>
     [SerializeField] Button rerollButton;
-    public Button RerollButton => rerollButton;
 
     private void Start()
     {
@@ -64,7 +64,6 @@ public class ScoreBoard : MonoBehaviour
             slot.OnClickEvent += () =>
             {
                 rerollButton.interactable = false;
-                Debug.Log("누름");
                 EndTurn();
             };
         }
@@ -175,11 +174,9 @@ public class ScoreBoard : MonoBehaviour
     public TotalSection totalSlot;
     public void EndUpdate(bool[] isSelected)
     {
-        TurnCount--;
-        print(TurnCount);
         for (int i = 0; i < slots.Length; i++)
         {
-            Debug.Log($"{i} : {isSelected[i]}");
+            //Debug.Log($"{i} : {isSelected[i]}");
             slots[i].InitSlot(isSelected[i]);
         }
 
@@ -190,7 +187,6 @@ public class ScoreBoard : MonoBehaviour
         {
             totalCount += slots[i].CurrentScore;
         }
-        print(totalCount);
         subtotalSection.UpdateScore(totalCount);
 
         totalCount = 0; //재사용
@@ -199,7 +195,6 @@ public class ScoreBoard : MonoBehaviour
             totalCount += slots[i].CurrentScore;
         }
         totalCount += bonusSection.CurrentScore;
-        print(totalCount);
 
         totalSlot.UpdateScore(totalCount);
     }

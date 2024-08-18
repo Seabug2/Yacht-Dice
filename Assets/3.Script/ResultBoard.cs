@@ -21,6 +21,11 @@ public class ResultBoard : MonoBehaviour
     [SerializeField]
     ScoreBoard opponentBoard;
 
+    [SerializeField]
+    AudioClip winClip;
+    [SerializeField]
+    AudioClip loseClip;
+
     private void Start()
     {
         int myScore = myBoard.totalSlot.CurrentScore;
@@ -30,11 +35,13 @@ public class ResultBoard : MonoBehaviour
         {
             resultText.text = "YOU WIN!";
             SQLManager.instance.Result(true, myScore);
+            GetComponent<AudioSource>().PlayOneShot(winClip);
         }
         else if (myScore < opponentScore)
         {
             resultText.text = "YOU LOSE!";
             SQLManager.instance.Result(false, myScore);
+            GetComponent<AudioSource>().PlayOneShot(loseClip);
         }
         else
         {

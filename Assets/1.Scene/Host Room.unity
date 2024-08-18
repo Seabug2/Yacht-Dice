@@ -659,7 +659,6 @@ GameObject:
   - component: {fileID: 148418348}
   - component: {fileID: 148418345}
   - component: {fileID: 148418346}
-  - component: {fileID: 148418349}
   m_Layer: 0
   m_Name: Network Manager
   m_TagString: Untagged
@@ -715,6 +714,7 @@ MonoBehaviour:
   timeInterpolationGui: 0
   waitingMessage: {fileID: 1802978615}
   dicePannel: {fileID: 1796529520}
+  reroll: {fileID: 624206604}
 --- !u!114 &148418346
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -753,18 +753,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &148418349
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 148418344}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 57f3e6274289c2041a3df83cb61f1f0b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &177319741
 GameObject:
   m_ObjectHideFlags: 0
@@ -2288,6 +2276,7 @@ MonoBehaviour:
   - {fileID: 87155177}
   - {fileID: 833484693}
   - {fileID: 2048442593}
+  TurnCount: 0
   rerollButton: {fileID: 624206604}
   subtotalSection: {fileID: 1476055507}
   bonusSection: {fileID: 1285017270}
@@ -7335,6 +7324,7 @@ GameObject:
   - component: {fileID: 4343754028289329457}
   - component: {fileID: 4343754028289329456}
   - component: {fileID: 4343754028289329455}
+  - component: {fileID: 4343754028289329458}
   m_Layer: 5
   m_Name: ResultUI
   m_TagString: Untagged
@@ -7361,6 +7351,8 @@ MonoBehaviour:
   opponentScore: {fileID: 3258098582572857187}
   myBoard: {fileID: 663959984}
   opponentBoard: {fileID: 5268370833321218525}
+  winClip: {fileID: 8300000, guid: b26005b8a4075584b80054441946b65c, type: 3}
+  loseClip: {fileID: 8300000, guid: 9ba990f8ffde85242841e52661fcf7b2, type: 3}
 --- !u!114 &4343754028289329456
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7399,6 +7391,102 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4343754028289329454}
   m_CullTransparentMesh: 1
+--- !u!82 &4343754028289329458
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4343754028289329454}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 4733022070573468063, guid: 28b668b2684464d48ae1c68bbe616509, type: 2}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!222 &4377093416899906836
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -8020,6 +8108,7 @@ MonoBehaviour:
   - {fileID: 87155177}
   - {fileID: 833484693}
   - {fileID: 2048442593}
+  TurnCount: 0
   rerollButton: {fileID: 624206604}
   subtotalSection: {fileID: 8967542213722631297}
   bonusSection: {fileID: 7018758469656566768}

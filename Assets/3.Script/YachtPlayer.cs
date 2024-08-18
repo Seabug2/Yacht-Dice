@@ -5,17 +5,36 @@ public class YachtPlayer : NetworkBehaviour
 {
     [Header("점수판")]
     [SerializeField] ScoreBoard myScoreBoard; // 나의 점수판
-    public YachtPlayer opponent = null;
+    public YachtPlayer opponent;
 
-    public override void OnStartLocalPlayer()
+    void Start()
     {
-        base.OnStartLocalPlayer();
-        CmdFindOpponent();
-    }
+        if (isLocalPlayer)
+        {
+            gameObject.name = "Local Player";
+            myScoreBoard = GameObject.Find("Local Player Score Board").GetComponent<ScoreBoard>();
 
-    [Command]
-    void CmdFindOpponent()
-    {
+            if (SQLManager.instance == null || SQLManager.instance.info == null)
+            {
+                Debug.Log("로그인 없음");
+                return;
+            }
+
+            string name = SQLManager.instance.info.User_nickname;
+            int win = SQLManager.instance.info.wins;
+            int lose = SQLManager.instance.info.loses;
+            string rate = $"{win + lose}전 {win}승 {lose}패";
+            CmdProfile(name, rate);
+        }
+        else
+        {
+            gameObject.name = "Remote Player";
+            myScoreBoard = GameObject.Find("Remote Player Score Board").GetComponent<ScoreBoard>();
+        }
+
+        myScoreBoard.RerollEvent += UpdateBoard;
+        myScoreBoard.EndTurnEvent += EndTurn;
+
         foreach (var identity in NetworkClient.spawned.Values)
         {
             identity.TryGetComponent(out YachtPlayer yachtPlayer);
@@ -24,39 +43,13 @@ public class YachtPlayer : NetworkBehaviour
             {
                 opponent = yachtPlayer;
                 opponent.opponent = this;
-                //yachtPlayer.RpcSetOpponent(this.netIdentity); // 상대방에게 이 클라이언트를 설정하도록 명령
                 break;
             }
         }
     }
-
-    [ClientRpc]
-    void RpcSetOpponent(NetworkIdentity opponentIdentity)
+    [Client]
+    public void CientProfile()
     {
-        opponent = opponentIdentity.GetComponent<YachtPlayer>();
-    }
-
-    void Start()
-    {
-        if (isLocalPlayer)
-        {
-            name = "Local Player";
-            myScoreBoard = GameObject.Find("Local Player Score Board").GetComponent<ScoreBoard>();
-        }
-        else
-        {
-            name = "Remote Player";
-            myScoreBoard = GameObject.Find("Remote Player Score Board").GetComponent<ScoreBoard>();
-        }
-
-        Init();
-    }
-
-    void Init()
-    {
-        myScoreBoard.RerollEvent += UpdateBoard;
-        myScoreBoard.EndTurnEvent += EndTurn;
-
         if (SQLManager.instance == null || SQLManager.instance.info == null)
         {
             Debug.Log("로그인 없음");
@@ -67,18 +60,13 @@ public class YachtPlayer : NetworkBehaviour
         int win = SQLManager.instance.info.wins;
         int lose = SQLManager.instance.info.loses;
         string rate = $"{win + lose}전 {win}승 {lose}패";
-        Profile(name, rate);
-    }
-
-    [Client]
-    void Profile(string name, string rate)
-    {
         CmdProfile(name, rate);
     }
 
     [Command]
-    void CmdProfile(string name, string rate)
+    public void CmdProfile(string name, string rate)
     {
+
         RpcProfile(name, rate);
     }
 
@@ -86,7 +74,29 @@ public class YachtPlayer : NetworkBehaviour
     void RpcProfile(string name, string rate)
     {
         myScoreBoard.InfoUISet(name, rate);
+        //if (!isLocalPlayer)
+        //{
+        //    //opponent.myScoreBoard.NickName.text = "asdasfgagasdasgag";
+        //    opponent.CliProf(opponent.myScoreBoard.NickName.text, opponent.myScoreBoard.Rate.text);
+        //}
     }
+
+    //[Client]
+    //public void CliProf(string name, string rate)
+    //{
+    //    CmdProf(name, rate);
+    //}
+    //[Command]
+    //public void CmdProf(string name, string rate)
+    //{
+    //    RpcProf(name, rate);
+    //}
+    //[ClientRpc]
+    //public void RpcProf(string name, string rate)
+    //{
+    //    opponent.myScoreBoard.InfoUISet(name, rate);
+    //}
+
 
     [Client]
     public void MyTurn()
@@ -124,10 +134,6 @@ public class YachtPlayer : NetworkBehaviour
     [ClientRpc]
     void RpcUpdateBoard(int[] _pips)
     {
-        for (int i = 0; i < _pips.Length; i++)
-        {
-            print(_pips[i]);
-        }
         myScoreBoard.BoardUpdate(_pips);
     }
 
@@ -144,18 +150,6 @@ public class YachtPlayer : NetworkBehaviour
     public void CmdEndTurn(bool[] isSelected)
     {
         RpcEndTurn(isSelected);
-
-        if (myScoreBoard.TurnCount <= 0 && opponent.myScoreBoard.TurnCount <= 0)
-        {
-            myScoreBoard.resultBoard.SetActive(true);
-            return;
-        }
-
-        // 서버에서 상대방의 차례를 시작하도록 명령
-        if (opponent != null)
-        {
-            opponent.RpcMyTurn();
-        }
     }
 
     //RPC의 호출은 Command에서 해야함
@@ -163,10 +157,33 @@ public class YachtPlayer : NetworkBehaviour
     void RpcEndTurn(bool[] isSelected)
     {
         myScoreBoard.EndUpdate(isSelected);
+
+        myScoreBoard.TurnCount--;
+
+        if (myScoreBoard.TurnCount <= 0 && opponent.myScoreBoard.TurnCount <= 0)
+        {
+            if (isLocalPlayer)
+                GameOver();
+            return;
+        }
+
+        opponent.MyTurn();
+    }
+
+    [Client]
+    void GameOver()
+    {
+        CmdGameOver();
+    }
+
+    [Command]
+    void CmdGameOver()
+    {
+        RpcGameOver();
     }
 
     [ClientRpc]
-    void GameOver()
+    void RpcGameOver()
     {
         myScoreBoard.resultBoard.SetActive(true);
     }

@@ -28,6 +28,12 @@ public class GuestNetworkManager : NetworkManager
         try
         {
             networkAddress = address.text;
+
+            if (NetworkServer.active || NetworkClient.isConnected)
+            {
+                StopClient();
+            }
+
             StartClient();
         }
         catch (Exception e)
@@ -44,10 +50,24 @@ public class GuestNetworkManager : NetworkManager
         dicePannel.SetActive(true);
     }
 
-    public override void OnServerDisconnect(NetworkConnectionToClient conn)
+    // 호스트와의 연결이 끊어졌을 때 호출되는 메서드
+    public override void OnClientDisconnect()
     {
-        base.OnServerDisconnect(conn);
+        if (!isQuitting)
+        {
+            base.OnClientDisconnect();
 
-        SceneManager.LoadScene("Lobby");
+            // 연결이 끊어졌을 때 0번째 씬으로 이동
+            SceneManager.LoadScene(0);
+        }
+    }
+
+    private bool isQuitting = false;
+
+    // 애플리케이션 종료 시 호출되는 메서드
+    public override void OnApplicationQuit()
+    {
+        isQuitting = true;
+        base.OnApplicationQuit();
     }
 }
