@@ -8,7 +8,8 @@ public class Die : MonoBehaviour, IPointerClickHandler
     /// <summary>
     /// 주사위를 클릭할 수 없음
     /// </summary>
-    bool interactable;
+    public bool interactable;
+
     /// <summary>
     /// Is dice kept or not
     /// </summary>
@@ -22,7 +23,6 @@ public class Die : MonoBehaviour, IPointerClickHandler
         {
             currentNum = Random.Range(1, 7);
         }
-        interactable = true;
         return currentNum;
     }
 
@@ -48,8 +48,8 @@ public class Die : MonoBehaviour, IPointerClickHandler
     private void Start()
     {
         //처음 생성되었을 때 무작위 면으로 초기화
-        UpdateDice(Roll());
         DontTouchDice();
+        UpdateDice(Roll());
     }
 
     //자신의 차례가 되었을 때, 상대방에게 차례를 넘겼을 때
@@ -68,6 +68,7 @@ public class Die : MonoBehaviour, IPointerClickHandler
     public void UpdateDice(int pip)
     {
         image.sprite = dice_faceArr[pip - 1];
+        rect.localScale = Vector3.one;
         rect.DOPunchScale(Vector3.one * .3f, 1f, 8);
     }
 
@@ -75,7 +76,9 @@ public class Die : MonoBehaviour, IPointerClickHandler
     {
         isKept = !isKept;
         lockIcon.SetActive(isKept);
-        lockRect.DOPunchScale(new Vector3(0, -.5f, 0), .25f);
+        lockRect.localScale = Vector3.one;
+        if (lockIcon.activeSelf)
+            lockRect.DOPunchScale(new Vector3(0, -.5f, 0), .25f);
     }
 
     public void OnPointerClick(PointerEventData eventData)

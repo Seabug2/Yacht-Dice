@@ -15,9 +15,8 @@ public class GuestNetworkManager : NetworkManager
     [SerializeField]
     GameObject dicePannel;
 
-    new void Start()
-    {
-        log.text = string.Empty;
+    private new void Awake()
+    {        log.text = string.Empty;
         joinUI.SetActive(true);
         dicePannel.SetActive(false);
     }
@@ -48,7 +47,8 @@ public class GuestNetworkManager : NetworkManager
     {
         base.OnServerDisconnect(conn);
 
-        OnRemoteClientDisconnected(conn);
+        SceneManager.LoadScene(0);
+        //OnRemoteClientDisconnected(conn);
     }
 
     void OnRemoteClientDisconnected(NetworkConnection conn)

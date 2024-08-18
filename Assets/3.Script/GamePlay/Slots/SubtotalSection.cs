@@ -16,10 +16,10 @@ public class SubtotalSection : PointSlot
     {
         text.color = new Color(0, 0, 0);
         CurrentScore = score;
-        text.text = CurrentScore.ToString();
+        text.text = $"{CurrentScore} / {targetPoint}";
         if (CurrentScore >= targetPoint)
         {
-            text.color = new Color(1, 0, 0);
+            text.text = "Success!";
             text.GetComponent<RectTransform>().DOPunchScale(Vector3.up, 1f);
 
             bonus.UpdateScore(bonusPoint);

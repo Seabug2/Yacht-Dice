@@ -30,7 +30,9 @@ public class PointSlot : MonoBehaviour, IPointerClickHandler
         text.color = new Color(0, 0, 0);
         interactable = false;
 
-        if (!IsSelected)
+        if (IsSelected)
+            GetComponent<Image>().color = new Color(1f, .6f, .5f);
+        else
             CurrentScore = 0;
 
         text.text = CurrentScore.ToString();
@@ -43,13 +45,16 @@ public class PointSlot : MonoBehaviour, IPointerClickHandler
 
     virtual public void UpdateScore(int[] pips)
     {
-        if (IsSelected) return;
+        if (IsSelected)
+        {
+            return;
+        }
 
         CurrentScore = CalculateScore(pips);
 
         //주사위 값을 받았을 때 계산한 점수가 0보다 크면 빨간색으로 표시해준다.
         text.text = CurrentScore.ToString();
-        
+
         if (CurrentScore > 0)
         {
             text.color = new Color(1, 0, 0);
@@ -65,7 +70,7 @@ public class PointSlot : MonoBehaviour, IPointerClickHandler
     /// 플레이어가 점수칸에 점수를 확정한 시점
     /// </summary>
     /// <param name="score"></param>
-    virtual public void UpdateScore(int score){}
+    virtual public void UpdateScore(int score) { }
 
     public event Action OnClickEvent;
 

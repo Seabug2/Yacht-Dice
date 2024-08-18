@@ -34,6 +34,8 @@ public class ScoreBoard : MonoBehaviour
 
     private void Start()
     {
+        TurnCount = slots.Length;
+
         //점수칸을 누르면 자신의 차례를 마치고 상대방에게 차례를 넘긴다.
         foreach (PointSlot slot in slots)
         {
@@ -47,29 +49,18 @@ public class ScoreBoard : MonoBehaviour
                     slot.interactable = true;
             });
 
-            //주사위를 굴린 후에 점수칸을 갱신
-            //SlotsUpdateEvent += slot.UpdateScore;
-
             //점수칸을 선택하면 차례를 마침.
             slot.OnClickEvent += () =>
             {
                 rerollButton.interactable = false;
-                TurnCount++;
                 Debug.Log("누름");
                 EndTurn();
             };
         }
 
-        //Reroll 버튼에 주사위를 굴리는 메서드 연결.
-        //rerollButton.onClick.AddListener(Reroll);
         //가장 처음엔 Reroll 버튼은 비활성화.
         rerollButton.interactable = false;
     }
-
-    /// <summary>
-    /// 자신의 차례가 시작될 때 실행될 이벤트
-    /// </summary>
-    public event Action StartTurnEvent;
 
     /// <summary>
     /// 자신의 차례마다 주사위를 굴릴 기회가 3번씩 주어진다.
@@ -84,7 +75,6 @@ public class ScoreBoard : MonoBehaviour
         //자신의 클라이언트 쪽에서만 처리되는 작업
         rerollChance = 3; //주사위를 굴릴 기회를 3번 받음
         rerollButton.interactable = true; //주사위 굴리기 버튼을 활성화
-        //StartTurnEvent?.Invoke();
     }
 
     /// <summary>
@@ -94,20 +84,11 @@ public class ScoreBoard : MonoBehaviour
 
     /// <summary>
     /// Reroll 버튼을 눌렀을 때 실행되는 메서드
+    /// (인스펙터에서 직접 연결 해야함 / 중복 연결 방지)
     /// </summary>
     public void Reroll()
     {
         rerollChance--;
-        if (rerollChance <= 0)
-        {
-            rerollButton.interactable = false;
-            foreach (Die die in dice)
-            {
-                //자신의 차례가 시작된 순간은 주사위를 Keep 할 수 없다.
-                die.DontTouchDice();
-            }
-        }
-        print(rerollChance);
 
         //주사위 5개를 굴린 결과를 저장할 배열
         int[] pips = new int[5];
@@ -115,6 +96,20 @@ public class ScoreBoard : MonoBehaviour
         for (int i = 0; i < 5; i++)
         {
             pips[i] = dice[i].Roll();
+        }
+
+        foreach (Die die in dice)
+        {
+            die.interactable = true;
+        }
+
+        if (rerollChance <= 0)
+        {
+            rerollButton.interactable = false;
+            foreach (Die die in dice)
+            {
+                die.DontTouchDice();
+            }
         }
 
         RerollEvent?.Invoke(pips);
@@ -158,15 +153,20 @@ public class ScoreBoard : MonoBehaviour
             isSelected[i] = slots[i].IsSelected;
         }
 
+        foreach (Die die in dice)
+        {
+            die.DontTouchDice();
+        }
+
         EndTurnEvent?.Invoke(isSelected);
     }
-
 
     public SubtotalSection subtotalSection;
     public BonusSection bonusSection;
     public TotalSection totalSlot;
     public void EndUpdate(bool[] isSelected)
     {
+        TurnCount--;
         for (int i = 0; i < slots.Length; i++)
         {
             Debug.Log($"{i} : {isSelected[i]}");
@@ -184,7 +184,7 @@ public class ScoreBoard : MonoBehaviour
         subtotalSection.UpdateScore(totalCount);
 
         totalCount = 0; //재사용
-        for (int i = 0; i < 6; i++)
+        for (int i = 0; i < slots.Length; i++)
         {
             totalCount += slots[i].CurrentScore;
         }
@@ -192,5 +192,11 @@ public class ScoreBoard : MonoBehaviour
         print(totalCount);
 
         totalSlot.UpdateScore(totalCount);
+    }
+
+
+    void Ending()
+    {
+
     }
 }

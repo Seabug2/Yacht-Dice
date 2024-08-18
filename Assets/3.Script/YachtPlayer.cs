@@ -143,6 +143,12 @@ public class YachtPlayer : NetworkBehaviour
     {
         RpcEndTurn(isSelected);
 
+        if (myScoreBoard.TurnCount <= 0 && opponent.myScoreBoard.TurnCount <= 0)
+        {
+
+            return;
+        }
+
         // 서버에서 상대방의 차례를 시작하도록 명령
         if (opponent != null)
         {
@@ -150,6 +156,7 @@ public class YachtPlayer : NetworkBehaviour
         }
     }
 
+    //RPC의 호출은 Command에서 해야함
     [ClientRpc]
     void RpcEndTurn(bool[] isSelected)
     {
