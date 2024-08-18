@@ -28,26 +28,10 @@ public class HostNetworkManager : NetworkManager
         }
     }
 
-    void OnRemoteClientConnected(NetworkConnection conn)
-    {
-        Debug.Log($"새로운 원격 클라이언트가 연결되었습니다! Connection ID: {conn.connectionId}");
-        waitingMessage.SetActive(false);
-        dicePannel.SetActive(true);
-
-        //NetworkClient.localPlayer.GetComponent<YachtPlayer>().MyTurn();
-    }
-
     public override void OnServerDisconnect(NetworkConnectionToClient conn)
     {
         base.OnServerDisconnect(conn);
         
         SceneManager.LoadScene("Host Room");
-    }
-
-    void OnRemoteClientDisconnected(NetworkConnection conn)
-    {
-        Debug.Log($"원격 클라이언트가 연결이 끊어졌습니다! Connection ID: {conn.connectionId}");
-
-        //SceneManager.LoadScene(0);
     }
 }

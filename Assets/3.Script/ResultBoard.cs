@@ -39,6 +39,7 @@ public class ResultBoard : MonoBehaviour
         else
         {
             resultText.text = "DRAW!";
+            SQLManager.instance.Result(false, myScore);
         }
         myNickName.text = myBoard.NickName.text;
         opponentNickName.text = opponentBoard.NickName.text;

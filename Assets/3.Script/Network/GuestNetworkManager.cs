@@ -16,11 +16,13 @@ public class GuestNetworkManager : NetworkManager
     GameObject dicePannel;
 
     private new void Awake()
-    {        log.text = string.Empty;
+    {
+        log.text = string.Empty;
         joinUI.SetActive(true);
         dicePannel.SetActive(false);
     }
 
+    //버튼에 연결해줌
     public void ConnectToServer()
     {
         try
@@ -28,7 +30,7 @@ public class GuestNetworkManager : NetworkManager
             networkAddress = address.text;
             StartClient();
         }
-        catch(Exception e)
+        catch (Exception e)
         {
             Debug.Log(e.Message);
             log.text = "로그인에 실패했습니다. 주소를 확인 해주세요.";
@@ -40,21 +42,12 @@ public class GuestNetworkManager : NetworkManager
         base.OnClientConnect();
         joinUI.SetActive(false);
         dicePannel.SetActive(true);
-        //log.text = "서버에 성공적으로 연결되었습니다.";
     }
 
     public override void OnServerDisconnect(NetworkConnectionToClient conn)
     {
         base.OnServerDisconnect(conn);
 
-        SceneManager.LoadScene(0);
-        //OnRemoteClientDisconnected(conn);
-    }
-
-    void OnRemoteClientDisconnected(NetworkConnection conn)
-    {
-        Debug.Log($"원격 클라이언트가 연결이 끊어졌습니다! Connection ID: {conn.connectionId}");
-
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene("Lobby");
     }
 }

@@ -3,117 +3,19 @@ using Mirror;
 
 public class UI_EmotionController : NetworkBehaviour
 {
+    public Animator anim;
 
-    /*
-
-
-    private Animator emotion_ani;
-    private bool isCanInput = true;
-
-    float lastInputTime = 0;
-    [SerializeField]
-    float delayTime = 1;
-
-    private void Awake()
-    {
-        transform.SetParent(GameObject.Find("Canvas_Emotion").transform);
-    }
     private void Start()
     {
-        if(!isLocalPlayer)
+        if (isLocalPlayer)
         {
-            Destroy(this);
+            anim.GetComponent<RectTransform>().anchoredPosition = new Vector2(400,0);
         }
-        emotion_ani = GetComponent<Animator>();
-        lastInputTime = 0;
-    }
-    private void Update()
-    {
-        if (Input.anyKeyDown){
-            if((Time.time - lastInputTime) < delayTime)
-            {
-                return;
-            }
-            else
-            {
-                lastInputTime = Time.time;
-                //키를 눌렀을 때의 처리
-                Emotion();
-            }
-        }
-        
-    }
-
-    public void Emotion()
-    {
-        if(Input.GetKeyDown(KeyCode.Alpha1))
+        else
         {
-            CmdTriggerAnimation("IsQuestion");
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            CmdTriggerAnimation("IsBeeAngry");
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            CmdTriggerAnimation("IsBeeHappy");
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            CmdTriggerAnimation("IsBeeSad");
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha5))
-        {
-            CmdTriggerAnimation("IsCatAngry");
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha6))
-        {
-            CmdTriggerAnimation("IsCatHappy");
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha7))
-        {
-            CmdTriggerAnimation("IsCatSad");
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha8))
-        {
-            CmdTriggerAnimation("IsPoroHappy");
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha9))
-        {
-            CmdTriggerAnimation("IsRammusGood");
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha0))
-        {
-            CmdTriggerAnimation("IsTeemoGood");
-        }
-        else if (Input.GetKeyDown(KeyCode.Minus))
-        {
-            CmdTriggerAnimation("IsTeemoSurprise");
+            anim.GetComponent<RectTransform>().anchoredPosition = new Vector2(680,0);
         }
     }
-
-    private IEnumerator BlockInput(float time)
-    {
-        isCanInput = false;
-        yield return new WaitForSeconds(time);
-        isCanInput = true;
-    }
-    
-
-
-    [Command]
-    void CmdTriggerAnimation(string triggerName)
-    {
-        //RpcTriggerAnimation(triggerName);
-    }
-
-    [ClientRpc]
-    void RpcTriggerAnimation(string triggerName)
-    {
-        //emotion_ani.SetTrigger(triggerName);
-    }
-    */
-    public Emotion emotion;
 
     private void Update()
     {
@@ -177,6 +79,6 @@ public class UI_EmotionController : NetworkBehaviour
     [ClientRpc]
     private void RpcSetupResource(int input)
     {
-        emotion.SetForm(input - 1);  // 0부터 시작하는 인덱스에 맞게 -1
+        anim.SetTrigger($"Trigger_{input}");  // 0부터 시작하는 인덱스에 맞게 -1
     }
 }

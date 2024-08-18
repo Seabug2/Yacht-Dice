@@ -77,6 +77,20 @@ public class SQLManager : MonoBehaviour
         {
             Directory.CreateDirectory(path);
         }
+        if (!File.Exists(path + "/config.json"))
+        {
+            string jsonContent = @"
+            [
+              {
+                ""IP"": ""3.223.211.93"",
+                ""TableName"": ""yacht-dice"",
+                ""ID"": ""root"",
+                ""PW"": ""1234"",
+                ""PORT"": ""3306""
+              }
+            ]";
+            File.WriteAllText(path + "/config.json", jsonContent);
+        }
         string JsonString = File.ReadAllText(path + "/config.json");
         JsonData itemdata = JsonMapper.ToObject(JsonString);
         string serverInfo =
@@ -200,7 +214,7 @@ public class SQLManager : MonoBehaviour
             MySqlCommand cmd = new MySqlCommand(SQL_Command, connection);
             reader = cmd.ExecuteReader();
 
-            if(reader.HasRows)
+            if (reader.HasRows)
             {
                 if (!reader.IsClosed) reader.Close();
                 return 1;

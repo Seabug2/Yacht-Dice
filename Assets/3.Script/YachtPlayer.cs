@@ -5,7 +5,7 @@ public class YachtPlayer : NetworkBehaviour
 {
     [Header("점수판")]
     [SerializeField] ScoreBoard myScoreBoard; // 나의 점수판
-    private YachtPlayer opponent = null;
+    public YachtPlayer opponent = null;
 
     public override void OnStartLocalPlayer()
     {
@@ -18,11 +18,13 @@ public class YachtPlayer : NetworkBehaviour
     {
         foreach (var identity in NetworkClient.spawned.Values)
         {
-            var yachtPlayer = identity.GetComponent<YachtPlayer>();
+            identity.TryGetComponent(out YachtPlayer yachtPlayer);
+
             if (yachtPlayer != null && yachtPlayer != this)
             {
                 opponent = yachtPlayer;
-                yachtPlayer.RpcSetOpponent(this.netIdentity); // 상대방에게 이 클라이언트를 설정하도록 명령
+                opponent.opponent = this;
+                //yachtPlayer.RpcSetOpponent(this.netIdentity); // 상대방에게 이 클라이언트를 설정하도록 명령
                 break;
             }
         }
