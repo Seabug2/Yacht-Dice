@@ -17,7 +17,8 @@ public class InputFieldFilter : MonoBehaviour, ISelectHandler, IDeselectHandler
     private IEnumerator DisableIMEAfterDelay()
     {
         yield return null; // 한 프레임 대기
-        Input.imeCompositionMode = IMECompositionMode.Off;  // IME 모드를 비활성화합니다.
+        Input.imeCompositionMode = IMECompositionMode.Off;  
+        // IME 모드를 비활성화합니다.
     }
 
 

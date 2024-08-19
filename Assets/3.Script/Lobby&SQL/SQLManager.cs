@@ -82,7 +82,7 @@ public class SQLManager : MonoBehaviour
             string jsonContent = @"
             [
               {
-                ""IP"": ""3.223.211.93"",
+                ""IP"": ""172.30.1.95"",
                 ""TableName"": ""yacht-dice"",
                 ""ID"": ""root"",
                 ""PW"": ""1234"",
