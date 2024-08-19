@@ -12559,7 +12559,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Cancle
+  m_Text: Cancel
 --- !u!224 &8130777364601385580
 RectTransform:
   m_ObjectHideFlags: 0
