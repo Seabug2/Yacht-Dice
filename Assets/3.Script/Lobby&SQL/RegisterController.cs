@@ -14,6 +14,11 @@ public class RegisterController : MonoBehaviour
 
     private void OnEnable()
     {
+        if (SQLManager.instance.ServerFail)
+        {
+            gameObject.SetActive(false);
+            return;
+        }
         SetInteractable(true);
         ID_input.text = "";
         PW_input.text = "";

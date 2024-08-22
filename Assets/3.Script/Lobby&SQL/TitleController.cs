@@ -13,11 +13,13 @@ public class TitleController : MonoBehaviour
     private void Start()
     {
         // 게임 완료 후 타이틀 이동(즉, 이미 로그인 상태)일 경우
+        if (SQLManager.instance.ServerFail) Log.text = "서버 연결에 실패했습니다.";
         if (SQLManager.instance.isLogin) LoginComplete();
     }
 
     public void Login_btn()
     {
+        if (SQLManager.instance.ServerFail) return;
         // 실패 1: 빈 칸이 있을 때
         if (ID_input.text.Equals(string.Empty) || PW_input.text.Equals(string.Empty))
         {
@@ -31,16 +33,22 @@ public class TitleController : MonoBehaviour
         // 성공 - 방 선택 화면으로
         else
         {
-            ID_input.text = "";
-            PW_input.text = "";
-            Log.text = "";
-            User_info info = SQLManager.instance.info;
+            // User_info info = SQLManager.instance.info;
             LoginComplete();
         }
     }
  
+    public void WithoutLogin_btn()
+    {
+        SQLManager.instance.Guest();
+        LoginComplete();
+    }
+
     public void LoginComplete()
     {
+        ID_input.text = "";
+        PW_input.text = "";
+        if (!SQLManager.instance.ServerFail) Log.text = "";
         RoomselectUI.SetActive(true);
         LoginUI.SetActive(false);
     }

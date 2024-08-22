@@ -11,14 +11,22 @@ public class RoomSelectController : MonoBehaviour
 
     private void OnEnable()
     {
-        User_info u = SQLManager.instance.info;
-        Show_Userinfo.text = $"{u.User_nickname}\n\n{u.wins}승 {u.loses}패\nBest: {u.highscore}";
+        if (SQLManager.instance.isGuest)
+        {
+            Show_Userinfo.text = $"비로그인\n\n\n ";
+        }
+        else
+        {
+            User_info u = SQLManager.instance.info;
+            Show_Userinfo.text = $"{u.User_nickname}\n\n{u.wins}승 {u.loses}패\nBest: {u.highscore}";
+        }
     }
 
     // 뒤로 가기(로그아웃)
     public void Back_btn()
     {
         SQLManager.instance.isLogin = false;
+        SQLManager.instance.isGuest = false;
         LoginUI.SetActive(true);
         gameObject.SetActive(false);
     }

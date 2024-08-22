@@ -32,6 +32,8 @@ public class User_info
 public class SQLManager : MonoBehaviour
 {
     public bool isLogin; // 현재 로그인 상태인가?
+    public bool isGuest; // 현재 게스트 상태인가?
+    public bool ServerFail; // 서버 연결 실패인가?
     public User_info info; // 로그인 중인 유저의 정보
     public MySqlConnection connection; // 연결
     public MySqlDataReader reader; // 데이터를 직접적으로 읽어오는 녀석
@@ -64,9 +66,14 @@ public class SQLManager : MonoBehaviour
             }
             connection = new MySqlConnection(serverinfo);
             connection.Open();
+            ServerFail = false;
             Debug.Log("DB Open connection complete");
         }
-        catch (Exception e) { Debug.Log(e.Message); }
+        catch (Exception e) 
+        {
+            ServerFail = true;
+            Debug.Log(e.Message); 
+        }
         Debug.Log(DB_Path);
     }
 
@@ -82,7 +89,7 @@ public class SQLManager : MonoBehaviour
             string jsonContent = @"
             [
               {
-                ""IP"": ""172.30.1.95"",
+                ""IP"": ""172.30.1.87"",
                 ""TableName"": ""yacht-dice"",
                 ""ID"": ""root"",
                 ""PW"": ""1234"",
@@ -139,6 +146,7 @@ public class SQLManager : MonoBehaviour
     // 빈 칸, 중복검사, 길이 체크 통과 시 호출되어야 함
     public void User_Edit(string id, string pw, string nick)
     {
+        if (isGuest) return;
         try
         {
             if (!Connection_check(connection)) return;
@@ -161,6 +169,7 @@ public class SQLManager : MonoBehaviour
     // true : 로그인 완료(info에 정보 캐시) / false : 실패(없는 ID 또는 PW 틀림)
     public bool Login(string id, string pw)
     {
+
         try
         {
             if (!Connection_check(connection)) return false;
@@ -194,6 +203,12 @@ public class SQLManager : MonoBehaviour
         }
     }
 
+    public void Guest()
+    {
+        info = new User_info("-", "-", "손님", 0, 0, 0);
+        isLogin = false;
+        isGuest = true;
+    }
 
     // 중복체크 용 메소드
     // return 0 : OK / 1 : 중복 / 2 : 오류
@@ -234,6 +249,7 @@ public class SQLManager : MonoBehaviour
     // 게임 완료 시
     public void Result(bool isWin, int score)
     {
+        if (isGuest) return;
         try
         {
             if (!Connection_check(connection)) return;

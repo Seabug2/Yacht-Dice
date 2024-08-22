@@ -30,7 +30,6 @@ public class ResultBoard : MonoBehaviour
     {
         int myScore = myBoard.totalSlot.CurrentScore;
         int opponentScore = opponentBoard.totalSlot.CurrentScore;
-
         if (myScore > opponentScore)
         {
             resultText.text = "YOU WIN!";
